@@ -1,101 +1,86 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Dices } from "lucide-react";
+import {
+  CompetitiveGames,
+  GameCatalog,
+  Hero,
+  OccasionStrip,
+  RandomPickers,
+  ReadyMadeWheels,
+  SectionHeading,
+  TwoWaysToPlay,
+} from "@/components";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-dvh bg-background">
+      <main>
+        <Hero />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <section
+          id="party-games"
+          className="mx-auto max-w-content scroll-mt-24 px-4 pb-4 pt-6 sm:px-6"
+        >
+          <SectionHeading
+            title="Pick your poison"
+            subtitle="The full catalog, thirteen ways to make a room talk."
+          />
+          <div className="mt-5">
+            <GameCatalog />
+          </div>
+        </section>
+
+        <CompetitiveGames />
+
+        <RandomPickers />
+
+        <ReadyMadeWheels />
+
+        <div id="how-it-works" className="scroll-mt-24 pt-2">
+          <TwoWaysToPlay />
         </div>
+
+        <section className="py-10">
+          <div className="mx-auto max-w-content px-4 pb-3 sm:px-6">
+            <SectionHeading
+              title="Browse by occasion"
+              subtitle="Matched to the room you're in."
+            />
+          </div>
+          <div className="mt-3">
+            <OccasionStrip />
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-content px-4 py-10 sm:px-6">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-800/40 to-slate-900/20 p-6 backdrop-blur sm:p-9">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-20 -top-20 h-52 w-52 rounded-full bg-indigo-500/15 blur-3xl"
+            />
+            <div className="relative flex flex-col items-start gap-4">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-soft text-2xl ring-1 ring-white/10">
+                <Dices className="h-6 w-6 text-accent" aria-hidden />
+              </span>
+              <h2 className="text-balance text-2xl font-extrabold tracking-tight text-foreground">
+                Can&apos;t decide? Spin for it.
+              </h2>
+              <p className="max-w-lg text-sm text-muted sm:text-base">
+                Drop in names or dares, hit spin, and let the wheel pick. No
+                app, no sign-up, no setup.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/games" className="btn-primary">
+                  Start playing
+                </Link>
+                <Link href="/wheel" className="btn-ghost">
+                  Spin the wheel
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }

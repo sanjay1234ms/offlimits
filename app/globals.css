@@ -2,26 +2,562 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Theme tokens. `:root` holds the light palette; `.dark` on <html> swaps in
+ * the dark palette. The app defaults to dark, see the no-flash script in
+ * app/layout.tsx.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light mode, warm off-white, high-contrast charcoal text, crisp cards. */
+  --background: #faf8f5;
+  --surface: #ffffff;
+  --surface-raised: #f2efe9;
+  --card-bg: #ffffff;
+  --border: #d8d4ca;
+  --border-strong: #94a3b8;
+
+  --text: #0f172a;
+  --text-muted: #334155;
+  --text-subtle: #475569;
+
+  --accent: #4338ca;
+  --accent-strong: #3730a3;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(67, 56, 202, 0.12);
+  --accent-glow: rgba(67, 56, 202, 0.3);
+
+  --glass-bg: rgba(15, 23, 42, 0.055);
+  --glass-bg-hover: rgba(15, 23, 42, 0.1);
+  --glass-border: rgba(15, 23, 42, 0.16);
+  --glass-border-hover: rgba(15, 23, 42, 0.32);
+
+  --card-border: #0f172a;
+  --card-shadow: 4px 4px 0 #0f172a;
+  --card-shadow-hover: 6px 6px 0 #0f172a;
+
+  --mesh: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #090d16;
+  --surface: #0f172a;
+  --surface-raised: #16203a;
+  --card-bg: #0f172a;
+  --border: #1e293b;
+  --border-strong: #334155;
+
+  --text: #f8fafc;
+  --text-muted: #9aa7bd;
+  --text-subtle: #64748b;
+
+  --accent: #818cf8;
+  --accent-strong: #a5b4fc;
+  --accent-contrast: #0b1020;
+  --accent-soft: rgba(129, 140, 248, 0.14);
+  --accent-glow: rgba(129, 140, 248, 0.45);
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6);
+  --card-shadow-hover: 0 30px 62px -22px rgba(0, 0, 0, 0.7);
+
+  --mesh:
+    radial-gradient(62rem 52rem at 6% -12%, rgba(99, 102, 241, 0.22), transparent 60%),
+    radial-gradient(56rem 46rem at 102% -2%, rgba(139, 92, 246, 0.18), transparent 55%),
+    radial-gradient(52rem 52rem at 50% 118%, rgba(30, 41, 59, 0.6), transparent 65%),
+    radial-gradient(38rem 38rem at 92% 104%, rgba(236, 72, 153, 0.09), transparent 60%);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
+  color: var(--text);
+  background-color: var(--background);
+  background-image: var(--mesh);
+  background-attachment: fixed;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Keyframe used by CSS rules (not a Tailwind `animate-*` utility, so define it
+ * here so the build always emits it). */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.28),
+      0 6px 20px -4px rgba(244, 63, 94, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.45),
+      0 8px 30px -2px rgba(244, 63, 94, 0.8);
+  }
+}
+
+@layer components {
+  .card {
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    background-color: var(--card-bg);
+    padding: 1.25rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease,
+      transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-interactive {
+    border-radius: 1.5rem;
+    border: 1px solid var(--glass-border);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    padding: 1.25rem;
+    transition: border-color 0.25s ease, background-color 0.25s ease,
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  }
+  .card-interactive:hover {
+    transform: translateY(-6px);
+    border-color: var(--glass-border-hover);
+    background-color: var(--glass-bg-hover);
+  }
+  .card-interactive:focus-within {
+    border-color: var(--accent);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 9999px;
+    border: 1px solid var(--glass-border);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 1rem;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    padding: 0.75rem 1.2rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 10px 30px -12px var(--accent-glow);
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.15s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -14px var(--accent-glow);
+  }
+  .btn-primary:active {
+    transform: translateY(0) scale(0.96);
+  }
+  .btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    padding: 0.75rem 1.2rem;
+    font-size: 0.92rem;
+    font-weight: 650;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-hover);
+    background-color: var(--glass-bg-hover);
+  }
+  .btn-ghost:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  /* Glass card, filter containers, control bars, prompt cards. */
+  .glass-card {
+    border-radius: 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(24px);
+    box-shadow:
+      0 25px 55px -18px rgba(30, 27, 75, 0.55),
+      0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+  }
+
+  /* Tactile glass pill, filter toggles, occasion links, etc. */
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    color: var(--text-muted);
+    padding: 0.5rem 0.95rem;
+    font-size: 0.8125rem;
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s ease, color 0.15s ease, border-color 0.15s ease,
+      background-color 0.15s ease, box-shadow 0.2s ease;
+  }
+  .filter-chip:hover {
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .filter-chip:active {
+    transform: scale(0.95);
+  }
+  .filter-chip[aria-pressed="true"] {
+    border-color: transparent;
+    color: #ffffff;
+    background-image: linear-gradient(to right, #7c3aed, #4f46e5);
+    box-shadow:
+      0 10px 26px -8px rgba(99, 102, 241, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.3);
+  }
+  .filter-chip[aria-pressed="true"]:hover {
+    background-color: transparent;
+  }
+
+  /* 18+ pill, crimson glow, pulsing when active. */
+  .filter-chip.is-adult {
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #fda4af;
+    box-shadow: 0 0 16px rgba(244, 63, 94, 0.35);
+  }
+  .filter-chip.is-adult:hover {
+    color: #fecdd3;
+    border-color: rgba(244, 63, 94, 0.85);
+    background-color: rgba(244, 63, 94, 0.12);
+  }
+  .filter-chip.is-adult[aria-pressed="true"] {
+    background-image: linear-gradient(to right, #e11d48, #dc2626);
+    color: #ffffff;
+    animation: pulse-subtle 2s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* ================================================================== *
+ * LIGHT-MODE CONTRAST HARDENING
+ * Unlayered rules, they win over Tailwind's utility layer. Every
+ * selector is scoped to `:root:not(.dark)`, so dark mode is untouched.
+ * ================================================================== */
+
+/* Faint pastel accent text → deep, WCAG-AA shades that read on the
+ * pale card gradients and the cream page. */
+:root:not(.dark) .text-indigo-300,
+:root:not(.dark) .text-indigo-200 {
+  color: #4338ca;
+}
+:root:not(.dark) .text-violet-300,
+:root:not(.dark) .text-violet-200,
+:root:not(.dark) .text-purple-300 {
+  color: #6d28d9;
+}
+:root:not(.dark) .text-rose-300,
+:root:not(.dark) .text-rose-200,
+:root:not(.dark) .text-pink-300,
+:root:not(.dark) .text-pink-200 {
+  color: #be123c;
+}
+:root:not(.dark) .text-fuchsia-300,
+:root:not(.dark) .text-fuchsia-200 {
+  color: #a21caf;
+}
+:root:not(.dark) .text-amber-300,
+:root:not(.dark) .text-amber-200,
+:root:not(.dark) .text-amber-100,
+:root:not(.dark) .text-yellow-300 {
+  color: #b45309;
+}
+:root:not(.dark) .text-orange-300,
+:root:not(.dark) .text-orange-200 {
+  color: #c2410c;
+}
+:root:not(.dark) .text-red-400,
+:root:not(.dark) .text-red-300,
+:root:not(.dark) .text-red-200,
+:root:not(.dark) .text-red-100,
+:root:not(.dark) .text-rose-100 {
+  color: #be123c;
+}
+:root:not(.dark) .text-sky-300,
+:root:not(.dark) .text-sky-200 {
+  color: #0369a1;
+}
+:root:not(.dark) .text-blue-300,
+:root:not(.dark) .text-blue-200 {
+  color: #1d4ed8;
+}
+:root:not(.dark) .text-cyan-300,
+:root:not(.dark) .text-teal-300,
+:root:not(.dark) .text-teal-200 {
+  color: #0f766e;
+}
+:root:not(.dark) .text-emerald-300,
+:root:not(.dark) .text-emerald-200,
+:root:not(.dark) .text-green-300,
+:root:not(.dark) .text-lime-300 {
+  color: #15803d;
+}
+:root:not(.dark) .text-foreground\/75,
+:root:not(.dark) .text-foreground\/80,
+:root:not(.dark) .text-foreground\/90 {
+  color: #1e293b;
+}
+
+/* Faint white overlays → subtle dark, so glassy surfaces separate from
+ * the page and their borders are visible. */
+:root:not(.dark) .bg-white\/5,
+:root:not(.dark) .bg-white\/\[0\.03\],
+:root:not(.dark) .bg-white\/\[0\.02\] {
+  background-color: rgba(15, 23, 42, 0.06);
+}
+:root:not(.dark) .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.09);
+}
+:root:not(.dark) .border-white\/5 {
+  border-color: rgba(15, 23, 42, 0.1);
+}
+:root:not(.dark) .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.18);
+}
+:root:not(.dark) .border-white\/15 {
+  border-color: rgba(15, 23, 42, 0.22);
+}
+:root:not(.dark) .border-white\/20,
+:root:not(.dark) .border-white\/25 {
+  border-color: rgba(15, 23, 42, 0.32);
+}
+:root:not(.dark) .ring-white\/10,
+:root:not(.dark) .ring-white\/15 {
+  --tw-ring-color: rgba(15, 23, 42, 0.2);
+}
+
+/* Tactile game / picker cards, crisp 2px charcoal border + offset shadow. */
+:root:not(.dark) .tactile-card {
+  border-width: 2px;
+  border-color: var(--card-border);
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+:root:not(.dark) .tactile-card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+:root:not(.dark) .tactile-card.is-adult {
+  border-color: #be123c;
+  box-shadow: 4px 4px 0 #be123c;
+}
+:root:not(.dark) .tactile-card.is-adult:hover {
+  box-shadow: 6px 6px 0 #be123c;
+}
+
+/* High-contrast dark "Play now →" action on any pastel card. */
+:root:not(.dark) .catalog-cta {
+  border: 2px solid #0f172a;
+  background-color: #0f172a;
+  color: #ffffff !important;
+  border-radius: 0.6rem;
+  padding: 0.28rem 0.6rem;
+}
+:root:not(.dark) .tactile-card:hover .catalog-cta {
+  background-color: #1e293b;
+}
+:root:not(.dark) .catalog-adult-badge {
+  border-color: #9f1239;
+  background-color: #be123c;
+  color: #ffffff !important;
+}
+
+/* Hero: crimson-outline 18+ button + solid crimson pill (no washed glow). */
+:root:not(.dark) .hero-adult-btn {
+  border-color: #be123c;
+  background-color: #ffffff;
+  color: #9f1239;
+  box-shadow: 4px 4px 0 #9f1239;
+}
+:root:not(.dark) .hero-adult-btn:hover {
+  background-color: #fff1f2;
+  box-shadow: 2px 2px 0 #9f1239;
+}
+:root:not(.dark) .hero-adult-pill {
+  border-color: #9f1239;
+  background-color: #be123c;
+  color: #ffffff;
+  box-shadow: 0 4px 0 #9f1239;
+  animation: none;
+}
+
+/* Card / deck surfaces get real edges in light. */
+:root:not(.dark) .card-interactive {
+  border-width: 2px;
+  border-color: var(--card-border);
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+:root:not(.dark) .card-interactive:hover {
+  border-color: var(--card-border);
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* ================================================================== *
+ * PARTY THEME SKINS
+ * Optional accent/background swaps, layered on top of dark mode only
+ * (see components/EffectsMenu.tsx + lib/partyTheme.ts). Each block just
+ * re-points the shared theme tokens.
+ * ================================================================== */
+
+.dark[data-party="velvet"] {
+  --background: #170a2b;
+  --surface: #241338;
+  --surface-raised: #2e1846;
+  --card-bg: #221136;
+  --border: #3b1f5c;
+  --border-strong: #5b3488;
+
+  --accent: #f472b6;
+  --accent-strong: #f9a8d4;
+  --accent-contrast: #1a0b2e;
+  --accent-soft: rgba(244, 114, 182, 0.16);
+  --accent-glow: rgba(244, 114, 182, 0.5);
+
+  --mesh:
+    radial-gradient(50rem 40rem at 12% -10%, rgba(168, 85, 247, 0.28), transparent 60%),
+    radial-gradient(45rem 35rem at 100% 0%, rgba(244, 114, 182, 0.22), transparent 55%);
+}
+
+.dark[data-party="crimson"] {
+  --background: #120508;
+  --surface: #1c0b10;
+  --surface-raised: #26121a;
+  --card-bg: #1a0a0f;
+  --border: #3f1622;
+  --border-strong: #6d2436;
+
+  --accent: #f43f5e;
+  --accent-strong: #fb7185;
+  --accent-contrast: #12060a;
+  --accent-soft: rgba(244, 63, 94, 0.16);
+  --accent-glow: rgba(244, 63, 94, 0.55);
+
+  --mesh:
+    radial-gradient(50rem 40rem at 10% -10%, rgba(239, 68, 68, 0.3), transparent 60%),
+    radial-gradient(45rem 35rem at 100% 10%, rgba(100, 116, 139, 0.18), transparent 55%);
+}
+
+.dark[data-party="midnight"] {
+  --background: #000000;
+  --surface: #07090d;
+  --surface-raised: #0d1117;
+  --card-bg: #06080c;
+  --border: #16202b;
+  --border-strong: #24323f;
+
+  --accent: #22d3ee;
+  --accent-strong: #67e8f9;
+  --accent-contrast: #001014;
+  --accent-soft: rgba(34, 211, 238, 0.14);
+  --accent-glow: rgba(34, 211, 238, 0.5);
+
+  --mesh:
+    radial-gradient(48rem 40rem at 15% -10%, rgba(34, 211, 238, 0.22), transparent 60%),
+    radial-gradient(44rem 34rem at 100% 0%, rgba(59, 130, 246, 0.16), transparent 55%);
+}
+
+/* ================================================================== *
+ * GLASSMORPHISM, light-mode fallbacks
+ * The glass classes above are tuned for dark. In light mode swap in an
+ * opaque card + readable pill so contrast survives.
+ * ================================================================== */
+
+:root:not(.dark) .glass-card {
+  border-color: var(--card-border);
+  border-top-color: var(--card-border);
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--card-shadow);
+}
+
+:root:not(.dark) .filter-chip {
+  border-color: rgba(15, 23, 42, 0.16);
+  background-color: rgba(15, 23, 42, 0.05);
+  color: var(--text-muted);
+}
+:root:not(.dark) .filter-chip:hover {
+  border-color: rgba(15, 23, 42, 0.28);
+  background-color: rgba(15, 23, 42, 0.1);
+  color: var(--text);
+}
+:root:not(.dark) .filter-chip.is-adult {
+  color: #be123c;
+}
+:root:not(.dark) .filter-chip.is-adult:hover {
+  color: #9f1239;
+  background-color: rgba(244, 63, 94, 0.1);
 }

@@ -1,0 +1,136 @@
+"use client";
+
+import Link from "next/link";
+import { Coffee } from "lucide-react";
+import { OPEN_TIPJAR_EVENT } from "./TipJar";
+
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
+  {
+    title: "Party Games",
+    links: [
+      { label: "Would You Rather", href: "/play?game=would_you_rather" },
+      { label: "Never Have I Ever", href: "/play?game=never_have_i_ever" },
+      { label: "Most Likely To", href: "/play?game=most_likely_to" },
+      { label: "Truth or Dare", href: "/play?game=truth_or_dare" },
+      { label: "This or That", href: "/play?game=this_or_that" },
+      { label: "Trivia", href: "/games/trivia" },
+      { label: "Charades", href: "/games/charades" },
+      { label: "Buzzkill", href: "/games/buzzkill" },
+      { label: "Fast 5", href: "/games/fast-5" },
+    ],
+  },
+  {
+    title: "Wheels & Pickers",
+    links: [
+      { label: "Spin the Wheel", href: "/wheel" },
+      { label: "Random Name Picker", href: "/pickers/name" },
+      { label: "Team Generator / Shuffler", href: "/pickers/teams" },
+      { label: "Hot Seat Decider", href: "/wheel?preset=who-goes-first" },
+      { label: "Decision Dice", href: "/wheel?preset=yes-or-no" },
+    ],
+  },
+  {
+    title: "By Occasion",
+    links: [
+      { label: "Office Party Games", href: "/play?category=office" },
+      { label: "Couples Game Night", href: "/play?category=couples" },
+      { label: "House Party Icebreakers", href: "/play?vibe=icebreaker" },
+      {
+        label: "Wild & 18+ Late Night",
+        href: "/play?category=18-plus&vibe=wild",
+      },
+      { label: "Virtual & Remote Team Games", href: "/games" },
+    ],
+  },
+  {
+    title: "Host Toolkit & Guides",
+    links: [
+      { label: "Drinking Rules & Forfeits", href: "/host#house-rules" },
+      { label: "Adjudication & Scoring Rules", href: "/host#scoring-rules" },
+      {
+        label: "Large Group Setups (10+ Players)",
+        href: "/host#large-groups",
+      },
+      { label: "Party Pass & 18+ Access", href: "/host#party-pass" },
+    ],
+  },
+  {
+    title: "Company & Legal",
+    links: [
+      { label: "All Games Catalog", href: "/games" },
+      { label: "How It Works", href: "/#how-it-works" },
+      { label: "About", href: "/about" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+      { label: "Contact Support", href: "/contact" },
+    ],
+  },
+];
+
+/** Global multi-column directory footer. Rendered once in app/layout.tsx. */
+export function Footer() {
+  return (
+    <footer className="mt-20 border-t border-slate-200 bg-slate-50 text-slate-700 dark:border-white/10 dark:bg-[#060814] dark:text-slate-400">
+      <div className="mx-auto max-w-content px-4 py-14 sm:px-6">
+        {/* Brand summary */}
+        <div className="max-w-xl">
+          <span className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.22em]">
+            <span aria-hidden>🔒</span>
+            <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-rose-500 bg-clip-text text-transparent">
+              OFFLIMITS
+            </span>
+          </span>
+          <p className="mt-3 text-sm leading-relaxed">
+            Uncensored party games, rapid-fire trivia, and host utilities for
+            any group. Zero signup, zero downloads, works instantly on every
+            phone.
+          </p>
+        </div>
+
+        {/* 5-column directory */}
+        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
+                {col.title}
+              </h3>
+              <ul className="flex flex-col gap-2.5">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="text-sm transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row sm:items-center">
+          <p className="text-xs">
+            © {new Date().getFullYear()} OffLimits · Free to play, no app
+            required.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(OPEN_TIPJAR_EVENT))}
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
+          >
+            <Coffee className="h-3.5 w-3.5" aria-hidden />
+            Support Dev
+          </button>
+        </div>
+      </div>
+    </footer>
+  );
+}
