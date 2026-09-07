@@ -3,6 +3,8 @@
  * Stripe / BuyMeACoffee URLs for real Payment Links before shipping.
  */
 
+import { getDeviceId } from "./deviceId";
+
 /** Default checkout URL used everywhere until real links are wired in. */
 export const STRIPE_PLACEHOLDER = "https://buy.stripe.com/test_placeholder";
 
@@ -19,10 +21,38 @@ export const TIP_TIERS: TipTier[] = [
   { id: "mvp", label: "$10 (Party MVP)", href: STRIPE_PLACEHOLDER },
 ];
 
-/** OffLimits 24-Hour Party Pass. */
+/** OffLimits 24-Hour Party Pass. Checkout now runs through the Stripe
+ * Checkout Session created in `app/api/checkout/route.ts`; this legacy URL is
+ * only a fallback for surfaces that have not been migrated. */
 export const UNLOCK_18_URL = STRIPE_PLACEHOLDER;
-export const UNLOCK_18_PRICE = "$2.99";
+export const UNLOCK_18_PRICE = "$3";
+/** Party Pass price in the smallest currency unit (USD cents). */
+export const PARTY_PASS_PRICE_CENTS = 300;
+
+/** The canonical Party Pass access code, accepted in every environment. */
 export const ACCESS_CODE = "PARTY18";
+
+/**
+ * Extra codes accepted only outside a production build, so local dev and QA
+ * can unlock 18+ without a real pass. `next dev` sets NODE_ENV to
+ * "development"; `next build` sets it to "production", where this list is
+ * empty and only ACCESS_CODE works.
+ */
+export const DEV_ACCESS_CODES: readonly string[] =
+  process.env.NODE_ENV === "production" ? [] : ["TEST18", "OFFLIMITS"];
+
+/** All currently accepted access codes, already normalised to upper case. */
+export const ACCEPTED_ACCESS_CODES: readonly string[] = [
+  ACCESS_CODE,
+  ...DEV_ACCESS_CODES,
+].map((c) => c.toUpperCase());
+
+/** True if `input` matches an accepted Party Pass access code. Trims and
+ * upper-cases the input, so " party18 " and "Party18" both pass. */
+export function isValidAccessCode(input: string): boolean {
+  return ACCEPTED_ACCESS_CODES.includes(input.trim().toUpperCase());
+}
+
 export const PARTY_PASS_LABEL = "OffLimits 24-Hour Party Pass";
 export const PARTY_PASS_BLURB =
   "Unlimited access to all 18+ decks, games, and tools for 24 hours.";
@@ -49,6 +79,14 @@ export const STORAGE_KEYS = {
 export interface PartyPassRecord {
   is18PlusUnlocked: boolean;
   expiresAt: number;
+  /** Set for passes bought through Stripe Checkout. When present, the pass is
+   * only honoured on the browser whose device id matches (see readPartyPass). */
+  deviceId?: string;
+  /** Human-readable code returned by /api/verify-pass, shown on the success
+   * screen so a buyer has a reference. */
+  code?: string;
+  /** How the pass was activated. */
+  source?: "checkout" | "code" | "legacy";
 }
 
 /** Fired after any 18+ monetization write, so hook instances in the same tab
@@ -81,8 +119,19 @@ export function readPartyPass(): PartyPassRecord | null {
         parsed.is18PlusUnlocked === true &&
         typeof parsed.expiresAt === "number"
       ) {
-        if (Date.now() < parsed.expiresAt) {
-          return { is18PlusUnlocked: true, expiresAt: parsed.expiresAt };
+        const boundToOtherDevice =
+          typeof parsed.deviceId === "string" &&
+          parsed.deviceId.length > 0 &&
+          parsed.deviceId !== getDeviceId();
+
+        if (!boundToOtherDevice && Date.now() < parsed.expiresAt) {
+          return {
+            is18PlusUnlocked: true,
+            expiresAt: parsed.expiresAt,
+            deviceId: parsed.deviceId,
+            code: parsed.code,
+            source: parsed.source,
+          };
         }
         window.localStorage.removeItem(STORAGE_KEYS.partyPass);
         notifyAdultState();
@@ -128,6 +177,49 @@ export function activatePartyPass(
   }
   notifyAdultState();
   return record;
+}
+
+/**
+ * Persist a pass that the server already verified against a paid Stripe
+ * Checkout Session. The record carries its own `expiresAt` (anchored to
+ * payment time by /api/verify-pass) and `deviceId`, so it is written as-is
+ * rather than recomputed here. Returns the stored record, or null if the
+ * payload is malformed.
+ */
+export function activateVerifiedPass(
+  record: Partial<PartyPassRecord>,
+): PartyPassRecord | null {
+  if (
+    record.is18PlusUnlocked !== true ||
+    typeof record.expiresAt !== "number" ||
+    record.expiresAt <= Date.now()
+  ) {
+    return null;
+  }
+
+  const stored: PartyPassRecord = {
+    is18PlusUnlocked: true,
+    expiresAt: record.expiresAt,
+    deviceId:
+      typeof record.deviceId === "string" ? record.deviceId : getDeviceId(),
+    code: typeof record.code === "string" ? record.code : undefined,
+    source: "checkout",
+  };
+
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEYS.partyPass,
+        JSON.stringify(stored),
+      );
+      window.localStorage.removeItem(STORAGE_KEYS.unlockedLegacy);
+      window.localStorage.removeItem(STORAGE_KEYS.unlockedLegacyAntics);
+    } catch {
+      /* ignore write failures */
+    }
+  }
+  notifyAdultState();
+  return stored;
 }
 
 /** End the Party Pass immediately (e.g. on manual expiry / testing). */

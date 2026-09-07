@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { KeyRound, Lock, Zap } from "lucide-react";
+import { KeyRound, Loader2, Lock, Zap } from "lucide-react";
+import { getDeviceId, persistDeviceId } from "@/lib/deviceId";
 import {
-  ACCESS_CODE,
+  isValidAccessCode,
   PARTY_PASS_BLURB,
   PARTY_PASS_LABEL,
   UNLOCK_18_PRICE,
-  UNLOCK_18_URL,
 } from "@/lib/monetization";
 
 interface PaywallOverlayProps {
@@ -21,14 +21,47 @@ export function PaywallOverlay({ onUnlock }: PaywallOverlayProps) {
   const [showCode, setShowCode] = useState(false);
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
+  const [checkoutBusy, setCheckoutBusy] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   function submitCode(event: React.FormEvent) {
     event.preventDefault();
-    if (code.trim().toUpperCase() === ACCESS_CODE) {
+    if (isValidAccessCode(code)) {
       setError(false);
       onUnlock();
     } else {
       setError(true);
+    }
+  }
+
+  async function startCheckout() {
+    setCheckoutBusy(true);
+    setCheckoutError(null);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ deviceId: getDeviceId() }),
+      });
+      const data = (await res.json()) as {
+        url?: string;
+        deviceId?: string;
+        error?: string;
+      };
+      if (data.url) {
+        // Adopt whatever id the session was actually created with, so the
+        // success page verifies against the same value.
+        if (data.deviceId) persistDeviceId(data.deviceId);
+        window.location.href = data.url;
+        return;
+      }
+      setCheckoutError(
+        data.error || "Could not start checkout. Please try again.",
+      );
+    } catch {
+      setCheckoutError("Could not reach checkout. Check your connection.");
+    } finally {
+      setCheckoutBusy(false);
     }
   }
 
@@ -48,15 +81,23 @@ export function PaywallOverlay({ onUnlock }: PaywallOverlayProps) {
       <p className="text-balance text-sm text-muted">{PARTY_PASS_BLURB}</p>
 
       <div className="mt-1 flex w-full max-w-xs flex-col gap-2.5">
-        <a
-          href={UNLOCK_18_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={startCheckout}
+          disabled={checkoutBusy}
           className="btn-primary w-full"
         >
-          <Zap className="h-4 w-4" aria-hidden />
+          {checkoutBusy ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+          ) : (
+            <Zap className="h-4 w-4" aria-hidden />
+          )}
           Get the 24-Hour Party Pass ({UNLOCK_18_PRICE})
-        </a>
+        </button>
+
+        {checkoutError ? (
+          <p className="text-xs font-semibold text-rose-400">{checkoutError}</p>
+        ) : null}
 
         {!showCode ? (
           <button
