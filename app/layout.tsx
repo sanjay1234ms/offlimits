@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Footer, Header, ThemeProvider, TipJar } from "@/components";
 
@@ -78,6 +79,7 @@ export default function RootLayout({
           <TipJar />
           <Footer />
         </ThemeProvider>
+        <GoogleAnalytics gaId="G-ZVT3JPNBLF" />
       </body>
     </html>
   );
