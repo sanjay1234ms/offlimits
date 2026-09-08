@@ -15,6 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://playofflimits.com"),
   title: {
     default:
       "OffLimits | Free Online Party Games for Groups (No Download)",
@@ -29,6 +30,32 @@ export const metadata: Metadata = {
     "phone party games no download",
     "house party icebreaker games",
   ],
+  openGraph: {
+    title:
+      "OffLimits | Free Online Party Games for Groups (No Download)",
+    description:
+      "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+    url: "https://playofflimits.com",
+    siteName: "OffLimits",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "OffLimits Party Games Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "OffLimits | Free Online Party Games for Groups (No Download)",
+    description:
+      "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+    images: ["/og-image.png"],
+  },
 };
 
 // Applies the saved theme (default: dark) before first paint to avoid a flash.
