@@ -16,11 +16,19 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "OffLimits, The party game with zero filter",
+    default:
+      "OffLimits | Free Online Party Games for Groups (No Download)",
     template: "%s · OffLimits",
   },
   description:
-    "OffLimits: the party game with zero filter. Would You Rather, Never Have I Ever, Most Likely To, an 18+ tier, and a spin-the-wheel picker, all from one phone.",
+    "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+  keywords: [
+    "OffLimits party game",
+    "play offlimits online",
+    "free party games for groups",
+    "phone party games no download",
+    "house party icebreaker games",
+  ],
 };
 
 // Applies the saved theme (default: dark) before first paint to avoid a flash.
