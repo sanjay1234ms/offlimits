@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Coffee, Heart } from "lucide-react";
+import { Coffee, Heart, Loader2 } from "lucide-react";
 import { TIP_TIERS } from "@/lib/monetization";
 import { Modal } from "./Modal";
 
@@ -11,12 +11,39 @@ export const OPEN_TIPJAR_EVENT = "offlimits:open-tipjar";
 /** Floating "Support Dev" button + slide-up tipping modal. */
 export function TipJar() {
   const [open, setOpen] = useState(false);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const openit = () => setOpen(true);
     window.addEventListener(OPEN_TIPJAR_EVENT, openit);
     return () => window.removeEventListener(OPEN_TIPJAR_EVENT, openit);
   }, []);
+
+  async function startTip(id: string, amountCents: number) {
+    setBusyId(id);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkout/tip", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          amount: amountCents,
+          origin: window.location.origin,
+        }),
+      });
+      const data = (await res.json()) as { url?: string; error?: string };
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setError(data.error || "Could not start checkout. Please try again.");
+    } catch {
+      setError("Could not reach checkout. Check your connection.");
+    } finally {
+      setBusyId(null);
+    }
+  }
 
   return (
     <>
@@ -41,21 +68,32 @@ export function TipJar() {
           </p>
 
           <div className="flex flex-col gap-2.5">
-            {TIP_TIERS.map((tier) => (
-              <a
-                key={tier.id}
-                href={tier.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ghost w-full justify-between text-sm"
-              >
-                <span>{tier.label}</span>
-                <span aria-hidden className="text-muted">
-                  →
-                </span>
-              </a>
-            ))}
+            {TIP_TIERS.map((tier) => {
+              const busy = busyId === tier.id;
+              return (
+                <button
+                  key={tier.id}
+                  type="button"
+                  onClick={() => startTip(tier.id, tier.amountCents)}
+                  disabled={busyId !== null}
+                  className="btn-ghost w-full justify-between text-sm"
+                >
+                  <span>{tier.label}</span>
+                  {busy ? (
+                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                  ) : (
+                    <span aria-hidden className="text-muted">
+                      →
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
+
+          {error ? (
+            <p className="text-xs font-semibold text-rose-400">{error}</p>
+          ) : null}
 
           <p className="text-xs text-subtle">
             Secure checkout via Stripe. You&apos;ll leave this site to

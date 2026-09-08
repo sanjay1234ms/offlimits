@@ -8,17 +8,20 @@ import { getDeviceId } from "./deviceId";
 /** Default checkout URL used everywhere until real links are wired in. */
 export const STRIPE_PLACEHOLDER = "https://buy.stripe.com/test_placeholder";
 
-/** Floating tip-jar presets. */
+/** Floating tip-jar presets. Each tier is charged through a dynamic Stripe
+ * Checkout Session created by `app/api/checkout/tip/route.ts`, which is
+ * entirely separate from the Party Pass checkout. */
 export interface TipTier {
   id: string;
   label: string;
-  href: string;
+  /** Charge amount in USD cents. */
+  amountCents: number;
 }
 
 export const TIP_TIERS: TipTier[] = [
-  { id: "coffee", label: "$2 (Coffee)", href: STRIPE_PLACEHOLDER },
-  { id: "snack", label: "$5 (Snack)", href: STRIPE_PLACEHOLDER },
-  { id: "mvp", label: "$10 (Party MVP)", href: STRIPE_PLACEHOLDER },
+  { id: "coffee", label: "$2 (Coffee)", amountCents: 200 },
+  { id: "snack", label: "$5 (Snack)", amountCents: 500 },
+  { id: "mvp", label: "$10 (Party MVP)", amountCents: 1000 },
 ];
 
 /** OffLimits 24-Hour Party Pass. Checkout now runs through the Stripe
