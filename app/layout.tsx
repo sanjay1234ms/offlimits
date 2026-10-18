@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: "OffLimits",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
         alt: "OffLimits Party Games Preview",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       "OffLimits | Free Online Party Games for Groups (No Download)",
     description:
       "Free party games for any group, on any phone: Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades and drinking games. No download, no signup.",
-    images: ["/og-image.png"],
+    images: ["/og-image.png?v=3"],
   },
 };
 

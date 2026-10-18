@@ -9,6 +9,7 @@ import {
   fillCount,
   type QuestionList,
 } from "@/data/questionLists";
+import { shareMetadata } from "@/lib/seo";
 
 /** Deck cards for a list, in deck order (heat ascending within a category). */
 function cardsFor(list: QuestionList): DeckCard[] {
@@ -34,7 +35,7 @@ export function questionListMetadata(list: QuestionList): Metadata {
     title: { absolute: `${title} | OffLimits` },
     description,
     alternates: { canonical: `/questions/${list.slug}` },
-    openGraph: { title, description },
+    ...shareMetadata(title, description, `/questions/${list.slug}`),
   };
 }
 

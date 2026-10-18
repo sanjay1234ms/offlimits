@@ -5,13 +5,14 @@ import { CatalogCard } from "./CatalogCard";
 import { SectionHeading } from "./SectionHeading";
 import { catalogBySlug, type CatalogGame } from "@/data/catalog";
 import type { LandingPage as LandingPageData } from "@/data/landingPages";
+import { shareMetadata } from "@/lib/seo";
 
 export function landingMetadata(page: LandingPageData): Metadata {
   return {
     title: { absolute: `${page.title} | OffLimits` },
     description: page.description,
     alternates: { canonical: page.path },
-    openGraph: { title: page.title, description: page.description },
+    ...shareMetadata(page.title, page.description, page.path),
   };
 }
 

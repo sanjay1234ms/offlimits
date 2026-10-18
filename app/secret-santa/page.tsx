@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SecretSantaDraw } from "@/components/SecretSantaDraw";
+import { shareMetadata } from "@/lib/seo";
 
 const TITLE = "Secret Santa Generator: Free Name Draw on One Phone";
 const DESCRIPTION =
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   title: { absolute: `${TITLE} | OffLimits` },
   description: DESCRIPTION,
   alternates: { canonical: "/secret-santa" },
-  openGraph: { title: TITLE, description: DESCRIPTION },
+  ...shareMetadata(TITLE, DESCRIPTION, "/secret-santa"),
 };
 
 const STEPS = [

@@ -11,6 +11,7 @@ import {
   ENGINE_GAME_SEO,
   corePageBySlug,
 } from "@/data/corePages";
+import { shareMetadata } from "@/lib/seo";
 
 interface GamePageProps {
   params: { slug: string };
@@ -29,7 +30,7 @@ export function generateMetadata({ params }: GamePageProps): Metadata {
       title: { absolute: `${core.title} | OffLimits` },
       description: core.description,
       alternates: { canonical: `/games/${core.slug}` },
-      openGraph: { title: core.title, description: core.description },
+      ...shareMetadata(core.title, core.description, `/games/${core.slug}`),
     };
   }
   const game = catalogBySlug(params.slug);
@@ -39,9 +40,9 @@ export function generateMetadata({ params }: GamePageProps): Metadata {
     title: seo ? { absolute: `${seo.title} | OffLimits` } : game.title,
     description: seo?.description ?? game.blurb,
     alternates: { canonical: `/games/${params.slug}` },
-    openGraph: seo
-      ? { title: seo.title, description: seo.description }
-      : undefined,
+    ...(seo
+      ? shareMetadata(seo.title, seo.description, `/games/${params.slug}`)
+      : {}),
   };
 }
 
