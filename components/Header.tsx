@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Lock, Zap } from "lucide-react";
+import { Flame, Lock, Zap } from "lucide-react";
 import { usePartyPass } from "@/hooks/usePartyPass";
 import { EffectsMenu } from "./EffectsMenu";
 import { MobileNav } from "./MobileNav";
@@ -14,6 +14,9 @@ const links = [
   { href: "/party", label: "Party" },
   { href: "/wheel", label: "Wheel" },
 ];
+
+/** Age-gated 18+ deck; styled apart from the regular links. */
+const ADULT_LINK = { href: "/play?category=18-plus&vibe=wild", label: "18+" };
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
@@ -45,14 +48,14 @@ export function Header() {
         <nav className="flex shrink-0 items-center gap-1">
           {pass.hydrated && pass.active ? (
             <span
-              title={`18+ unlocked · ${pass.remainingLabel}`}
+              title={`18+ unlocked Â· ${pass.remainingLabel}`}
               className="mr-1 inline-flex shrink-0 animate-flame-pulse items-center gap-1.5 rounded-full border-2 border-amber-400/50 bg-amber-500/15 px-2 py-1 text-[0.7rem] font-extrabold text-amber-300 sm:px-2.5 sm:text-xs"
             >
               <Zap className="h-3 w-3" aria-hidden />
               <span className="hidden sm:inline">Party Pass Active: 18+ Unlocked</span>
               <span className="sm:hidden">18+</span>
               <span className="hidden font-bold text-amber-200/80 md:inline">
-                · {pass.remainingLabel}
+                Â· {pass.remainingLabel}
               </span>
             </span>
           ) : null}
@@ -74,11 +77,19 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href={ADULT_LINK.href}
+              className="catalog-adult-badge ml-1 inline-flex items-center gap-1 rounded-full border-2 border-red-500/60 bg-red-950/40 px-2.5 py-1 text-[0.8rem] font-extrabold text-red-300 shadow-[0_0_16px_rgba(239,68,68,0.25)] transition-colors hover:bg-red-900/50 hover:text-red-200 sm:text-sm"
+            >
+              <Flame className="h-3.5 w-3.5" aria-hidden />
+              {ADULT_LINK.label}
+            </Link>
             <span className="mx-1 h-5 w-px bg-white/10" />
           </div>
 
           <MobileNav
             links={links}
+            adultLink={ADULT_LINK}
             isActive={(href) => isActive(pathname, href)}
           />
           <EffectsMenu />

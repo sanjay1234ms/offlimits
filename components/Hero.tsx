@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Flame, Sparkles } from "lucide-react";
 import { CATALOG } from "@/data/catalog";
 
 const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
@@ -34,7 +34,11 @@ export function Hero() {
           <p className="max-w-xl text-pretty text-base text-muted sm:text-lg">
             Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades
             and more. Pick a game, pass the phone, and you&apos;re playing in
-            seconds.
+            seconds. Clean by day,{" "}
+            <span className="font-bold text-rose-400">
+              uncensored 18+ by night
+            </span>
+            . The host sets the heat.
           </p>
 
           <div className="flex w-full flex-col items-center gap-3 sm:w-auto">
@@ -53,11 +57,19 @@ export function Hero() {
               <Link href="/party" className="underline underline-offset-4">
                 Open a party room
               </Link>
+              <span aria-hidden className="text-muted">·</span>
+              <Link
+                href="/play?category=18-plus&vibe=wild"
+                className="inline-flex items-center gap-1 text-rose-400 underline underline-offset-4"
+              >
+                <Flame className="h-4 w-4" aria-hidden />
+                Enter the 18+ deck
+              </Link>
             </div>
           </div>
 
           <p className="text-xs font-semibold text-muted sm:text-sm">
-            {GAME_COUNT} games · Works on every phone · Family-safe by default
+            {GAME_COUNT} games · Works on every phone · Real 18+ modes, adults only
           </p>
         </div>
       </div>

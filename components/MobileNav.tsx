@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Flame, Menu, X } from "lucide-react";
 
 interface NavLink {
   href: string;
@@ -14,9 +14,12 @@ interface NavLink {
  * once there is room for the inline links. */
 export function MobileNav({
   links,
+  adultLink,
   isActive,
 }: {
   links: NavLink[];
+  /** Optional 18+ entry, rendered after the regular links in its own style. */
+  adultLink?: NavLink;
   isActive: (href: string) => boolean;
 }) {
   const [open, setOpen] = useState(false);
@@ -55,7 +58,7 @@ export function MobileNav({
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-11 z-50 w-44 rounded-2xl border border-white/10 bg-surface/95 p-2 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+        <div className="absolute right-0 top-11 z-50 w-44 rounded-2xl border border-white/10 bg-surface p-2 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col gap-1">
             {links.map((link) => (
               <Link
@@ -72,6 +75,16 @@ export function MobileNav({
                 {link.label}
               </Link>
             ))}
+            {adultLink ? (
+              <Link
+                href={adultLink.href}
+                onClick={() => setOpen(false)}
+                className="catalog-adult-badge mt-1 inline-flex items-center gap-1.5 rounded-xl border-2 border-red-500/60 bg-red-950/40 px-3 py-2 text-sm font-extrabold text-red-300 transition-colors hover:bg-red-900/50"
+              >
+                <Flame className="h-4 w-4" aria-hidden />
+                {adultLink.label}
+              </Link>
+            ) : null}
           </div>
         </div>
       ) : null}
