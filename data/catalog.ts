@@ -1,5 +1,6 @@
-/** The full OffLimits game catalog. The 5 dual-deck games play at
- * /play?game=…; the extra engine games play at /games/[slug]. */
+/** The full OffLimits game catalog. The 5 dual-deck games have their own
+ * pages at /games/[slug] (data/corePages.ts) on the /play engine; the extra
+ * engine games play at /games/[slug] too. */
 
 export type GameEngine =
   | "simple"
@@ -61,7 +62,7 @@ export const CATALOG: CatalogGame[] = [
     players: "3+ players",
     time: "10-20 min",
     mode: "One phone",
-    href: "/play?game=would_you_rather",
+    href: "/games/would-you-rather",
     gradient: "from-indigo-600/20 to-purple-600/10",
     border: "border-indigo-500/40",
     text: "text-indigo-300",
@@ -78,7 +79,7 @@ export const CATALOG: CatalogGame[] = [
     players: "4+ players",
     time: "10-25 min",
     mode: "One phone",
-    href: "/play?game=never_have_i_ever",
+    href: "/games/never-have-i-ever",
     gradient: "from-rose-600/20 to-pink-600/10",
     border: "border-rose-500/40",
     text: "text-rose-300",
@@ -95,7 +96,7 @@ export const CATALOG: CatalogGame[] = [
     players: "3+ players",
     time: "10-20 min",
     mode: "One phone",
-    href: "/play?game=most_likely_to",
+    href: "/games/most-likely-to",
     gradient: "from-amber-600/20 to-orange-600/10",
     border: "border-amber-500/40",
     text: "text-amber-300",
@@ -112,7 +113,7 @@ export const CATALOG: CatalogGame[] = [
     players: "2+ players",
     time: "5-15 min",
     mode: "One phone",
-    href: "/play?game=this_or_that",
+    href: "/games/this-or-that",
     gradient: "from-pink-600/25 to-fuchsia-600/10",
     border: "border-pink-500/40",
     text: "text-pink-300",
@@ -129,7 +130,7 @@ export const CATALOG: CatalogGame[] = [
     players: "2-12 players",
     time: "10-30 min",
     mode: "One phone",
-    href: "/play?game=truth_or_dare",
+    href: "/games/truth-or-dare",
     gradient: "from-rose-600/25 to-pink-600/10",
     border: "border-rose-500/40",
     text: "text-rose-300",

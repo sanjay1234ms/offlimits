@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MapPin, X } from "lucide-react";
 import { AgeGateModal } from "./AgeGateModal";
 import { AdultCardDeck, CardDeck } from "./CardDeck";
@@ -27,6 +28,7 @@ import { adultDeckFor } from "@/data/adultDeck";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { usePartyPass } from "@/hooks/usePartyPass";
 import { ADULT_CATEGORY, STORAGE_KEYS } from "@/lib/monetization";
+import { corePageForGame } from "@/data/corePages";
 import type {
   PromptCategory,
   PromptFilters,
@@ -46,6 +48,13 @@ interface PlayScreenProps {
   initialCategory?: string;
   /** From `?vibe=`, activates that vibe pill (footer occasion links). */
   initialVibe?: string;
+  /** Page heading override, used by the per-game SEO pages. */
+  heading?: string;
+  /** Intro paragraph override shown under the heading in normal mode. */
+  intro?: string;
+  /** When set, game tabs navigate to each game's own page instead of
+   * switching in place, so the URL always matches the game on screen. */
+  linkTabs?: boolean;
 }
 
 /** Any identifier that means "enter 18+ mode", every entry point maps here. */
@@ -79,7 +88,11 @@ export function PlayScreen({
   initialAdult,
   initialCategory,
   initialVibe,
+  heading,
+  intro,
+  linkTabs,
 }: PlayScreenProps) {
+  const router = useRouter();
   const reqCategory = initialCategory
     ? CATEGORY_ALIASES[initialCategory.toLowerCase()]
     : undefined;
@@ -227,14 +240,16 @@ export function PlayScreen({
     <div className="min-h-dvh bg-background pb-24">
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6">
         <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Pass-the-phone games
+          {heading ?? "Pass-the-phone games"}
         </h1>
         <p className="mt-1.5 max-w-xl text-sm text-muted sm:text-base">
           {isTruthOrDare
-            ? "Choose your packs, then take Truth, Dare, or let the phone decide."
+            ? (intro ??
+              "Choose your packs, then take Truth, Dare, or let the phone decide.")
             : adultMode || showResolving
               ? "All five games, uncensored. Three free preview cards per game, then unlock the rest. Switch games with the tabs above."
-              : "Pick a game, dial in the filters, and hand the phone around. One question at a time, shuffled so nothing repeats until the deck is done."}
+              : intro ??
+                "Pick a game, dial in the filters, and hand the phone around. One question at a time, shuffled so nothing repeats until the deck is done."}
         </p>
 
         {filters.occasion.length > 0 ? (
@@ -270,7 +285,14 @@ export function PlayScreen({
           <GameTabs
             decks={decks}
             activeId={activeId}
-            onSelect={(id) => setActiveId(id as PromptGame)}
+            onSelect={(id) => {
+              const page = linkTabs ? corePageForGame(id) : undefined;
+              if (page && id !== activeId) {
+                router.push(`/games/${page.slug}`);
+                return;
+              }
+              setActiveId(id as PromptGame);
+            }}
           />
         </div>
       </div>

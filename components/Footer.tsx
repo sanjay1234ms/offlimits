@@ -1,8 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { Coffee } from "lucide-react";
-import { OPEN_TIPJAR_EVENT } from "./TipJar";
 
 interface FooterLink {
   label: string;
@@ -13,11 +9,11 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Party Games",
     links: [
-      { label: "Would You Rather", href: "/play?game=would_you_rather" },
-      { label: "Never Have I Ever", href: "/play?game=never_have_i_ever" },
-      { label: "Most Likely To", href: "/play?game=most_likely_to" },
-      { label: "Truth or Dare", href: "/play?game=truth_or_dare" },
-      { label: "This or That", href: "/play?game=this_or_that" },
+      { label: "Would You Rather", href: "/games/would-you-rather" },
+      { label: "Never Have I Ever", href: "/games/never-have-i-ever" },
+      { label: "Most Likely To", href: "/games/most-likely-to" },
+      { label: "Truth or Dare", href: "/games/truth-or-dare" },
+      { label: "This or That", href: "/games/this-or-that" },
       { label: "Trivia", href: "/games/trivia" },
       { label: "Charades", href: "/games/charades" },
       { label: "Buzzkill", href: "/games/buzzkill" },
@@ -37,7 +33,10 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "By Occasion",
     links: [
-      { label: "Office Party Games", href: "/play?category=office" },
+      { label: "Halloween Party Games", href: "/halloween-party-games" },
+      { label: "Christmas Party Games", href: "/christmas-party-games" },
+      { label: "Office Party Games", href: "/office-party-games" },
+      { label: "Drinking Games", href: "/drinking-games" },
       { label: "Couples Game Night", href: "/play?category=couples" },
       { label: "House Party Icebreakers", href: "/play?vibe=icebreaker" },
       {
@@ -86,9 +85,8 @@ export function Footer() {
             </span>
           </span>
           <p className="mt-3 text-sm leading-relaxed">
-            Uncensored party games, rapid-fire trivia, and host utilities for
-            any group. Zero signup, zero downloads, works instantly on every
-            phone.
+            Free party games, trivia, drinking games and host tools for any
+            group. No signup, no downloads, works instantly on every phone.
           </p>
         </div>
 
@@ -121,14 +119,6 @@ export function Footer() {
             © {new Date().getFullYear()} OffLimits · Free to play, no app
             required.
           </p>
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event(OPEN_TIPJAR_EVENT))}
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
-          >
-            <Coffee className="h-3.5 w-3.5" aria-hidden />
-            Support Dev
-          </button>
         </div>
       </div>
     </footer>

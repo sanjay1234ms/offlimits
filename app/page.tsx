@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Dices } from "lucide-react";
+import { Dices, Flame } from "lucide-react";
+import { CATALOG } from "@/data/catalog";
 import {
   CompetitiveGames,
   GameCatalog,
@@ -10,6 +11,15 @@ import {
   SectionHeading,
   TwoWaysToPlay,
 } from "@/components";
+
+const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
+
+const SEASONAL_LINKS = [
+  { href: "/halloween-party-games", label: "Halloween party games" },
+  { href: "/christmas-party-games", label: "Christmas party games" },
+  { href: "/office-party-games", label: "Office party games" },
+  { href: "/drinking-games", label: "Drinking games" },
+];
 
 export default function HomePage() {
   return (
@@ -22,8 +32,8 @@ export default function HomePage() {
           className="mx-auto max-w-content scroll-mt-24 px-4 pb-4 pt-6 sm:px-6"
         >
           <SectionHeading
-            title="Pick your poison"
-            subtitle="The full catalog, thirteen ways to make a room talk."
+            title="Pick a game"
+            subtitle={`All ${GAME_COUNT} games, free to play right now. Tap one and pass the phone.`}
           />
           <div className="mt-5">
             <GameCatalog />
@@ -49,6 +59,41 @@ export default function HomePage() {
           </div>
           <div className="mt-3">
             <OccasionStrip />
+          </div>
+          <div className="mx-auto mt-4 flex max-w-content flex-wrap gap-x-5 gap-y-2 px-4 sm:px-6">
+            {SEASONAL_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-semibold text-accent underline-offset-2 hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-content px-4 py-6 sm:px-6">
+          <div className="flex flex-col items-start gap-3 rounded-3xl border-2 border-red-500/40 bg-red-500/5 p-6 dark:bg-red-950/20 sm:p-8">
+            <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.15em] text-[#9f1239] dark:text-red-400">
+              <Flame className="h-4 w-4" aria-hidden />
+              Adults only
+            </span>
+            <h2 className="text-balance text-2xl font-extrabold tracking-tight text-foreground">
+              18+ mode for late nights
+            </h2>
+            <p className="max-w-xl text-sm text-muted sm:text-base">
+              Every pass-the-phone game has an uncensored deck behind an age
+              check. Try three cards free, then unlock the rest with an
+              optional Party Pass.
+            </p>
+            <Link
+              href="/play?game=18plus"
+              className="hero-adult-btn inline-flex items-center gap-2 rounded-2xl border-2 border-red-500/60 bg-red-950/40 px-5 py-3 text-sm font-extrabold text-red-300 transition-colors hover:bg-red-900/40"
+            >
+              <Flame className="h-4 w-4" aria-hidden />
+              Try 18+ mode
+            </Link>
           </div>
         </section>
 

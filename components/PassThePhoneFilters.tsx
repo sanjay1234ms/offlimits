@@ -41,8 +41,10 @@ export function PassThePhoneFilters({
   speedBomb,
   onSpeedBomb,
 }: PassThePhoneFiltersProps) {
-  const [open, setOpen] = useState(true);
   const active = countActiveFilters(filters);
+  // Start collapsed so the first question sits above the fold on phones;
+  // stay open when a link arrived with filters already applied.
+  const [open, setOpen] = useState(() => active > 0);
 
   return (
     <div className="glass-card mx-auto mb-6 w-full max-w-xl p-5">

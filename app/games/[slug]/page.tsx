@@ -1,38 +1,81 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { GameRunner } from "@/components/games/GameRunner";
 import { CompetitiveShell } from "@/components/games/CompetitiveShell";
 import { GameGuide } from "@/components/GameGuide";
+import { PlayScreen } from "@/components";
 import { catalogBySlug, ENGINE_SLUGS } from "@/data/catalog";
 import { COMPETITIVE_ENGINE_SLUGS } from "@/data/competitive";
+import {
+  CORE_GAME_PAGES,
+  ENGINE_GAME_SEO,
+  corePageBySlug,
+} from "@/data/corePages";
 
 interface GamePageProps {
   params: { slug: string };
 }
 
 export function generateStaticParams() {
-  return ENGINE_SLUGS.map((slug) => ({ slug }));
+  return [...CORE_GAME_PAGES.map((p) => p.slug), ...ENGINE_SLUGS].map(
+    (slug) => ({ slug }),
+  );
 }
 
 export function generateMetadata({ params }: GamePageProps): Metadata {
+  const core = corePageBySlug(params.slug);
+  if (core) {
+    return {
+      title: { absolute: `${core.title} | OffLimits` },
+      description: core.description,
+      alternates: { canonical: `/games/${core.slug}` },
+      openGraph: { title: core.title, description: core.description },
+    };
+  }
   const game = catalogBySlug(params.slug);
   if (!game) return {};
-  return { title: game.title, description: game.blurb };
+  const seo = ENGINE_GAME_SEO[params.slug];
+  return {
+    title: seo ? { absolute: `${seo.title} | OffLimits` } : game.title,
+    description: seo?.description ?? game.blurb,
+    alternates: { canonical: `/games/${params.slug}` },
+    openGraph: seo
+      ? { title: seo.title, description: seo.description }
+      : undefined,
+  };
 }
 
 const PLAY_REDIRECTS: Record<string, string> = {
   "18plus": "/play?game=18plus",
   "18-uncensored": "/play?game=18plus",
-  "this-or-that": "/play?game=this_or_that",
-  this_or_that: "/play?game=this_or_that",
-  "truth-or-dare": "/play?game=truth_or_dare",
-  truth_or_dare: "/play?game=truth_or_dare",
+  would_you_rather: "/games/would-you-rather",
+  never_have_i_ever: "/games/never-have-i-ever",
+  most_likely_to: "/games/most-likely-to",
+  this_or_that: "/games/this-or-that",
+  truth_or_dare: "/games/truth-or-dare",
 };
 
 export default function GamePage({ params }: GamePageProps) {
-  // Games that live on the main /play tab bar rather than a local engine.
   const redirectTo = PLAY_REDIRECTS[params.slug];
-  if (redirectTo) redirect(redirectTo);
+  if (redirectTo) {
+    // Old underscore URLs moved for good; the 18+ aliases just hop to /play.
+    if (redirectTo.startsWith("/games/")) permanentRedirect(redirectTo);
+    redirect(redirectTo);
+  }
+
+  // The five pass-the-phone games each get their own page on the /play engine.
+  const core = corePageBySlug(params.slug);
+  if (core) {
+    return (
+      <PlayScreen
+        key={core.slug}
+        initialGame={core.game}
+        heading={core.h1}
+        intro={core.intro}
+        linkTabs
+      />
+    );
+  }
 
   const game = catalogBySlug(params.slug);
   if (!game || !game.engine) notFound();

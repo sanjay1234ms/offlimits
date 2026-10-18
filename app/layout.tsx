@@ -23,8 +23,12 @@ export const metadata: Metadata = {
     template: "%s · OffLimits",
   },
   description:
-    "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+    "Free party games for any group, on any phone: Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades and drinking games. No download, no signup.",
   keywords: [
+    "free party games",
+    "would you rather questions",
+    "never have i ever questions",
+    "truth or dare online",
     "OffLimits party game",
     "play offlimits online",
     "free party games for groups",
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
     title:
       "OffLimits | Free Online Party Games for Groups (No Download)",
     description:
-      "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+      "Free party games for any group, on any phone: Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades and drinking games. No download, no signup.",
     url: "https://playofflimits.com",
     siteName: "OffLimits",
     images: [
@@ -54,7 +58,7 @@ export const metadata: Metadata = {
     title:
       "OffLimits | Free Online Party Games for Groups (No Download)",
     description:
-      "Play uncensored party games, rapid-fire trivia, and drinking games instantly on any phone. Zero app download, zero signup.",
+      "Free party games for any group, on any phone: Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades and drinking games. No download, no signup.",
     images: ["/og-image.png"],
   },
 };
