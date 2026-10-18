@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, PartyPopper } from "lucide-react";
+import { CATALOG } from "@/data/catalog";
+
+const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
 
 /** Landing hero: brand tagline, sub-copy, and primary calls to action. */
 export function Hero() {
@@ -14,41 +17,47 @@ export function Hero() {
         className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-rose-500/15 blur-[100px] animate-float-slow"
       />
 
-      <div className="relative mx-auto max-w-content px-4 pb-12 pt-14 sm:px-6 sm:pt-20">
-        <div className="flex flex-col items-start gap-5">
-          <span className="pill animate-fade-up">
-            <Sparkles className="h-3.5 w-3.5 text-rose-400" aria-hidden />
+      <div className="relative mx-auto max-w-content px-4 pb-14 pt-16 sm:px-6 sm:pt-24">
+        <div className="flex flex-col items-center gap-6 text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium text-muted">
+            <PartyPopper className="h-3.5 w-3.5 text-rose-400" aria-hidden />
             Free · No signup · No download
           </span>
 
-          <h1 className="animate-fade-up text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-            Free party games for{" "}
-            <span className="bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-rose-400 bg-clip-text text-transparent">
-              any group, on any phone.
+          <h1 className="animate-fade-up text-balance text-5xl font-black leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+            Party games with{" "}
+            <span className="mt-2 inline-block -rotate-2 rounded-2xl border-[3px] border-slate-900 bg-yellow-300 px-3 pb-1 text-slate-900 shadow-[5px_5px_0_#0f172a] sm:px-4">
+              no limits
             </span>
           </h1>
 
           <p className="max-w-xl text-pretty text-base text-muted sm:text-lg">
-            Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades
-            and more. Pick a game, pass the phone, and you&apos;re playing in
-            seconds. Family-safe by default, wilder when your group wants it.
+            No app. No signup. Just pass the phone. Would You Rather, Never Have
+            I Ever, Truth or Dare, trivia, charades and more, ready in seconds.
           </p>
 
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <div className="flex w-full flex-col items-center gap-3 sm:w-auto">
             <Link
               href="/games/would-you-rather"
-              className="btn-primary w-full sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border-[3px] border-slate-900 bg-lime-300 px-8 py-4 text-lg font-extrabold text-slate-900 shadow-[5px_5px_0_#0f172a] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_#0f172a] sm:w-auto"
             >
               Play now
-              <ArrowRight className="h-4 w-4" aria-hidden />
+              <ArrowRight className="h-5 w-5" aria-hidden />
             </Link>
-            <Link href="#party-games" className="btn-ghost w-full sm:w-auto">
-              Browse all games
-            </Link>
-            <Link href="/party" className="btn-ghost w-full sm:w-auto">
-              Open a party room
-            </Link>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm font-semibold">
+              <Link href="#party-games" className="underline underline-offset-4">
+                Browse all games
+              </Link>
+              <span aria-hidden className="text-muted">·</span>
+              <Link href="/party" className="underline underline-offset-4">
+                Open a party room
+              </Link>
+            </div>
           </div>
+
+          <p className="text-xs font-semibold text-muted sm:text-sm">
+            Free forever · {GAME_COUNT} games · Works on every phone
+          </p>
         </div>
       </div>
     </section>
