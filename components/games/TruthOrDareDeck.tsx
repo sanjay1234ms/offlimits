@@ -28,6 +28,7 @@ import { AgeGateModal } from "../AgeGateModal";
 import { IntensityDial } from "./IntensityDial";
 import { CardExtras } from "./CardExtras";
 import { SuggestHelper } from "./SuggestHelper";
+import { trackCardNext } from "@/lib/analytics";
 
 interface TruthOrDareDeckProps {
   /** Pre-selects the 18+ pack (e.g. arriving from an 18+ entry point). */
@@ -190,13 +191,17 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
 
       sfx.flip();
       haptic(HAPTIC.advance);
+      trackCardNext(
+        picked.isAdult ? "truth_or_dare_18plus" : "truth_or_dare",
+        turns + 1,
+      );
       setCurrent(picked);
       setRecent((r) =>
         [picked.id, ...r].slice(0, Math.max(4, Math.floor(pool.length / 2))),
       );
       setTurns((t) => t + 1);
     },
-    [paywallOpen, roundOver, unlocked, consume, openPaywall, pool, recent],
+    [paywallOpen, roundOver, unlocked, consume, openPaywall, pool, recent, turns],
   );
 
   // Keyboard: T = truth, D = dare, Space = let the phone pick.

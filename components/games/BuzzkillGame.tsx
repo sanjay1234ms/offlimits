@@ -25,7 +25,7 @@ export function BuzzkillGame({ game }: { game: CatalogGame }) {
       })),
     [deck.items],
   );
-  const { current, position, total, next } = useDeck(items, (x) => x.id);
+  const { current, position, total, next } = useDeck(items, (x) => x.id, "buzzkill");
   const [secs, setSecs] = useState(ROUND);
   const [running, setRunning] = useState(false);
 

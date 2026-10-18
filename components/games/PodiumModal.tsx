@@ -7,6 +7,7 @@ import { SocialShareRow } from "./SocialShareRow";
 import type { Player } from "@/hooks/useScoreboard";
 import { PODIUM_ROASTS } from "@/data/competitive";
 import { sfx } from "@/lib/audio";
+import { trackGameFinished } from "@/lib/analytics";
 
 interface PodiumModalProps {
   open: boolean;
@@ -110,8 +111,9 @@ export function PodiumModal({
       setView("podium");
       setCopied(false);
       if (players.length > 0) sfx.win();
+      trackGameFinished(gameTitle);
     }
-  }, [open, players.length]);
+  }, [open, players.length, gameTitle]);
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;

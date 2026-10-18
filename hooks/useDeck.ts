@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffle } from "@/lib/shuffle";
+import { trackCardNext, trackDeckComplete } from "@/lib/analytics";
 
 export interface DeckController<T> {
   /** The card currently face-up, or undefined when the deck is empty. */
@@ -31,6 +32,8 @@ export interface DeckController<T> {
 export function useDeck<T>(
   items: T[],
   keyOf: (item: T) => string,
+  /** Game id for GA4 play-depth events; omit to skip tracking. */
+  trackAs?: string,
 ): DeckController<T> {
   const signature = items.map(keyOf).join("|");
 
@@ -51,6 +54,10 @@ export function useDeck<T>(
   }, [signature, items]);
 
   const next = useCallback(() => {
+    if (trackAs) {
+      if (index + 1 < order.length) trackCardNext(trackAs, index + 2);
+      else trackDeckComplete(trackAs);
+    }
     setIndex((current) => {
       if (current + 1 < order.length) return current + 1;
 
@@ -70,7 +77,7 @@ export function useDeck<T>(
       setRound((r) => r + 1);
       return 0;
     });
-  }, [order, keyOf]);
+  }, [order, keyOf, index, trackAs]);
 
   const restart = useCallback(() => {
     setOrder(shuffle(items));

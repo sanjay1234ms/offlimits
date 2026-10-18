@@ -19,6 +19,13 @@ const SEASONAL_LINKS = [
   { href: "/christmas-party-games", label: "Christmas party games" },
   { href: "/office-party-games", label: "Office party games" },
   { href: "/drinking-games", label: "Drinking games" },
+  { href: "/secret-santa", label: "Secret Santa generator" },
+  { href: "/classroom-games", label: "Classroom games" },
+  { href: "/party-games-for-large-groups", label: "Large group games" },
+  { href: "/virtual-party-games", label: "Zoom games" },
+  { href: "/sleepover-games", label: "Sleepover games" },
+  { href: "/couples-games", label: "Couples games" },
+  { href: "/questions", label: "Question lists" },
 ];
 
 export default function HomePage() {

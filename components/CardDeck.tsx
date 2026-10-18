@@ -20,6 +20,7 @@ import type { AdultCard } from "@/data/adultDeck";
 import { PromptCard } from "./PromptCard";
 import { PaywallOverlay } from "./PaywallOverlay";
 import { CardExtras } from "./games/CardExtras";
+import { trackCardNext, trackDeckComplete } from "@/lib/analytics";
 
 /** Small circular progress indicator; inherits colour from `currentColor`. */
 function ProgressRing({ value, total }: { value: number; total: number }) {
@@ -81,7 +82,7 @@ export function CardDeck({
   footer,
 }: CardDeckProps) {
   const { current, position, total, round, onLastCard, next, restart } =
-    useDeck(prompts, promptKey);
+    useDeck(prompts, promptKey, deck.id);
   const theme = gameTheme(deck.id);
 
   const handleNext = useCallback(() => {
@@ -277,6 +278,8 @@ export function AdultCardDeck({
     }
     sfx.flip();
     haptic(HAPTIC.advance);
+    if (nextIdx === 0) trackDeckComplete(`${gameId}_18plus`);
+    else trackCardNext(`${gameId}_18plus`, nextIdx + 1);
     setCurrentIndex(nextIdx);
   }, [paywallOpen, fullDeck, currentIndex, consume, openPaywall]);
 

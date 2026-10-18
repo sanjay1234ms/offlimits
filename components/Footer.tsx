@@ -37,6 +37,12 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Christmas Party Games", href: "/christmas-party-games" },
       { label: "Office Party Games", href: "/office-party-games" },
       { label: "Drinking Games", href: "/drinking-games" },
+      { label: "Classroom Games", href: "/classroom-games" },
+      { label: "Large Group Games", href: "/party-games-for-large-groups" },
+      { label: "Zoom & Virtual Games", href: "/virtual-party-games" },
+      { label: "Sleepover Games", href: "/sleepover-games" },
+      { label: "Couples Games", href: "/couples-games" },
+      { label: "Secret Santa Generator", href: "/secret-santa" },
       { label: "Couples Game Night", href: "/play?category=couples" },
       { label: "House Party Icebreakers", href: "/play?vibe=icebreaker" },
       {
@@ -44,6 +50,17 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
         href: "/play?category=18-plus&vibe=wild",
       },
       { label: "Virtual & Remote Team Games", href: "/games" },
+    ],
+  },
+  {
+    title: "Question Lists",
+    links: [
+      { label: "Funny Would You Rather", href: "/questions/funny-would-you-rather-questions" },
+      { label: "Would You Rather for Kids", href: "/questions/would-you-rather-questions-for-kids" },
+      { label: "Never Have I Ever", href: "/questions/never-have-i-ever-questions" },
+      { label: "Most Likely To", href: "/questions/most-likely-to-questions" },
+      { label: "Truth or Dare", href: "/questions/truth-or-dare-questions" },
+      { label: "All question lists", href: "/questions" },
     ],
   },
   {
@@ -91,7 +108,7 @@ export function Footer() {
         </div>
 
         {/* 5-column directory */}
-        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
           {COLUMNS.map((col) => (
             <div key={col.title}>
               <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">

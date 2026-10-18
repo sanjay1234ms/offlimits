@@ -21,7 +21,7 @@ export function Fast5Game({ game }: { game: CatalogGame }) {
     () => deck.items.map((c) => ({ id: c.id, text: c.text })),
     [deck.items],
   );
-  const { current, position, total, next } = useDeck(items, (x) => x.id);
+  const { current, position, total, next } = useDeck(items, (x) => x.id, "fast-5");
   const [secs, setSecs] = useState(ROUND);
   const [phase, setPhase] = useState<"idle" | "running" | "done">("idle");
   const [scored, setScored] = useState(false);

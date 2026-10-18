@@ -134,6 +134,7 @@ function SimpleDeck({ game, prompts }: { game: CatalogGame; prompts: string[] })
   const { current, position, total, next, restart } = useDeck(
     items,
     (x) => x.id,
+    game.slug,
   );
   const [outs, setOuts] = useState(0);
   const showOuts = game.slug === "miss-a-beat";
@@ -177,8 +178,8 @@ function TruthOrDare({ game }: { game: CatalogGame }) {
     () => DARES.map((text, i) => ({ id: `d-${i}`, text })),
     [],
   );
-  const truth = useDeck(truthItems, (x) => x.id);
-  const dare = useDeck(dareItems, (x) => x.id);
+  const truth = useDeck(truthItems, (x) => x.id, game.slug);
+  const dare = useDeck(dareItems, (x) => x.id, game.slug);
   const [pick, setPick] = useState<null | "truth" | "dare">(null);
 
   const choose = useCallback(
@@ -263,6 +264,7 @@ function Trivia({ game }: { game: CatalogGame }) {
   const { current, position, total, next, restart } = useDeck(
     items,
     (x) => x.id,
+    game.slug,
   );
   const [revealed, setRevealed] = useState(false);
   const [scored, setScored] = useState(false);
@@ -350,6 +352,7 @@ function Charades({ game }: { game: CatalogGame }) {
   const { current, position, total, next, restart } = useDeck(
     items,
     (x) => x.id,
+    game.slug,
   );
   const [secs, setSecs] = useState(60);
   const [running, setRunning] = useState(false);
