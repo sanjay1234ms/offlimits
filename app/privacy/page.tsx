@@ -7,7 +7,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Privacy Policy: No Accounts, No Logins";
 const DESCRIPTION =
-  "OffLimits privacy policy: no accounts, no logins, no email capture. Game data stays in your browser; Google Analytics measures anonymous usage.";
+  "OffLimits privacy policy: no accounts, no logins, no email capture. Game data stays in your browser; Google Analytics measures site usage.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
             or used for advertising.
           </p>
           <p>
-            We use Google Analytics 4 to see anonymous usage stats, such as
+            We use Google Analytics 4 to see usage stats, such as
             which pages are viewed and which games get played. Google Analytics
             sets cookies in your browser and Google processes this data under
             the{" "}
@@ -62,6 +62,30 @@ export default function PrivacyPage() {
               Google Analytics opt-out browser add-on
             </a>
             , or by blocking cookies for this site.
+          </p>
+          <p>
+            Our Google Analytics is also linked to Google Ads. That means Google
+            may use this data and its cookies to measure how our ads perform and
+            to show OffLimits ads to you on other sites (remarketing). You can
+            read{" "}
+            <a
+              href="https://policies.google.com/technologies/partner-sites"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-accent hover:underline"
+            >
+              how Google uses information from sites that use its services
+            </a>
+            , and turn off personalised ads in{" "}
+            <a
+              href="https://adssettings.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-accent hover:underline"
+            >
+              Google Ads Settings
+            </a>
+            .
           </p>
           <p>
             If you leave a tip, checkout runs on Stripe&apos;s own page and we
