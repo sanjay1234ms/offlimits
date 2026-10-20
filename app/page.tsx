@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Dices, Flame } from "lucide-react";
 import { CATALOG } from "@/data/catalog";
@@ -13,6 +14,20 @@ import {
 } from "@/components";
 
 const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+// Tells Google the site's name (and the "playofflimits" spelling people
+// search for) so brand searches resolve to the homepage.
+const WEBSITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "OffLimits",
+  alternateName: ["playofflimits", "Play OffLimits", "playofflimits.com"],
+  url: "https://playofflimits.com/",
+};
 
 const SEASONAL_LINKS = [
   { href: "/halloween-party-games", label: "Halloween party games" },
@@ -31,6 +46,10 @@ const SEASONAL_LINKS = [
 export default function HomePage() {
   return (
     <div className="min-h-dvh bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
+      />
       <main>
         <Hero />
 
