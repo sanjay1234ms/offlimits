@@ -320,6 +320,69 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     ],
   },
 
+  "pirate-barrel": {
+    howToPlay: [
+      "Set how many players you have and pick a barrel size: 12 slots for a quick round, 24 for a long, tense one.",
+      "The screen says whose turn it is. That player taps Throw a knife, taps the barrel, or taps a slot to aim. The knife spins in and sticks.",
+      "The barrel shakes for a moment. If the pirate stays sitting, the phone goes to the next player.",
+      "One slot is the trap, chosen at random each barrel. Whoever hits it launches the pirate off the barrel and loses the round.",
+      "The loser takes the penalty you agreed on, then taps New barrel. The trap moves every time.",
+    ],
+    hostPlaybook: [
+      "Agree the penalty before the first knife goes in. Arguing about it after the pirate flies is where the energy drops.",
+      "Sit in a circle and pass the phone the same way every time, so nobody can claim they were skipped.",
+      "Let the loser start the next barrel. It keeps the round moving and gives them a shot at revenge.",
+      "Ban hovering. A player who hovers over the slots for ten seconds gets a five-second count from the room. Or just tap the barrel and let fate aim.",
+      "With a big group, use 24 slots so most people get a turn before the pirate flies.",
+    ],
+    features: [
+      "Every barrel hides the trap in a fresh random slot, so there is no pattern to learn and no safe favourite.",
+      "Each knife spins in from a random side and the barrel shakes before the result, with sound and a buzz on phones that support it.",
+      "The odds get worse with every knife. The last few players feel it, which is the whole point.",
+      "Rounds take about a minute, so it fills the gap between bigger games or settles who goes first.",
+    ],
+    rosterSharing: [
+      "Use the Players buttons to set the group size. The turn label counts Player 1, Player 2 and so on, so go round the circle in order.",
+      "You can change the player count or the barrel size between rounds. Mid-round, the count stays locked so the turn order holds.",
+      "No accounts and nothing saved. Close the tab and the next barrel starts fresh.",
+    ],
+    wheel: {
+      title: "Pirate Barrel Penalty Wheel",
+      options: [
+        "Talk like a pirate until your next turn",
+        "Do ten star jumps",
+        "Sing the first line of any song",
+        "Swap seats with the winner",
+        "Go first in the next game",
+        "Tell an embarrassing story",
+        "Do your best pirate laugh",
+        "Free pass this time",
+      ],
+    },
+    faq: [
+      {
+        q: "Is the trap really random?",
+        a: "Yes. A new trap slot is picked at random whenever you start a barrel or change its size. Nobody, including the phone holder, can see it.",
+      },
+      {
+        q: "Is it like the Pop-Up Pirate toy?",
+        a: "It plays the same way: blades go into the barrel until the pirate launches. You only need a phone, and the barrel resets in one tap.",
+      },
+      {
+        q: "Can kids play?",
+        a: "Yes. There is no text to read and nothing adult in the game itself. Pick a penalty that suits the group, or play with no penalty at all.",
+      },
+      {
+        q: "How do we use it as a drinking game?",
+        a: "For adults of legal drinking age only: whoever launches the pirate takes a sip. Never pressure anyone to drink, and keep a sober penalty on offer.",
+      },
+      {
+        q: "Can I play alone?",
+        a: "Set Players to 1 and see how many knives you can land before the pirate launches. Try to beat your best on the 24-slot barrel.",
+      },
+    ],
+  },
+
   /* ===================== OTHER ENGINE GAMES ===================== */
 
   "odd-one-out": {

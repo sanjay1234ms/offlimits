@@ -123,4 +123,9 @@ export const ENGINE_GAME_SEO: Record<
     description:
       "Name five things in a category before the five-second buzzer. A free, fast party game for 2 to 12 players with scorekeeping.",
   },
+  "pirate-barrel": {
+    title: "Pirate Barrel: Free Pop the Pirate Game Online",
+    description:
+      "Take turns throwing knives into the barrel. One slot launches the pirate. A free pass-the-phone party game for kids and adults, no download.",
+  },
 };

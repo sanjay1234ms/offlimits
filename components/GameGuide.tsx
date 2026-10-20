@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { SpinWheel } from "./SpinWheel";
 import { GAME_GUIDES } from "@/data/gameGuides";
@@ -34,7 +34,7 @@ function Block({
 /** The standardised 7-section editorial guide shown beneath every game and the
  * wheel. Headings are identical everywhere; copy comes from data/gameGuides. */
 export function GameGuide({ slug }: GameGuideProps) {
-  const playNext = useMemo(() => {
+  const pool = useMemo(() => {
     const games = CATALOG.filter((g) => !g.adult && g.slug !== slug).map(
       (g) => ({
         href: g.href,
@@ -43,8 +43,7 @@ export function GameGuide({ slug }: GameGuideProps) {
         blurb: g.blurb,
       }),
     );
-    const pool =
-      slug === "wheel"
+    return slug === "wheel"
         ? games
         : [
             ...games,
@@ -55,8 +54,14 @@ export function GameGuide({ slug }: GameGuideProps) {
               blurb: "Add anything, spin, and let it decide.",
             },
           ];
-    return shuffle(pool).slice(0, 3);
   }, [slug]);
+
+  // Server and first client render show the same three picks; the shuffle
+  // happens after mount so hydration matches.
+  const [playNext, setPlayNext] = useState(() => pool.slice(0, 3));
+  useEffect(() => {
+    setPlayNext(shuffle(pool).slice(0, 3));
+  }, [pool]);
 
   const guide = GAME_GUIDES[slug];
   if (!guide) return null;

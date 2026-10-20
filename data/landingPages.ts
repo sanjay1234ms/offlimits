@@ -187,6 +187,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "would_you_rather", why: "The minority side drinks after every question." },
       { slug: "buzzkill", why: "Say a forbidden word and your team drinks." },
       { slug: "fast-5", why: "Miss the five before the buzzer, take a sip." },
+      { slug: "pirate-barrel", why: "Launch the pirate and you drink. Rounds take a minute." },
     ],
     promptsHeading: "Simple sip rules",
     prompts: [
@@ -364,6 +365,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "charades", why: "Gets everyone off the sofa." },
       { slug: "how-well-do-you-know-me", why: "Test who really knows their best friend." },
       { slug: "most_likely_to", why: "Point at the friend most likely to fall asleep first." },
+      { slug: "pirate-barrel", why: "Take turns throwing knives at the barrel. Whoever launches the pirate loses." },
     ],
     promptsHeading: "Clean Truth or Dare ideas for sleepovers",
     prompts: [

@@ -9,7 +9,8 @@ export type GameEngine =
   | "charades"
   | "odd-one-out"
   | "buzzkill"
-  | "fast-5";
+  | "fast-5"
+  | "pirate-barrel";
 
 /** Catalog filter vocabularies (game-card level, not prompt level). */
 export type CatalogGroupSize = "2-4" | "5-10" | "11-20" | "20+";
@@ -316,6 +317,23 @@ export const CATALOG: CatalogGame[] = [
     vibes: ["Competitive", "Quick fire"],
     engine: "fast-5",
     competitive: true,
+  },
+  {
+    slug: "pirate-barrel",
+    title: "Pirate Barrel",
+    emoji: "🏴‍☠️",
+    blurb: "Take turns throwing knives into the barrel. Hit the wrong slot and the pirate goes flying.",
+    players: "2-20 players",
+    time: "1-2 min a round",
+    mode: "One phone",
+    href: "/games/pirate-barrel",
+    gradient: "from-amber-600/25 to-orange-700/10",
+    border: "border-amber-500/40",
+    text: "text-amber-300",
+    groupSizes: ["2-4", "5-10", "11-20"],
+    audiences: ["Family", "Friends", "Office"],
+    vibes: ["Funny", "Quick fire"],
+    engine: "pirate-barrel",
   },
 ];
 

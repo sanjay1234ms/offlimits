@@ -15,6 +15,7 @@ import { useDeck } from "@/hooks/useDeck";
 import { catalogBySlug, type CatalogGame } from "@/data/catalog";
 import { BuzzkillGame } from "./BuzzkillGame";
 import { Fast5Game } from "./Fast5Game";
+import { PirateBarrelGame } from "./PirateBarrelGame";
 import { ScoringRow } from "./ScoringRow";
 import { useScoreContext } from "./ScoreContext";
 import { CompetitiveFilters } from "./CompetitiveFilters";
@@ -711,6 +712,8 @@ export function GameRunner({ slug }: { slug: string }) {
       return <BuzzkillGame game={game} />;
     case "fast-5":
       return <Fast5Game game={game} />;
+    case "pirate-barrel":
+      return <PirateBarrelGame game={game} />;
     case "simple":
     default:
       return (

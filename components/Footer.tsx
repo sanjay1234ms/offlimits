@@ -18,6 +18,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Charades", href: "/games/charades" },
       { label: "Buzzkill", href: "/games/buzzkill" },
       { label: "Fast 5", href: "/games/fast-5" },
+      { label: "Pirate Barrel", href: "/games/pirate-barrel" },
     ],
   },
   {
