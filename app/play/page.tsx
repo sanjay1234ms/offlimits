@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { PlayScreen } from "@/components";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Pass-the-Phone Party Games: Free Question Games";
 const DESCRIPTION =
@@ -24,11 +26,14 @@ interface PlayPageProps {
 
 export default function PlayPage({ searchParams }: PlayPageProps) {
   return (
-    <PlayScreen
-      initialGame={searchParams?.game}
-      initialAdult={searchParams?.adult === "1"}
-      initialCategory={searchParams?.category}
-      initialVibe={searchParams?.vibe}
-    />
+    <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Play", path: "/play" }])} />
+      <PlayScreen
+        initialGame={searchParams?.game}
+        initialAdult={searchParams?.adult === "1"}
+        initialCategory={searchParams?.category}
+        initialVibe={searchParams?.vibe}
+      />
+    </>
   );
 }

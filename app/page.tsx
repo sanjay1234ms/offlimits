@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Dices, Flame } from "lucide-react";
 import { CATALOG } from "@/data/catalog";
 import {
   CompetitiveGames,
   GameCatalog,
   GameMarquee,
-  LogoPlayground,
   Hero,
   OccasionStrip,
   RandomPickers,
@@ -15,6 +15,21 @@ import {
   SectionHeading,
   TwoWaysToPlay,
 } from "@/components";
+
+// The physics playground is purely interactive and sits below the fold, so it
+// loads on the client only; the placeholder keeps its exact size (no CLS).
+const LogoPlayground = dynamic(
+  () => import("@/components/LogoPlayground").then((m) => m.LogoPlayground),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        aria-hidden
+        className="h-[22rem] rounded-[2rem] border-[3px] border-slate-900 bg-gradient-to-br from-indigo-950 via-violet-950 to-slate-950 shadow-[6px_6px_0_#0f172a] sm:h-[26rem]"
+      />
+    ),
+  },
+);
 
 const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
 

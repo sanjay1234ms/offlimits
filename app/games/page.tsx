@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { GameBrowser } from "@/components";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "All Party Games: Find the Right Game for Your Group";
 const DESCRIPTION =
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export default function GamesPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd data={breadcrumbJsonLd([{ name: "All games", path: "/games" }])} />
       <PageHero
         title="What kind of game do you need?"
         eyebrow="🎲 All games"

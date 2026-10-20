@@ -12,6 +12,8 @@ import {
   corePageBySlug,
 } from "@/data/corePages";
 import { shareMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, webApplicationJsonLd } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { logoMotion } from "@/data/logoMotion";
 
@@ -69,14 +71,30 @@ export default function GamePage({ params }: GamePageProps) {
   // The five pass-the-phone games each get their own page on the /play engine.
   const core = corePageBySlug(params.slug);
   if (core) {
+    const path = `/games/${core.slug}`;
     return (
-      <PlayScreen
-        key={core.slug}
-        initialGame={core.game}
-        heading={core.h1}
-        intro={core.intro}
-        linkTabs
-      />
+      <>
+        <JsonLd
+          data={[
+            webApplicationJsonLd({
+              name: core.h1,
+              description: core.description,
+              path,
+            }),
+            breadcrumbJsonLd([
+              { name: "Games", path: "/games" },
+              { name: core.h1, path },
+            ]),
+          ]}
+        />
+        <PlayScreen
+          key={core.slug}
+          initialGame={core.game}
+          heading={core.h1}
+          intro={core.intro}
+          linkTabs
+        />
+      </>
     );
   }
 
@@ -84,9 +102,23 @@ export default function GamePage({ params }: GamePageProps) {
   if (!game || !game.engine) notFound();
 
   const competitive = COMPETITIVE_ENGINE_SLUGS.includes(params.slug);
+  const path = `/games/${params.slug}`;
 
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd
+        data={[
+          webApplicationJsonLd({
+            name: game.title,
+            description: ENGINE_GAME_SEO[params.slug]?.description ?? game.blurb,
+            path,
+          }),
+          breadcrumbJsonLd([
+            { name: "Games", path: "/games" },
+            { name: game.title, path },
+          ]),
+        ]}
+      />
       <PageHero
         title={
           <span className="flex items-center gap-3">

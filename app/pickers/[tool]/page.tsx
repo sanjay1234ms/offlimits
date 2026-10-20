@@ -4,6 +4,8 @@ import { PickerRunner } from "@/components/pickers/PickerRunner";
 import { PICKER_META, PICKER_SLUGS } from "@/data/pickers";
 import { shareMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, webApplicationJsonLd } from "@/lib/site";
 
 interface PickerPageProps {
   params: { tool: string };
@@ -31,9 +33,21 @@ export function generateMetadata({ params }: PickerPageProps): Metadata {
 export default function PickerPage({ params }: PickerPageProps) {
   const meta = PICKER_META[params.tool];
   if (!meta) notFound();
+  const path = `/pickers/${params.tool}`;
 
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd
+        data={[
+          webApplicationJsonLd({
+            name: meta.title,
+            description: meta.description,
+            path,
+            category: "UtilitiesApplication",
+          }),
+          breadcrumbJsonLd([{ name: meta.title, path }]),
+        ]}
+      />
       <PageHero
         title={meta.title}
         eyebrow="🎲 Random picker"

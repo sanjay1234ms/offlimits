@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import "./globals.css";
 import { Footer, Header, ThemeProvider, TipJar } from "@/components";
+import { JsonLd } from "@/components/JsonLd";
+import { ORGANIZATION_JSON_LD } from "@/lib/site";
+
+const GA_ID = "G-ZVT3JPNBLF";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -64,6 +68,10 @@ export const metadata: Metadata = {
 };
 
 // Applies the saved theme (default: dark) before first paint to avoid a flash.
+// Sets up gtag() and the dataLayer right away so early events queue up; the
+// gtag.js library itself loads after the page is idle (lazyOnload).
+const gaInitScript = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');`;
+
 const noFlashScript = `(function(){try{var t=localStorage.getItem('antics-theme');var d=t?t==='dark':true;document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';var p=localStorage.getItem('offlimits_party_theme');if(p&&p!=='default'&&['velvet','crimson','midnight'].indexOf(p)>-1){document.documentElement.setAttribute('data-party',p);}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 export default function RootLayout({
@@ -77,13 +85,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
+        <JsonLd data={ORGANIZATION_JSON_LD} />
         <ThemeProvider>
           <Header />
           {children}
           <TipJar />
           <Footer />
         </ThemeProvider>
-        <GoogleAnalytics gaId="G-ZVT3JPNBLF" />
+        <script dangerouslySetInnerHTML={{ __html: gaInitScript }} />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

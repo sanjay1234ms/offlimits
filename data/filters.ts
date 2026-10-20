@@ -49,13 +49,11 @@ export function countActiveFilters(filters: PromptFilters): number {
  * Occasions, slug <-> display label, used by /occasions/[slug]
  * ------------------------------------------------------------------ */
 
+// Office party, game night, date night and holidays used to have their own
+// pages here; they now 301 to the matching landing pages (next.config.mjs).
 export const OCCASION_BY_SLUG: Record<string, PromptOccasion> = {
-  "office-party": "Office Party",
-  "game-night": "Game Night",
   "road-trip": "Road Trip",
-  "date-night": "Date Night",
   birthday: "Birthday",
-  holidays: "Holidays",
 };
 
 export const occasionSlugs: string[] = Object.keys(OCCASION_BY_SLUG);
