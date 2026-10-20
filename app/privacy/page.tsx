@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 
-const TITLE = "OffLimits Privacy Policy";
+const TITLE = "Privacy Policy: No Accounts, No Logins";
 const DESCRIPTION =
   "OffLimits privacy policy: no accounts, no logins and no email capture. Your theme, players, scores and 18+ unlock are kept in your own browser's local storage.";
 

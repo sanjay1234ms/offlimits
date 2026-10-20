@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 
-const TITLE = "OffLimits Terms of Service";
+const TITLE = "Terms of Service: 18+ Rules and Party Pass";
 const DESCRIPTION =
   "OffLimits terms of service: the party games are free and provided as-is for fun, 18+ content is for adults only, and the 24-Hour Party Pass is non-refundable.";
 
