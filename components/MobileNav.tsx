@@ -28,7 +28,8 @@ export function MobileNav({
   useEffect(() => {
     if (!open) return;
     function onDown(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
@@ -48,7 +49,7 @@ export function MobileNav({
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-strong text-foreground transition-colors hover:bg-surface"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-strong text-foreground transition-[background-color,transform] hover:bg-surface active:scale-90"
       >
         {open ? (
           <X className="h-4 w-4" aria-hidden />
@@ -58,7 +59,7 @@ export function MobileNav({
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-11 z-50 w-44 rounded-2xl border border-white/10 bg-surface p-2 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]">
+        <div className="absolute right-0 top-11 z-50 w-44 origin-top-right animate-menu-in rounded-2xl border border-white/10 bg-surface p-2 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col gap-1">
             {links.map((link) => (
               <Link

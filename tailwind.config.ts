@@ -88,6 +88,29 @@ const config: Config = {
             borderColor: "rgba(239,68,68,0.9)",
           },
         },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(0deg) scale(1.12)" },
+          "25%": { transform: "rotate(-9deg) scale(1.16)" },
+          "75%": { transform: "rotate(9deg) scale(1.16)" },
+        },
+        marquee: {
+          "0%": { transform: "translate3d(0, 0, 0)" },
+          "100%": { transform: "translate3d(-50%, 0, 0)" },
+        },
+        "word-flip": {
+          "0%": { opacity: "0", transform: "translateY(60%) rotateX(-80deg)" },
+          "100%": { opacity: "1", transform: "translateY(0) rotateX(0deg)" },
+        },
+        sticker: {
+          "0%, 84%, 100%": { transform: "rotate(-2deg) scale(1)" },
+          "88%": { transform: "rotate(3deg) scale(1.08)" },
+          "92%": { transform: "rotate(-5deg) scale(1.08)" },
+          "96%": { transform: "rotate(1deg) scale(1.02)" },
+        },
+        "menu-in": {
+          "0%": { opacity: "0", transform: "translateY(-6px) scale(0.94)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
         "pulse-subtle": {
           "0%, 100%": {
             boxShadow:
@@ -110,6 +133,12 @@ const config: Config = {
         "float-slow": "float-slow 6s ease-in-out infinite",
         "flame-pulse": "flame-pulse 2.2s ease-in-out infinite",
         "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
+        wiggle: "wiggle 0.6s ease-in-out",
+        marquee: "marquee 40s linear infinite",
+        "marquee-reverse": "marquee 46s linear infinite reverse",
+        "word-flip": "word-flip 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+        sticker: "sticker 5s ease-in-out infinite",
+        "menu-in": "menu-in 0.18s cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

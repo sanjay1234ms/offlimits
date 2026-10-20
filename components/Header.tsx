@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Flame, Lock, Zap } from "lucide-react";
 import { usePartyPass } from "@/hooks/usePartyPass";
 import { EffectsMenu } from "./EffectsMenu";
 import { MobileNav } from "./MobileNav";
+import { ScrollProgress } from "./ScrollProgress";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
@@ -18,6 +20,27 @@ const links = [
 /** Age-gated 18+ deck; styled apart from the regular links. */
 const ADULT_LINK = { href: "/play?category=18-plus&vibe=wild", label: "18+" };
 
+/** True once the page has scrolled past the very top. */
+function useScrolled(threshold = 8): boolean {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    let frame = 0;
+    function onScroll() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() =>
+        setScrolled(window.scrollY > threshold),
+      );
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [threshold]);
+  return scrolled;
+}
+
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -28,16 +51,27 @@ function isActive(pathname: string, href: string): boolean {
 export function Header() {
   const pathname = usePathname() ?? "/";
   const pass = usePartyPass();
+  const scrolled = useScrolled();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-content items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-6">
+    <header
+      className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-[background-color,box-shadow,border-color] duration-300 ${
+        scrolled
+          ? "border-white/10 bg-background/90 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.55)]"
+          : "border-transparent bg-background/60"
+      }`}
+    >
+      <div
+        className={`mx-auto flex max-w-content items-center justify-between gap-2 px-3 transition-[padding] duration-300 sm:gap-3 sm:px-6 ${
+          scrolled ? "py-2" : "py-3"
+        }`}
+      >
         <Link
           href="/"
           className="group flex min-w-0 items-center gap-2.5 text-foreground"
           aria-label="OffLimits, home"
         >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-accent text-[color:var(--accent-contrast)] shadow-[0_0_24px_var(--accent-glow)] transition-transform duration-300 group-hover:scale-105">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-accent text-[color:var(--accent-contrast)] shadow-[0_0_24px_var(--accent-glow)] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110">
             <Lock className="h-4 w-4" aria-hidden />
           </span>
           <span className="truncate text-lg font-extrabold uppercase tracking-tight">
@@ -52,7 +86,9 @@ export function Header() {
               className="mr-1 inline-flex shrink-0 animate-flame-pulse items-center gap-1.5 rounded-full border-2 border-amber-400/50 bg-amber-500/15 px-2 py-1 text-[0.7rem] font-extrabold text-amber-300 sm:px-2.5 sm:text-xs"
             >
               <Zap className="h-3 w-3" aria-hidden />
-              <span className="hidden sm:inline">Party Pass Active: 18+ Unlocked</span>
+              <span className="hidden sm:inline">
+                Party Pass Active: 18+ Unlocked
+              </span>
               <span className="sm:hidden">18+</span>
               <span className="hidden font-bold text-amber-200/80 md:inline">
                 Â· {pass.remainingLabel}
@@ -68,9 +104,9 @@ export function Header() {
                 aria-current={
                   isActive(pathname, link.href) ? "page" : undefined
                 }
-                className={`rounded-full px-3 py-1.5 text-[0.8rem] font-bold transition-colors sm:text-sm ${
+                className={`rounded-full px-3 py-1.5 text-[0.8rem] font-bold transition-[color,background-color,transform] duration-200 hover:-translate-y-px sm:text-sm ${
                   isActive(pathname, link.href)
-                    ? "border border-white/10 bg-white/10 text-foreground backdrop-blur"
+                    ? "border border-white/10 bg-white/10 text-foreground shadow-[inset_0_-2px_0_var(--accent)] backdrop-blur"
                     : "text-muted hover:bg-white/5 hover:text-foreground"
                 }`}
               >
@@ -96,6 +132,7 @@ export function Header() {
           <ThemeToggle />
         </nav>
       </div>
+      <ScrollProgress />
     </header>
   );
 }
