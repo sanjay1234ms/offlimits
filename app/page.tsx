@@ -35,7 +35,7 @@ const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "PlayOffLimits: Free Online Party Games for Groups (No Download)",
+    absolute: "OffLimits: Free Online Party Games for Groups",
   },
   alternates: { canonical: "/" },
 };

@@ -32,7 +32,8 @@ function Block({
 }
 
 /** The standardised 7-section editorial guide shown beneath every game and the
- * wheel. Headings are identical everywhere; copy comes from data/gameGuides. */
+ * wheel. Sections are the same everywhere but headings name the game, so each
+ * page's outline is specific to it; copy comes from data/gameGuides. */
 export function GameGuide({ slug }: GameGuideProps) {
   const pool = useMemo(() => {
     const games = CATALOG.filter((g) => !g.adult && g.slug !== slug).map(
@@ -65,13 +66,17 @@ export function GameGuide({ slug }: GameGuideProps) {
 
   const guide = GAME_GUIDES[slug];
   if (!guide) return null;
+  const name =
+    slug === "wheel"
+      ? "Spin the Wheel"
+      : (CATALOG.find((g) => g.slug === slug)?.title ?? "this game");
 
   return (
     <section className="mx-auto max-w-2xl px-4 pb-16 pt-6 sm:px-6">
       <div className="my-8 h-px bg-border" />
 
       <div className="flex flex-col gap-10">
-        <Block n={1} title="How to Play">
+        <Block n={1} title={`How to Play ${name}`}>
           <ol className="list-decimal space-y-2 pl-5 marker:font-extrabold marker:text-accent">
             {guide.howToPlay.map((step, i) => (
               <li key={i}>{step}</li>
@@ -79,7 +84,7 @@ export function GameGuide({ slug }: GameGuideProps) {
           </ol>
         </Block>
 
-        <Block n={2} title="Host Playbook & Room Dynamics">
+        <Block n={2} title={`How to Host ${name}`}>
           <ul className="space-y-2">
             {guide.hostPlaybook.map((tip, i) => (
               <li key={i} className="flex gap-2.5">
@@ -93,7 +98,7 @@ export function GameGuide({ slug }: GameGuideProps) {
           </ul>
         </Block>
 
-        <Block n={3} title="Game Features & Special Mechanics">
+        <Block n={3} title={`${name} Features and Twists`}>
           <ul className="space-y-2">
             {guide.features.map((feat, i) => (
               <li key={i} className="flex gap-2.5">
@@ -107,7 +112,7 @@ export function GameGuide({ slug }: GameGuideProps) {
           </ul>
         </Block>
 
-        <Block n={4} title="Roster Setup & Social Sharing">
+        <Block n={4} title={`Playing ${name} with Your Group`}>
           <div className="space-y-3">
             {guide.rosterSharing.map((para, i) => (
               <p key={i}>{para}</p>
@@ -115,7 +120,7 @@ export function GameGuide({ slug }: GameGuideProps) {
           </div>
         </Block>
 
-        <Block n={5} title="Companion Wheel">
+        <Block n={5} title={guide.wheel.title}>
           <p className="mb-4">
             Spin the{" "}
             <span className="font-bold text-foreground">
@@ -129,7 +134,7 @@ export function GameGuide({ slug }: GameGuideProps) {
           />
         </Block>
 
-        <Block n={6} title="Frequently Asked Questions">
+        <Block n={6} title={`${name} FAQ`}>
           <div className="space-y-2">
             {guide.faq.map((item, i) => (
               <details

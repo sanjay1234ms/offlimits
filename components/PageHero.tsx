@@ -1,6 +1,9 @@
 interface PageHeroProps {
   /** The page's h1 text, unchanged for SEO. */
   title: React.ReactNode;
+  /** Decorative mark (e.g. a game's emoji) shown beside the h1 but kept out
+   * of the heading text. */
+  icon?: React.ReactNode;
   /** Small sticker label above the title, e.g. "🎡 Decide anything". */
   eyebrow?: string;
   /** Up to three emojis that drift around the header. */
@@ -22,6 +25,7 @@ const FLOAT_SPOTS = [
  * energy as the homepage hero. */
 export function PageHero({
   title,
+  icon,
   eyebrow,
   emojis = [],
   width = "max-w-content",
@@ -56,9 +60,18 @@ export function PageHero({
             {eyebrow}
           </span>
         ) : null}
-        <h1 className="mt-3 max-w-3xl animate-fade-up text-balance text-3xl font-black tracking-tight text-foreground sm:text-5xl">
-          {title}
-        </h1>
+        {icon ? (
+          <div className="mt-3 flex max-w-3xl animate-fade-up items-center gap-3 text-3xl font-black sm:text-5xl">
+            {icon}
+            <h1 className="text-balance tracking-tight text-foreground">
+              {title}
+            </h1>
+          </div>
+        ) : (
+          <h1 className="mt-3 max-w-3xl animate-fade-up text-balance text-3xl font-black tracking-tight text-foreground sm:text-5xl">
+            {title}
+          </h1>
+        )}
         {children ? (
           <div className="animate-fade-up [animation-delay:90ms] [animation-fill-mode:both]">
             {children}

@@ -87,3 +87,15 @@ export function itemListJsonLd(opts: {
     })),
   };
 }
+
+export function faqJsonLd(faq: { q: string; a: string }[]): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}

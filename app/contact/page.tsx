@@ -7,9 +7,9 @@ import { CONTACT_EMAIL, breadcrumbJsonLd } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 
-const TITLE = "Contact OffLimits: Card Ideas, Bugs & Party Pass Help";
+const TITLE = "Contact OffLimits: Ideas, Bugs & Party Pass";
 const DESCRIPTION =
-  "Contact the OffLimits team: send a card idea, report a bug, ask about the 24-Hour Party Pass or pitch a custom event. Real people read and answer every note.";
+  "Contact the OffLimits team: send a card idea, report a bug, ask about the 24-Hour Party Pass or pitch a custom event. Real people answer every note.";
 
 export const metadata: Metadata = {
   title: TITLE,

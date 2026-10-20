@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Pass-the-Phone Party Games: Free Question Games";
 const DESCRIPTION =
-  "Would You Rather, Never Have I Ever, Most Likely To, Truth or Dare and This or That in one place. Filter by group and vibe, pass the phone. Free, no signup.";
+  "Would You Rather, Never Have I Ever, Most Likely To, Truth or Dare and This or That in one place. Filter by group, pass the phone. Free, no signup.";
 
 export const metadata: Metadata = {
   title: TITLE,

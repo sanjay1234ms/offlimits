@@ -120,16 +120,14 @@ export default function GamePage({ params }: GamePageProps) {
         ]}
       />
       <PageHero
-        title={
-          <span className="flex items-center gap-3">
-            <span
-              aria-hidden
-              data-motion={logoMotion(game.slug)}
-              className="game-logo is-playing inline-block"
-            >
-              {game.emoji}
-            </span>
-            {game.title}
+        title={ENGINE_GAME_SEO[params.slug]?.h1 ?? game.title}
+        icon={
+          <span
+            aria-hidden
+            data-motion={logoMotion(game.slug)}
+            className="game-logo is-playing inline-block"
+          >
+            {game.emoji}
           </span>
         }
         eyebrow={`🎮 ${game.players} · ${game.time}`}

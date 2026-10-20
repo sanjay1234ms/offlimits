@@ -7,7 +7,7 @@ import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/site";
 
-const TITLE = "Secret Santa Generator: Free Name Draw on One Phone";
+const TITLE = "Secret Santa Generator: Free Name Draw";
 const DESCRIPTION =
   "Free Secret Santa generator. Type everyone's names, draw, and pass the phone so each person privately sees who they're buying for. No email, no signup.";
 

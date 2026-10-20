@@ -76,7 +76,7 @@ export const QUESTION_LISTS: QuestionList[] = [
   {
     slug: "would-you-rather-questions-for-kids",
     game: "would_you_rather",
-    title: "{n} Would You Rather Questions for Kids (Clean & Fun)",
+    title: "{n} Would You Rather Questions for Kids",
     description:
       "{n} clean, silly Would You Rather questions for kids, classrooms and family game night. Read the full list or play them free on any phone, no signup needed.",
     h1: "Would You Rather Questions for Kids",
@@ -113,7 +113,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "would_you_rather",
     title: "{n} Would You Rather Questions for Couples",
     description:
-      "{n} Would You Rather questions for couples, from cute to deep. Perfect for date night or road trips. Read the list or play them free on one phone, no signup.",
+      "{n} Would You Rather questions for couples, from cute to deep. Perfect for date night or road trips. Read the list or play free on one phone.",
     h1: "Would You Rather Questions for Couples",
     intro:
       "{n} Would You Rather questions for couples, from cute and silly to ones that tell you something real about each other. Great for date night or a long drive.",
@@ -124,9 +124,9 @@ export const QUESTION_LISTS: QuestionList[] = [
   {
     slug: "would-you-rather-questions-for-work",
     game: "would_you_rather",
-    title: "{n} Would You Rather Questions for Work (Office-Safe)",
+    title: "{n} Would You Rather Questions for Work",
     description:
-      "{n} work-appropriate Would You Rather questions for team meetings, icebreakers and office parties. Read the list or play free on one shared screen, no signup.",
+      "{n} work-appropriate Would You Rather questions for team meetings, icebreakers and office parties. Read the list or play free on a shared screen.",
     h1: "Would You Rather Questions for Work",
     intro:
       "{n} office-safe Would You Rather questions for team meetings, icebreakers and holiday parties. Nothing here will get anyone a call from HR.",
@@ -165,7 +165,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "never_have_i_ever",
     title: "{n} Never Have I Ever Questions for Couples",
     description:
-      "{n} Never Have I Ever questions for couples and date night. Find out what you don't know about each other. Read the list or play free on any phone, no signup.",
+      "{n} Never Have I Ever questions for couples and date night. Find out what you don't know about each other. Read the list or play free on any phone.",
     h1: "Never Have I Ever Questions for Couples",
     intro:
       "{n} Never Have I Ever questions for couples. Some are sweet, some are awkward, and all of them will tell you something new.",
@@ -191,7 +191,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "most_likely_to",
     title: "{n} Most Likely To Questions for Work & Coworkers",
     description:
-      "{n} office-safe Most Likely To questions for coworkers, team building and holiday parties. Read the list or play free on one phone or shared screen, no signup.",
+      "{n} office-safe Most Likely To questions for coworkers, team building and holiday parties. Read the list or play free on one phone or shared screen.",
     h1: "Most Likely To Questions for Work",
     intro:
       "{n} Most Likely To questions for coworkers that are fun without being awkward. Good for team socials, offsites and the office holiday party.",
