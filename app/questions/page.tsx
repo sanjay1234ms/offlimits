@@ -4,6 +4,8 @@ import Link from "next/link";
 import { questionCount } from "@/components/QuestionListPage";
 import { QUESTION_LISTS } from "@/data/questionLists";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE =
   "Party Game Questions: Would You Rather, Never Have I Ever & More";
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 export default function QuestionsIndexPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Questions", path: "/questions" }])} />
       <PageHero
         title="Party game questions"
         eyebrow="📝 Question lists"

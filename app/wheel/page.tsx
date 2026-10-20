@@ -3,6 +3,8 @@ import { shareMetadata } from "@/lib/seo";
 import { GameGuide, SpinWheel } from "@/components";
 import { WHEEL_PRESETS } from "@/data/wheelPresets";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, webApplicationJsonLd } from "@/lib/site";
 
 interface WheelPageProps {
   searchParams?: { preset?: string };
@@ -26,6 +28,16 @@ export default function WheelPage({ searchParams }: WheelPageProps) {
 
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd
+        data={[
+          webApplicationJsonLd({
+            name: "Spin the Wheel",
+            description: DESCRIPTION,
+            path: "/wheel",
+          }),
+          breadcrumbJsonLd([{ name: "Spin the Wheel", path: "/wheel" }]),
+        ]}
+      />
       <PageHero
         title="Spin the Wheel"
         eyebrow="🎡 Decide anything"

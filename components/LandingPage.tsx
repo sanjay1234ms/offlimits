@@ -9,6 +9,8 @@ import { shareMetadata } from "@/lib/seo";
 import { PageHero } from "./PageHero";
 import { RandomPick } from "./RandomPick";
 import { Reveal } from "./Reveal";
+import { JsonLd } from "./JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 export function landingMetadata(page: LandingPageData): Metadata {
   return {
@@ -39,9 +41,11 @@ export function LandingPage({ page }: { page: LandingPageData }) {
 
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      <JsonLd
+        data={[
+          faqJsonLd,
+          breadcrumbJsonLd([{ name: page.h1, path: page.path }]),
+        ]}
       />
 
       <PageHero

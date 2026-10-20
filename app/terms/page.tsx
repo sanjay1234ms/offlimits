@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Terms of Service: 18+ Rules and Party Pass";
 const DESCRIPTION =
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-dvh bg-background">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Terms of Service", path: "/terms" }])} />
       <PageHero
         title="Terms of Service"
         eyebrow="📜 The fine print"

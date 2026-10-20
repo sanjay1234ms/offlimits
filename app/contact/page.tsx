@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Bug, CreditCard, Handshake, Lightbulb } from "lucide-react";
-import { ContactForm, CONTACT_EMAIL } from "./ContactForm";
+import { ContactForm } from "./ContactForm";
+import { CONTACT_EMAIL, breadcrumbJsonLd } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Contact OffLimits: Card Ideas, Bugs & Party Pass Help";
@@ -57,6 +59,7 @@ const FAQ: { q: string; a: string }[] = [
 export default function ContactPage() {
   return (
     <div className="min-h-dvh bg-slate-50 text-slate-800 dark:bg-[#060814] dark:text-slate-100">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Contact", path: "/contact" }])} />
       <PageHero
         title="Contact the team"
         eyebrow="👋 Say hi"

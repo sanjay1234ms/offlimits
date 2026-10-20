@@ -4,6 +4,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { SecretSantaDraw } from "@/components/SecretSantaDraw";
 import { shareMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Secret Santa Generator: Free Name Draw on One Phone";
 const DESCRIPTION =
@@ -45,6 +47,7 @@ const FAQ = [
 export default function SecretSantaPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Secret Santa Generator", path: "/secret-santa" }])} />
       <PageHero
         title="Secret Santa Generator"
         eyebrow="🎁 Gift swap"

@@ -3,6 +3,8 @@ import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Host Toolkit: House Rules, Scoring & Party Tips";
 const DESCRIPTION =
@@ -62,6 +64,7 @@ const SECTIONS: { id: string; title: string; body: string[] }[] = [
 export default function HostToolkitPage() {
   return (
     <div className="min-h-dvh bg-background">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Host Toolkit", path: "/host" }])} />
       <PageHero
         title="Host Toolkit & Guides"
         eyebrow="🧰 For hosts"

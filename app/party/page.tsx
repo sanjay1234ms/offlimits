@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { PartyForm, PartyInfo } from "@/components";
 import { PageHero } from "@/components/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Party Room: Everyone Plays on Their Own Phone";
 const DESCRIPTION =
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export default function PartyPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Party room", path: "/party" }])} />
       <PageHero
         title="Party room"
         eyebrow="📺 Everyone on their own phone"

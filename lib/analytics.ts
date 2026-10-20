@@ -1,12 +1,18 @@
-import { sendGAEvent } from "@next/third-parties/google";
-
 type Params = Record<string, string | number | boolean>;
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
 
 /** Fires a GA4 event. Never throws, so analytics can't break a game. */
 export function track(name: string, params: Params = {}): void {
   if (typeof window === "undefined") return;
   try {
-    sendGAEvent("event", name, params);
+    // gtag() is defined inline in the root layout; events queue in the
+    // dataLayer until gtag.js finishes loading.
+    window.gtag?.("event", name, params);
   } catch {
     // Analytics is best-effort.
   }

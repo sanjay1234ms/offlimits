@@ -15,10 +15,7 @@ export const navigation: NavItem[] = [
     label: "By Occasion",
     href: "/occasions",
     children: [
-      { label: "Game Night", href: "/occasions/game-night" },
-      { label: "Office Party", href: "/occasions/office-party" },
       { label: "Road Trip", href: "/occasions/road-trip" },
-      { label: "Date Night", href: "/occasions/date-night" },
       { label: "Birthday", href: "/occasions/birthday" },
     ],
   },

@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Check, Copy, Mail, Send } from "lucide-react";
-
-export const CONTACT_EMAIL = "hello@playofflimits.com";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const CATEGORIES = [
   { id: "card-idea", label: "Card idea", subject: "Card idea submission" },

@@ -73,7 +73,6 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "How many people can play?", a: "Most games work for 3 to 30 players on one phone. You can also open a party room so everyone plays on their own phone." },
       { q: "Do these work for an office Christmas party?", a: "Yes. Use the Office filter in Would You Rather and Most Likely To, or try trivia in teams. See our office party games page for more ideas." },
     ],
-    occasionHref: "/occasions/holidays",
   },
   "office-party-games": {
     path: "/office-party-games",
@@ -120,7 +119,6 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "How long does a game take?", a: "Most rounds take 5 to 20 minutes, so they fit at the start of a meeting or as a break during an event." },
       { q: "Do people need to sign up?", a: "No. There is no signup, no download and no cost." },
     ],
-    occasionHref: "/occasions/office-party",
   },
   "halloween-party-games": {
     path: "/halloween-party-games",
@@ -166,7 +164,6 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are they OK for kids?", a: "Yes. All games start in a clean mode. Adult content stays off unless an adult turns it on and confirms their age." },
       { q: "How many players do we need?", a: "Most games work for 3 to 30 people on one phone, and you can open a party room so everyone plays on their own phone." },
     ],
-    occasionHref: "/occasions/game-night",
   },
   "drinking-games": {
     path: "/drinking-games",
@@ -390,7 +387,6 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are these sleepover games clean?", a: "Yes. Every game starts in a clean mode. Adult content is behind an 18+ age check." },
       { q: "Do we need a phone each?", a: "No. One phone passed around is enough." },
     ],
-    occasionHref: "/occasions/game-night",
   },
   "couples-games": {
     path: "/couples-games",
@@ -432,6 +428,5 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "What's the best game for couples?", a: "How Well Do You Know Me and Would You Rather with the Couples filter are the most popular." },
       { q: "Is it free?", a: "Yes. Every game is free. An optional Party Pass unlocks extra 18+ packs if you want them." },
     ],
-    occasionHref: "/occasions/date-night",
   },
 };

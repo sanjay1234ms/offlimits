@@ -74,7 +74,7 @@ export function Hero() {
             Free · No signup · No download
           </span>
 
-          <h1 className="animate-fade-up text-balance text-5xl font-black leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+          <h1 className="text-balance text-5xl font-black leading-[1.05] tracking-tight text-foreground sm:text-7xl">
             Party games with{" "}
             <span className="mt-2 inline-block -rotate-2 animate-sticker rounded-2xl border-[3px] border-slate-900 bg-yellow-300 px-3 pb-1 text-slate-900 shadow-[5px_5px_0_#0f172a] motion-reduce:animate-none sm:px-4">
               no limits

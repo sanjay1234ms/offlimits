@@ -10,6 +10,8 @@ import {
   type QuestionList,
 } from "@/data/questionLists";
 import { shareMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/lib/site";
+import { JsonLd } from "./JsonLd";
 import { PageHero } from "./PageHero";
 import { RandomPick } from "./RandomPick";
 
@@ -91,8 +93,23 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
     </Link>
   );
 
+  const path = `/questions/${list.slug}`;
+
   return (
     <div className="min-h-dvh bg-background pb-24">
+      <JsonLd
+        data={[
+          itemListJsonLd({
+            name: list.h1,
+            path,
+            items: [...extra, ...deckQuestions],
+          }),
+          breadcrumbJsonLd([
+            { name: "Questions", path: "/questions" },
+            { name: list.h1, path },
+          ]),
+        ]}
+      />
       <PageHero
         title={list.h1}
         eyebrow={`📝 ${n} questions`}
