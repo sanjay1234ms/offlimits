@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PickerRunner } from "@/components/pickers/PickerRunner";
 import { PICKER_META, PICKER_SLUGS } from "@/data/pickers";
+import { shareMetadata } from "@/lib/seo";
 
 interface PickerPageProps {
   params: { tool: string };
@@ -14,7 +15,12 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: PickerPageProps): Metadata {
   const meta = PICKER_META[params.tool];
   if (!meta) return {};
-  return { title: meta.title, description: meta.blurb };
+  return {
+    title: meta.seoTitle,
+    description: meta.description,
+    alternates: { canonical: `/pickers/${params.tool}` },
+    ...shareMetadata(meta.seoTitle, meta.description, `/pickers/${params.tool}`),
+  };
 }
 
 export default function PickerPage({ params }: PickerPageProps) {

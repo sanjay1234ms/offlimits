@@ -218,7 +218,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     path: "/classroom-games",
     title: "Classroom Games: Free Games for Students on One Screen",
     description:
-      "Free classroom games for students: trivia, charades, This or That, Would You Rather and more. Run them from one screen or projector. No signup, no student accounts.",
+      "Free classroom games for students: trivia, charades, This or That, Would You Rather and more. Run them from one screen or projector, no student accounts.",
     h1: "Classroom Games",
     intro: [
       "Free classroom games you can run from the teacher's laptop, a projector or one phone. Students don't need accounts or devices, and there is nothing to install.",
@@ -263,7 +263,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     path: "/party-games-for-large-groups",
     title: "Party Games for Large Groups: Free Games for 10 to 30+ People",
     description:
-      "Free party games for large groups of 10, 20 or 30+ people. Everyone plays every round, on one phone or their own. No signup, no download.",
+      "Free party games for large groups of 10, 20 or 30+ people. Everyone plays every round, on one shared phone or their own. No signup, no download, no app.",
     h1: "Party Games for Large Groups",
     intro: [
       "Free party games that work for big groups, where everyone plays every round and nobody waits around for a turn.",
@@ -308,7 +308,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     path: "/virtual-party-games",
     title: "Virtual Party Games for Zoom & Teams: Free Online Games",
     description:
-      "Free virtual party games for Zoom, Teams and Google Meet. Share your screen or open a party room so everyone plays on their own phone. No signup.",
+      "Free virtual party games for Zoom, Teams and Google Meet. Share your screen or open a party room so everyone plays on their own phone. No signup, no download.",
     h1: "Virtual Party Games for Zoom and Teams",
     intro: [
       "Free games for video calls. Share your screen on Zoom, Teams or Google Meet and read the questions out, or open a party room so everyone answers on their own phone.",
@@ -351,7 +351,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     path: "/sleepover-games",
     title: "Sleepover Games: Free Truth or Dare, Would You Rather & More",
     description:
-      "Free sleepover games for teens and tweens: clean Truth or Dare, Would You Rather, Never Have I Ever, charades and more. Play on one phone, no signup.",
+      "Free sleepover games for teens and tweens: clean Truth or Dare, Would You Rather, Never Have I Ever, charades and more. Play on one phone, no signup needed.",
     h1: "Sleepover Games",
     intro: [
       "Free sleepover games you can play on one phone, from clean Truth or Dare to charades and Would You Rather.",

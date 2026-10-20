@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 
+const TITLE = "Host Toolkit: House Rules, Scoring & Party Tips";
+const DESCRIPTION =
+  "Host guide for OffLimits party games: house rules, drinking forfeits, scoring and adjudication, setups for 10+ players, and how Party Pass and 18+ mode work.";
+
 export const metadata: Metadata = {
-  title: "Host Toolkit",
-  description:
-    "House rules, scoring and adjudication, big-group setups, and Party Pass details for OffLimits hosts.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/host" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/host"),
 };
 
 const SECTIONS: { id: string; title: string; body: string[] }[] = [

@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Bug, CreditCard, Handshake, Lightbulb } from "lucide-react";
 import { ContactForm, CONTACT_EMAIL } from "./ContactForm";
 
+const TITLE = "Contact OffLimits: Card Ideas, Bugs & Party Pass Help";
+const DESCRIPTION =
+  "Contact the OffLimits team: send a card idea, report a bug, ask about the 24-Hour Party Pass or pitch a custom event. Real people read and answer every note.";
+
 export const metadata: Metadata = {
-  title: "Contact the Team",
-  description:
-    "Real humans read and answer every note. Send a card idea, report a bug, ask about a 24-Hour Party Pass, or pitch a custom event.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/contact" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/contact"),
 };
 
 const CATEGORY_CARDS: {

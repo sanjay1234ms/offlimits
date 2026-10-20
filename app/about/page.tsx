@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -16,10 +17,15 @@ import {
   Zap,
 } from "lucide-react";
 
+const TITLE = "About OffLimits: Free Party Games for Any Group";
+const DESCRIPTION =
+  "OffLimits is a free browser party game with sharp all-ages classics and real 18+ modes. No downloads, no accounts, no ads mid-round. One phone runs the room.";
+
 export const metadata: Metadata = {
-  title: "About",
-  description:
-    "OffLimits is a browser-based party game with real 18+ modes and sharp all-ages classics. No downloads, no accounts, no ads mid-round. One phone opens it and the room plays.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/about" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/about"),
 };
 
 const SECTION = "mx-auto max-w-3xl px-4 sm:px-6";

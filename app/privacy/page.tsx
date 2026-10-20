@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 
+const TITLE = "OffLimits Privacy Policy";
+const DESCRIPTION =
+  "OffLimits privacy policy: no accounts, no logins and no email capture. Your theme, players, scores and 18+ unlock are kept in your own browser's local storage.";
+
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "OffLimits has no accounts and collects no personal data. Everything is stored in your own browser.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/privacy" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/privacy"),
 };
 
 export default function PrivacyPage() {

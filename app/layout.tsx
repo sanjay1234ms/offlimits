@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: {
     default:
       "OffLimits | Free Online Party Games for Groups (No Download)",
-    template: "%s · OffLimits",
+    template: "%s | OffLimits",
   },
   description:
     "Free party games for any group, on any phone: Would You Rather, Never Have I Ever, Truth or Dare, trivia, charades and drinking games. No download, no signup.",

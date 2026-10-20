@@ -65,7 +65,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "would_you_rather",
     title: "{n} Funny Would You Rather Questions (Free List)",
     description:
-      "{n} funny Would You Rather questions for friends, parties and road trips. Read the list or play free on your phone, no signup.",
+      "{n} funny Would You Rather questions for friends, parties and road trips. Read the full list here or play them free on your phone, no signup or download.",
     h1: "Funny Would You Rather Questions",
     intro:
       "{n} funny Would You Rather questions for friends, from easy icebreakers to ones that start real arguments. Read them out from this list, or tap Play to get them one at a time on your phone.",
@@ -78,7 +78,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "would_you_rather",
     title: "{n} Would You Rather Questions for Kids (Clean & Fun)",
     description:
-      "{n} clean, silly Would You Rather questions for kids, classrooms and family game night. Free to read or play on any phone.",
+      "{n} clean, silly Would You Rather questions for kids, classrooms and family game night. Read the full list or play them free on any phone, no signup needed.",
     h1: "Would You Rather Questions for Kids",
     intro:
       "{n} clean and silly Would You Rather questions that work for kids, classrooms and family game night. Every question here is safe for all ages.",
@@ -113,7 +113,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "would_you_rather",
     title: "{n} Would You Rather Questions for Couples",
     description:
-      "{n} Would You Rather questions for couples, from cute to deep. Perfect for date night. Read the list or play free on one phone.",
+      "{n} Would You Rather questions for couples, from cute to deep. Perfect for date night or road trips. Read the list or play them free on one phone, no signup.",
     h1: "Would You Rather Questions for Couples",
     intro:
       "{n} Would You Rather questions for couples, from cute and silly to ones that tell you something real about each other. Great for date night or a long drive.",
@@ -126,7 +126,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "would_you_rather",
     title: "{n} Would You Rather Questions for Work (Office-Safe)",
     description:
-      "{n} work-appropriate Would You Rather questions for team meetings, icebreakers and office parties. Free, no signup.",
+      "{n} work-appropriate Would You Rather questions for team meetings, icebreakers and office parties. Read the list or play free on one shared screen, no signup.",
     h1: "Would You Rather Questions for Work",
     intro:
       "{n} office-safe Would You Rather questions for team meetings, icebreakers and holiday parties. Nothing here will get anyone a call from HR.",
@@ -139,7 +139,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "never_have_i_ever",
     title: "{n} Never Have I Ever Questions (Funny & Clean)",
     description:
-      "{n} funny Never Have I Ever questions for friends and parties. Read the list or play free on any phone, no app needed.",
+      "{n} funny Never Have I Ever questions for friends, parties and sleepovers. Read the full list or play them free on any phone, no app and no signup needed.",
     h1: "Never Have I Ever Questions",
     intro:
       "{n} Never Have I Ever questions for friends, from harmless to slightly incriminating. Read them from the list or tap Play to go one at a time.",
@@ -152,7 +152,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "never_have_i_ever",
     title: "{n} Juicy Never Have I Ever Questions for Adults",
     description:
-      "{n} juicy, revealing Never Have I Ever questions for adults and close friends. No explicit content, just the questions that get real answers.",
+      "{n} juicy, revealing Never Have I Ever questions for adults and close friends. No explicit content, just the questions that get real answers. Free to play.",
     h1: "Juicy Never Have I Ever Questions",
     intro:
       "{n} juicy Never Have I Ever questions for close friends and adult game nights. They aren't explicit, just honest enough to make people think twice before putting a finger down.",
@@ -165,7 +165,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "never_have_i_ever",
     title: "{n} Never Have I Ever Questions for Couples",
     description:
-      "{n} Never Have I Ever questions for couples and date night. Find out what you don't know about each other. Free on any phone.",
+      "{n} Never Have I Ever questions for couples and date night. Find out what you don't know about each other. Read the list or play free on any phone, no signup.",
     h1: "Never Have I Ever Questions for Couples",
     intro:
       "{n} Never Have I Ever questions for couples. Some are sweet, some are awkward, and all of them will tell you something new.",
@@ -178,7 +178,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "most_likely_to",
     title: "{n} Most Likely To Questions for Friends & Groups",
     description:
-      "{n} funny Most Likely To questions for friends, parties and big groups. Read the list or play free on one phone.",
+      "{n} funny Most Likely To questions for friends, parties and big groups. Read the full list or play free on one phone: count to three and point. No signup.",
     h1: "Most Likely To Questions",
     intro:
       "{n} Most Likely To questions for friends and big groups. Read one out, count to three, and point.",
@@ -191,7 +191,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "most_likely_to",
     title: "{n} Most Likely To Questions for Work & Coworkers",
     description:
-      "{n} office-safe Most Likely To questions for coworkers, team building and holiday parties. Free, no signup.",
+      "{n} office-safe Most Likely To questions for coworkers, team building and holiday parties. Read the list or play free on one phone or shared screen, no signup.",
     h1: "Most Likely To Questions for Work",
     intro:
       "{n} Most Likely To questions for coworkers that are fun without being awkward. Good for team socials, offsites and the office holiday party.",
@@ -204,7 +204,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "this_or_that",
     title: "{n} This or That Questions (Fun Icebreaker List)",
     description:
-      "{n} fun This or That questions for icebreakers, classrooms and friends. Read the list or play rapid-fire on any phone.",
+      "{n} fun This or That questions for icebreakers, classrooms and friends. Read the full list or play them rapid-fire on any phone, free with no app or signup.",
     h1: "This or That Questions",
     intro:
       "{n} This or That questions for icebreakers and quick rounds with friends. First instinct only, no thinking allowed.",
@@ -217,7 +217,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "this_or_that",
     title: "{n} This or That Questions for Couples",
     description:
-      "{n} This or That questions for couples. See how often you agree. Free to read or play on one phone.",
+      "{n} This or That questions for couples and date night. Answer fast and see how often you agree. Read the full list or play free on one phone, no signup.",
     h1: "This or That Questions for Couples",
     intro:
       "{n} This or That questions for couples. Answer at the same time and count how many you match on.",
@@ -230,7 +230,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "truth_or_dare",
     title: "{n} Truth or Dare Questions for Friends",
     description:
-      "{n} truth or dare questions and dares for friends, sleepovers and parties. Clean and funny. Read the list or play free on any phone.",
+      "{n} truth or dare questions and dares for friends, sleepovers and parties. Clean and funny. Read the full list or play free on any phone, no app or signup.",
     h1: "Truth or Dare Questions",
     intro:
       "{n} truths and dares for friends, sleepovers and parties. All clean enough for a mixed group, still awkward enough to be fun.",
@@ -243,7 +243,7 @@ export const QUESTION_LISTS: QuestionList[] = [
     game: "truth_or_dare",
     title: "{n} Truth or Dare Questions for Couples",
     description:
-      "{n} truth or dare questions for couples and date night, from sweet to deep. Free to read or play on one phone.",
+      "{n} truth or dare questions for couples and date night, from sweet and flirty to deep. Read the full list or play them free on one phone, no app or signup.",
     h1: "Truth or Dare for Couples",
     intro:
       "{n} truths and dares for couples, from sweet to seriously honest. Take turns, and keep the skips to one each.",

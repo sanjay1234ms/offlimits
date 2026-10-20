@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import { PartyForm, PartyInfo } from "@/components";
 
+const TITLE = "Party Room: Everyone Plays on Their Own Phone";
+const DESCRIPTION =
+  "Open a free party room, put the code on the biggest screen, and everyone joins on their own phone. The room sees the question, only you see your answer.";
+
 export const metadata: Metadata = {
-  title: "Party room",
-  description:
-    "Open a room, put the code on the biggest screen in the house, and everyone joins on their own phone. The room sees the question. Only you see your answer.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/party" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/party"),
 };
 
 export default function PartyPage() {

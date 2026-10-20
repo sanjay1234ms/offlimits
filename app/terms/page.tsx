@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 
+const TITLE = "OffLimits Terms of Service";
+const DESCRIPTION =
+  "OffLimits terms of service: the party games are free and provided as-is for fun, 18+ content is for adults only, and the 24-Hour Party Pass is non-refundable.";
+
 export const metadata: Metadata = {
-  title: "Terms of Service",
-  description:
-    "OffLimits is provided free, as-is, for entertainment. 18+ content is for adults only.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/terms" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/terms"),
 };
 
 export default function TermsPage() {

@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { questionCount } from "@/components/QuestionListPage";
 import { QUESTION_LISTS } from "@/data/questionLists";
 
+const TITLE = "Party Game Questions: Would You Rather, Never Have I Ever & More";
+const DESCRIPTION =
+  "Free lists of Would You Rather, Never Have I Ever, Most Likely To, This or That and Truth or Dare questions for friends, couples, kids and work. Read or play.";
+
 export const metadata: Metadata = {
-  title: "Party Game Questions: Would You Rather, Never Have I Ever & More",
-  description:
-    "Free lists of Would You Rather, Never Have I Ever, Most Likely To, This or That and Truth or Dare questions for friends, couples, kids and work.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/questions" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/questions"),
 };
 
 export default function QuestionsIndexPage() {

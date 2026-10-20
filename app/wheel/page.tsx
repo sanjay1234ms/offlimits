@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import { GameGuide, SpinWheel } from "@/components";
 import { WHEEL_PRESETS } from "@/data/wheelPresets";
 
@@ -6,10 +7,15 @@ interface WheelPageProps {
   searchParams?: { preset?: string };
 }
 
+const TITLE = "Spin the Wheel: Free Random Picker Wheel";
+const DESCRIPTION =
+  "Free spin the wheel picker: type in names or options, spin, and let it pick a random winner. Decide who goes first, what to eat or who buys the next round.";
+
 export const metadata: Metadata = {
-  title: "Spin the Wheel",
-  description:
-    "Type in names or options, spin the wheel, and watch it decelerate to a random winner.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/wheel" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/wheel"),
 };
 
 export default function WheelPage({ searchParams }: WheelPageProps) {

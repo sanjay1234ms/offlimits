@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import { PlayScreen } from "@/components";
 
+const TITLE = "Pass-the-Phone Party Games: Free Question Games";
+const DESCRIPTION =
+  "Would You Rather, Never Have I Ever, Most Likely To, Truth or Dare and This or That in one place. Filter by group and vibe, pass the phone. Free, no signup.";
+
 export const metadata: Metadata = {
-  title: "Pass-the-Phone Party Games",
-  description:
-    "Would You Rather, Never Have I Ever, Most Likely To, Truth or Dare and This or That in one place. Free on any phone, no signup.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/play" },
+  ...shareMetadata(TITLE, DESCRIPTION, "/play"),
 };
 
 interface PlayPageProps {
