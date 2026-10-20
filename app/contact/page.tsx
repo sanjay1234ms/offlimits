@@ -3,6 +3,7 @@ import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Bug, CreditCard, Handshake, Lightbulb } from "lucide-react";
 import { ContactForm, CONTACT_EMAIL } from "./ContactForm";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Contact OffLimits: Card Ideas, Bugs & Party Pass Help";
 const DESCRIPTION =
@@ -56,24 +57,26 @@ const FAQ: { q: string; a: string }[] = [
 export default function ContactPage() {
   return (
     <div className="min-h-dvh bg-slate-50 text-slate-800 dark:bg-[#060814] dark:text-slate-100">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        {/* Header */}
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-          Contact the team
-        </h1>
+      <PageHero
+        title="Contact the team"
+        eyebrow="👋 Say hi"
+        emojis={["💌", "👋", "💬"]}
+        width="max-w-3xl"
+      >
         <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg">
           No ticket maze, no chatbot, no canned auto-reply. Real humans read and
           answer every note, usually within a day.
         </p>
-
+      </PageHero>
+      <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-6 sm:pb-24">
         {/* Category grid */}
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {CATEGORY_CARDS.map(({ Icon, title, body }) => (
             <div
               key={title}
-              className="rounded-3xl border border-slate-200 bg-white/80 p-6 backdrop-blur-sm transition-colors dark:border-white/10 dark:bg-slate-900/60"
+              className="group rounded-3xl border border-slate-200 bg-white/80 p-6 backdrop-blur-sm transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-slate-400 hover:shadow-[0_20px_40px_-24px_rgba(0,0,0,0.5)] dark:border-white/10 dark:bg-slate-900/60 dark:hover:border-white/25"
             >
-              <span className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-900 dark:border-white/10 dark:bg-white/[0.04] dark:text-white">
+              <span className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-900 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110 dark:border-white/10 dark:bg-white/[0.04] dark:text-white">
                 <Icon className="h-5 w-5" aria-hidden />
               </span>
               <h2 className="mt-4 text-base font-bold text-slate-900 dark:text-white">

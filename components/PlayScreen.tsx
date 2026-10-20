@@ -36,6 +36,7 @@ import type {
   PromptOccasion,
   Vibe,
 } from "@/types";
+import { PageHero } from "./PageHero";
 
 interface PlayScreenProps {
   /** Pre-applies an occasion filter (used by /occasions/[slug]). */
@@ -238,20 +239,22 @@ export function PlayScreen({
 
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <div className="mx-auto max-w-content px-4 pt-8 sm:px-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          {heading ?? "Pass-the-phone games"}
-        </h1>
-        <p className="mt-1.5 max-w-xl text-sm text-muted sm:text-base">
+      <PageHero
+        title={heading ?? "Pass-the-phone games"}
+        eyebrow="📱 Pass the phone"
+        emojis={["🤔", "🙈", "👉"]}
+      >
+        <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
           {isTruthOrDare
             ? (intro ??
               "Choose your packs, then take Truth, Dare, or let the phone decide.")
             : adultMode || showResolving
               ? "All five games, uncensored. Three free preview cards per game, then unlock the rest. Switch games with the tabs above."
-              : intro ??
-                "Pick a game, dial in the filters, and hand the phone around. One question at a time, shuffled so nothing repeats until the deck is done."}
+              : (intro ??
+                "Pick a game, dial in the filters, and hand the phone around. One question at a time, shuffled so nothing repeats until the deck is done.")}
         </p>
-
+      </PageHero>
+      <div className="mx-auto max-w-content px-4 sm:px-6">
         {filters.occasion.length > 0 ? (
           <div className="mt-4 flex flex-wrap items-center gap-2">
             {filters.occasion.map((occasion) => (

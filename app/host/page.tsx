@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
+import { Reveal } from "@/components/Reveal";
 
 const TITLE = "Host Toolkit: House Rules, Scoring & Party Tips";
 const DESCRIPTION =
@@ -60,27 +62,32 @@ const SECTIONS: { id: string; title: string; body: string[] }[] = [
 export default function HostToolkitPage() {
   return (
     <div className="min-h-dvh bg-background">
-      <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Host Toolkit &amp; Guides
-        </h1>
-        <p className="mt-2 text-sm text-muted sm:text-base">
+      <PageHero
+        title="Host Toolkit & Guides"
+        eyebrow="🧰 For hosts"
+        emojis={["🧰", "🏆", "🍻"]}
+        width="max-w-2xl"
+      >
+        <p className="mt-3 text-sm text-muted sm:text-base">
           Everything you need to run a clean game night. Rules, scoring calls,
           big-group logistics, and how the Party Pass works.
         </p>
-
+      </PageHero>
+      <div className="mx-auto max-w-2xl px-4 pb-14 sm:px-6">
         <div className="mt-10 flex flex-col gap-12">
           {SECTIONS.map((s) => (
-            <section key={s.id} id={s.id} className="scroll-mt-24">
-              <h2 className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">
-                {s.title}
-              </h2>
-              <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-muted">
-                {s.body.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </section>
+            <Reveal key={s.id}>
+              <section id={s.id} className="scroll-mt-24">
+                <h2 className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">
+                  {s.title}
+                </h2>
+                <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-muted">
+                  {s.body.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </section>
+            </Reveal>
           ))}
         </div>
 

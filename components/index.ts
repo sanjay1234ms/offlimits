@@ -15,6 +15,8 @@ export { Tilt } from "./Tilt";
 export { LogoPlayground } from "./LogoPlayground";
 export { OccasionStrip } from "./OccasionStrip";
 export { SectionHeading } from "./SectionHeading";
+export { PageHero } from "./PageHero";
+export { SwipeCard } from "./SwipeCard";
 export { GameCatalog } from "./GameCatalog";
 export { CatalogCard } from "./CatalogCard";
 export { GameBrowser } from "./GameBrowser";

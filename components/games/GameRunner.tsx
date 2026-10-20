@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Eye,
@@ -12,6 +12,10 @@ import {
   TimerReset,
 } from "lucide-react";
 import { useDeck } from "@/hooks/useDeck";
+import { logoMotion } from "@/data/logoMotion";
+import { sfx } from "@/lib/audio";
+import { haptic, HAPTIC } from "@/lib/haptics";
+import { SwipeCard, type SwipeCardHandle } from "../SwipeCard";
 import { catalogBySlug, type CatalogGame } from "@/data/catalog";
 import { BuzzkillGame } from "./BuzzkillGame";
 import { Fast5Game } from "./Fast5Game";
@@ -69,7 +73,11 @@ function ThemedCard({
       className={`animate-card-flip relative flex min-h-[16rem] w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl border-2 bg-gradient-to-br p-6 text-center sm:min-h-[20rem] sm:p-9 ${game.border} ${game.gradient}`}
       style={{ backgroundColor: "var(--card-bg)" }}
     >
-      <span className="text-3xl" aria-hidden>
+      <span
+        aria-hidden
+        data-motion={logoMotion(game.slug)}
+        className="game-logo is-playing text-4xl"
+      >
         {game.emoji}
       </span>
       {stem ? (
@@ -127,7 +135,13 @@ function Controls({
  * How Well Do You Know Me)
  * ------------------------------------------------------------------ */
 
-function SimpleDeck({ game, prompts }: { game: CatalogGame; prompts: string[] }) {
+function SimpleDeck({
+  game,
+  prompts,
+}: {
+  game: CatalogGame;
+  prompts: string[];
+}) {
   const items = useMemo(
     () => prompts.map((text, i) => ({ id: `${game.slug}-${i}`, text })),
     [prompts, game.slug],
@@ -139,15 +153,24 @@ function SimpleDeck({ game, prompts }: { game: CatalogGame; prompts: string[] })
   );
   const [outs, setOuts] = useState(0);
   const showOuts = game.slug === "miss-a-beat";
+  const swipe = useRef<SwipeCardHandle>(null);
+
+  const advance = useCallback(() => {
+    sfx.flip();
+    haptic(HAPTIC.advance);
+    next();
+  }, [next]);
 
   return (
     <div className="flex flex-col items-center gap-5">
       <Counter game={game} left={`${position} / ${total}`} />
-      <ThemedCard key={current?.id} game={game} stem={game.stem}>
-        {current?.text ?? ""}
-      </ThemedCard>
+      <SwipeCard ref={swipe} key={current?.id} onSwipe={advance}>
+        <ThemedCard game={game} stem={game.stem}>
+          {current?.text ?? ""}
+        </ThemedCard>
+      </SwipeCard>
       <Controls
-        onNext={next}
+        onNext={() => (swipe.current ? swipe.current.fling(-1) : advance())}
         onRestart={restart}
         extra={
           showOuts ? (
@@ -515,9 +538,9 @@ function Charades({ game }: { game: CatalogGame }) {
  * ------------------------------------------------------------------ */
 
 function OddOneOut({ game }: { game: CatalogGame }) {
-  const [phase, setPhase] = useState<
-    "setup" | "reveal" | "discuss" | "result"
-  >("setup");
+  const [phase, setPhase] = useState<"setup" | "reveal" | "discuss" | "result">(
+    "setup",
+  );
   const [count, setCount] = useState(5);
   const [word, setWord] = useState("");
   const [imposter, setImposter] = useState(0);
@@ -679,7 +702,11 @@ function OddOneOut({ game }: { game: CatalogGame }) {
           The word was <span className="font-bold text-foreground">{word}</span>
         </p>
       </div>
-      <button type="button" onClick={() => setPhase("setup")} className="btn-primary">
+      <button
+        type="button"
+        onClick={() => setPhase("setup")}
+        className="btn-primary"
+      >
         <RotateCcw className="h-4 w-4" aria-hidden />
         Play again
       </button>
@@ -717,7 +744,10 @@ export function GameRunner({ slug }: { slug: string }) {
     case "simple":
     default:
       return (
-        <SimpleDeck game={game} prompts={SIMPLE_PROMPTS[slug] ?? THIS_OR_THAT} />
+        <SimpleDeck
+          game={game}
+          prompts={SIMPLE_PROMPTS[slug] ?? THIS_OR_THAT}
+        />
       );
   }
 }

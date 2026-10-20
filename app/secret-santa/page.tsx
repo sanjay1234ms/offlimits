@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SecretSantaDraw } from "@/components/SecretSantaDraw";
 import { shareMetadata } from "@/lib/seo";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Secret Santa Generator: Free Name Draw on One Phone";
 const DESCRIPTION =
@@ -23,23 +24,39 @@ const STEPS = [
 ];
 
 const FAQ = [
-  { q: "Is this Secret Santa generator free?", a: "Yes. No signup, no emails and no app. It runs entirely on the phone you're holding." },
-  { q: "Can someone draw themselves?", a: "No. The draw always gives everyone someone else." },
-  { q: "Are the names saved anywhere?", a: "No. Names stay on this phone and disappear when you close or refresh the page." },
-  { q: "How many people can take part?", a: "Three or more. There's no upper limit." },
+  {
+    q: "Is this Secret Santa generator free?",
+    a: "Yes. No signup, no emails and no app. It runs entirely on the phone you're holding.",
+  },
+  {
+    q: "Can someone draw themselves?",
+    a: "No. The draw always gives everyone someone else.",
+  },
+  {
+    q: "Are the names saved anywhere?",
+    a: "No. Names stay on this phone and disappear when you close or refresh the page.",
+  },
+  {
+    q: "How many people can take part?",
+    a: "Three or more. There's no upper limit.",
+  },
 ];
 
 export default function SecretSantaPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <section className="mx-auto max-w-2xl px-4 pb-6 pt-12 sm:px-6 sm:pt-16">
-        <h1 className="text-balance text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-          Secret Santa Generator
-        </h1>
+      <PageHero
+        title="Secret Santa Generator"
+        eyebrow="🎁 Gift swap"
+        emojis={["🎁", "🎄", "🎅"]}
+        width="max-w-2xl"
+      >
         <p className="mt-4 text-pretty text-base text-muted sm:text-lg">
           Draw Secret Santa names in seconds on one phone. No emails, no
           accounts, and nobody can draw themselves.
         </p>
+      </PageHero>
+      <section className="mx-auto max-w-2xl px-4 pb-6 sm:px-6">
         <div className="mt-6">
           <SecretSantaDraw />
         </div>
@@ -60,21 +77,29 @@ export default function SecretSantaPage() {
           {FAQ.map((item) => (
             <details
               key={item.q}
-              className="group rounded-xl border border-border bg-surface/60 px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
+              className="group rounded-xl border border-border bg-surface/60 px-4 py-3 transition-colors hover:border-accent open:border-accent [&_summary::-webkit-details-marker]:hidden"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-foreground">
                 {item.q}
-                <span aria-hidden className="text-lg leading-none text-muted transition-transform duration-200 group-open:rotate-45">
+                <span
+                  aria-hidden
+                  className="text-lg leading-none text-muted transition-transform duration-200 group-open:rotate-45"
+                >
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted group-open:animate-fade-up">
+                {item.a}
+              </p>
             </details>
           ))}
         </div>
         <p className="mt-8 text-sm text-muted">
           Planning the party too? See our{" "}
-          <Link href="/christmas-party-games" className="font-semibold text-accent hover:underline">
+          <Link
+            href="/christmas-party-games"
+            className="font-semibold text-accent hover:underline"
+          >
             Christmas party games
           </Link>
           .

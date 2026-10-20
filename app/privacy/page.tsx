@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Privacy Policy: No Accounts, No Logins";
 const DESCRIPTION =
@@ -16,10 +17,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-dvh bg-background">
-      <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Privacy Policy
-        </h1>
+      <PageHero
+        title="Privacy Policy"
+        eyebrow="🔒 The fine print"
+        emojis={["🔒", "🙈"]}
+        width="max-w-2xl"
+      />
+      <div className="mx-auto max-w-2xl px-4 pb-14 sm:px-6">
         <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted sm:text-base">
           <p>
             OffLimits does not have user accounts and does not collect personal

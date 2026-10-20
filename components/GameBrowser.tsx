@@ -35,9 +35,7 @@ export function GameBrowser() {
 
   // A group-size filter seeds the competitive game's default player count.
   const seedCount = filters.groupSize.length
-    ? Math.min(
-        ...filters.groupSize.map((g) => GROUP_SIZE_TO_COUNT[g] ?? 4),
-      )
+    ? Math.min(...filters.groupSize.map((g) => GROUP_SIZE_TO_COUNT[g] ?? 4))
     : null;
 
   function toggle<K extends keyof CatalogFilters>(
@@ -83,14 +81,6 @@ export function GameBrowser() {
 
   return (
     <div>
-      <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-        What kind of game do you need?
-      </h1>
-      <p className="mt-2 max-w-xl text-sm text-muted sm:text-base">
-        Tell us the group and we&apos;ll narrow it down. Tap a filter again to
-        remove it.
-      </p>
-
       <div className="mt-6 flex flex-col gap-4 rounded-3xl border-2 border-white/10 bg-white/[0.03] p-4 backdrop-blur sm:p-5">
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-2 text-sm font-bold text-foreground">

@@ -97,6 +97,10 @@ const config: Config = {
           "0%": { transform: "translate3d(0, 0, 0)" },
           "100%": { transform: "translate3d(-50%, 0, 0)" },
         },
+        "page-in": {
+          "0%": { opacity: "0", transform: "translateY(14px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         "word-flip": {
           "0%": { opacity: "0", transform: "translateY(60%) rotateX(-80deg)" },
           "100%": { opacity: "1", transform: "translateY(0) rotateX(0deg)" },
@@ -136,6 +140,7 @@ const config: Config = {
         wiggle: "wiggle 0.6s ease-in-out",
         marquee: "marquee 40s linear infinite",
         "marquee-reverse": "marquee 46s linear infinite reverse",
+        "page-in": "page-in 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
         "word-flip": "word-flip 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
         sticker: "sticker 5s ease-in-out infinite",
         "menu-in": "menu-in 0.18s cubic-bezier(0.16, 1, 0.3, 1)",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { GameBrowser } from "@/components";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "All Party Games: Find the Right Game for Your Group";
 const DESCRIPTION =
@@ -16,7 +17,17 @@ export const metadata: Metadata = {
 export default function GamesPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <div className="mx-auto max-w-content px-4 pt-10 sm:px-6">
+      <PageHero
+        title="What kind of game do you need?"
+        eyebrow="🎲 All games"
+        emojis={["🎲", "🏆", "🎭"]}
+      >
+        <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
+          Tell us the group and we&apos;ll narrow it down. Tap a filter again to
+          remove it.
+        </p>
+      </PageHero>
+      <div className="mx-auto max-w-content px-4 sm:px-6">
         <GameBrowser />
       </div>
     </div>

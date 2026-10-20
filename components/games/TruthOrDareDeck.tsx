@@ -23,6 +23,7 @@ import { persistAgeConfirmed, readAgeConfirmed } from "@/lib/monetization";
 import { groupSizeOptions, vibeOptions } from "@/data/filters";
 import type { GroupSize, Prompt, Vibe } from "@/types";
 import { PromptCard } from "../PromptCard";
+import { SwipeCard } from "../SwipeCard";
 import { PaywallOverlay } from "../PaywallOverlay";
 import { AgeGateModal } from "../AgeGateModal";
 import { IntensityDial } from "./IntensityDial";
@@ -171,11 +172,7 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
       if (paywallOpen || roundOver) return;
 
       const kind: "truth" | "dare" =
-        choice === "pick"
-          ? Math.random() < 0.5
-            ? "truth"
-            : "dare"
-          : choice;
+        choice === "pick" ? (Math.random() < 0.5 ? "truth" : "dare") : choice;
 
       const ofKind = pool.filter((c) => c.kind === kind);
       if (ofKind.length === 0) return;
@@ -201,7 +198,16 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
       );
       setTurns((t) => t + 1);
     },
-    [paywallOpen, roundOver, unlocked, consume, openPaywall, pool, recent, turns],
+    [
+      paywallOpen,
+      roundOver,
+      unlocked,
+      consume,
+      openPaywall,
+      pool,
+      recent,
+      turns,
+    ],
   );
 
   // Keyboard: T = truth, D = dare, Space = let the phone pick.
@@ -250,9 +256,7 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
     value: T,
   ) {
     setter((prev) =>
-      prev.includes(value)
-        ? prev.filter((v) => v !== value)
-        : [...prev, value],
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   }
 
@@ -391,34 +395,44 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
 
       {/* Card */}
       <div className="relative w-full" style={{ perspective: "1200px" }}>
-        <div
-          className={`preserve-3d transition-[filter] duration-200 ${
-            paywallOpen ? "pointer-events-none select-none blur-md" : ""
-          }`}
+        <SwipeCard
           key={current?.id ?? "empty"}
-          aria-hidden={paywallOpen}
+          onSwipe={(dir) => drawCard(dir < 0 ? "truth" : "dare")}
+          disabled={paywallOpen || roundOver}
+          leftLabel="Truth"
+          rightLabel="Dare"
         >
-          {current ? (
-            <PromptCard
-              prompt={toDisplayPrompt(current)}
-              gameEmoji={theme.emoji}
-              gameTitle="Truth or Dare"
-              themeKey={current.isAdult ? "18+" : "truth_or_dare"}
-            />
-          ) : (
-            <div
-              className={`flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-3xl border-2 bg-gradient-to-br p-8 text-center sm:min-h-[20rem] ${theme.border} ${theme.gradient}`}
-              style={{ backgroundColor: "var(--card-bg)" }}
-            >
-              <span className="text-4xl" aria-hidden>
-                {theme.emoji}
-              </span>
-              <p className="text-lg font-bold text-foreground">
-                Pick Truth, Dare, or let the phone decide.
-              </p>
-            </div>
-          )}
-        </div>
+          <div
+            className={`preserve-3d transition-[filter] duration-200 ${
+              paywallOpen ? "pointer-events-none select-none blur-md" : ""
+            }`}
+            aria-hidden={paywallOpen}
+          >
+            {current ? (
+              <PromptCard
+                prompt={toDisplayPrompt(current)}
+                gameEmoji={theme.emoji}
+                gameTitle="Truth or Dare"
+                themeKey={current.isAdult ? "18+" : "truth_or_dare"}
+              />
+            ) : (
+              <div
+                className={`flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-3xl border-2 bg-gradient-to-br p-8 text-center sm:min-h-[20rem] ${theme.border} ${theme.gradient}`}
+                style={{ backgroundColor: "var(--card-bg)" }}
+              >
+                <span className="text-4xl" aria-hidden>
+                  {theme.emoji}
+                </span>
+                <p className="text-lg font-bold text-foreground">
+                  Pick Truth, Dare, or let the phone decide.
+                </p>
+                <p className="text-xs font-semibold text-muted">
+                  Swipe left for Truth, right for Dare.
+                </p>
+              </div>
+            )}
+          </div>
+        </SwipeCard>
         {paywallOpen ? <PaywallOverlay onUnlock={unlock} /> : null}
       </div>
 

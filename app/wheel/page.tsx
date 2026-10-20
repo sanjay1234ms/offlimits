@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { GameGuide, SpinWheel } from "@/components";
 import { WHEEL_PRESETS } from "@/data/wheelPresets";
+import { PageHero } from "@/components/PageHero";
 
 interface WheelPageProps {
   searchParams?: { preset?: string };
@@ -25,16 +26,18 @@ export default function WheelPage({ searchParams }: WheelPageProps) {
 
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <div className="mx-auto max-w-content px-4 pt-8 sm:px-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Spin the Wheel
-        </h1>
-        <p className="mt-1.5 max-w-xl text-sm text-muted sm:text-base">
+      <PageHero
+        title="Spin the Wheel"
+        eyebrow="🎡 Decide anything"
+        emojis={["🎡", "🍕", "🎯"]}
+      >
+        <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
           Add names or options, give it a spin, and let the wheel pick. Great
           for deciding who goes first, what to eat, or who is buying the next
           round.
         </p>
-
+      </PageHero>
+      <div className="mx-auto max-w-content px-4 sm:px-6">
         <div className="mt-8">
           <SpinWheel
             initialOptions={preset?.options}

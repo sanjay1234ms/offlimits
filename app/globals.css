@@ -475,6 +475,24 @@ body {
   75% { transform: rotate(-6deg) skewX(4deg); transform-origin: 30% 100%; }
 }
 
+/* A list item chosen by the "Pick a random one" button (RandomPick). */
+.random-picked {
+  border-radius: 0.6rem;
+  background-color: var(--accent-soft);
+  box-shadow: 0 0 0 2px var(--accent);
+  color: var(--text);
+  font-weight: 700;
+  animation: random-picked 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes random-picked {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .random-picked { animation: none; }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { PartyForm, PartyInfo } from "@/components";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Party Room: Everyone Plays on Their Own Phone";
 const DESCRIPTION =
@@ -16,16 +17,18 @@ export const metadata: Metadata = {
 export default function PartyPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <div className="mx-auto max-w-content px-4 pt-10 sm:px-6">
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-          Party room
-        </h1>
+      <PageHero
+        title="Party room"
+        eyebrow="📺 Everyone on their own phone"
+        emojis={["📺", "📱", "🎉"]}
+      >
         <p className="mt-3 max-w-2xl text-pretty text-base text-muted sm:text-lg">
           Open a room, put the code on the biggest screen in the house, and
           everyone joins on their own phone. The room sees the question. Only
           you see your answer.
         </p>
-
+      </PageHero>
+      <div className="mx-auto max-w-content px-4 sm:px-6">
         <div className="mt-8">
           <PartyForm />
         </div>

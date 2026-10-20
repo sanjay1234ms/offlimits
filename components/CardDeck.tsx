@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   KeyRound,
   Lock,
@@ -19,6 +19,7 @@ import { haptic, HAPTIC } from "@/lib/haptics";
 import type { AdultCard } from "@/data/adultDeck";
 import { PromptCard } from "./PromptCard";
 import { PaywallOverlay } from "./PaywallOverlay";
+import { SwipeCard, type SwipeCardHandle } from "./SwipeCard";
 import { CardExtras } from "./games/CardExtras";
 import { trackCardNext, trackDeckComplete } from "@/lib/analytics";
 
@@ -84,6 +85,7 @@ export function CardDeck({
   const { current, position, total, round, onLastCard, next, restart } =
     useDeck(prompts, promptKey, deck.id);
   const theme = gameTheme(deck.id);
+  const swipe = useRef<SwipeCardHandle>(null);
 
   const handleNext = useCallback(() => {
     if (total > 0) {
@@ -93,6 +95,12 @@ export function CardDeck({
     }
   }, [total, next]);
 
+  // Buttons and keys throw the card away too, so every path animates.
+  const requestNext = useCallback(() => {
+    if (swipe.current) swipe.current.fling(-1);
+    else handleNext();
+  }, [handleNext]);
+
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.target instanceof HTMLElement) {
@@ -101,12 +109,12 @@ export function CardDeck({
       }
       if (event.code === "Space" || event.code === "ArrowRight") {
         event.preventDefault();
-        handleNext();
+        requestNext();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleNext]);
+  }, [requestNext]);
 
   if (total === 0 || !current) {
     return (
@@ -159,17 +167,19 @@ export function CardDeck({
       </div>
 
       <div className="w-full" style={{ perspective: "1200px" }}>
-        <div className="preserve-3d" key={current.id}>
-          <PromptCard
-            prompt={current}
-            gameEmoji={deck.emoji}
-            gameTitle={deck.title}
-            themeKey={deck.id}
-          />
-        </div>
+        <SwipeCard ref={swipe} key={current.id} onSwipe={handleNext}>
+          <div className="preserve-3d">
+            <PromptCard
+              prompt={current}
+              gameEmoji={deck.emoji}
+              gameTitle={deck.title}
+              themeKey={deck.id}
+            />
+          </div>
+        </SwipeCard>
       </div>
 
-      <DeckControls onNext={handleNext} onRestart={restart} />
+      <DeckControls onNext={requestNext} onRestart={restart} />
 
       <CardExtras
         promptText={current.text}
@@ -179,7 +189,7 @@ export function CardDeck({
       />
 
       <p className="text-xs text-subtle">
-        Tip: press Space or → for the next card.
+        Tip: swipe the card away, or press Space or →.
       </p>
 
       {footer ? <div className="w-full">{footer}</div> : null}
@@ -265,12 +275,18 @@ export function AdultCardDeck({
   useEffect(() => {
     if (!hydrated || unlocked || !activePrompt) return;
     if (!consume(activePrompt.id)) openPaywall();
-  }, [activePrompt?.id, hydrated, unlocked, consume, openPaywall, activePrompt]);
+  }, [
+    activePrompt?.id,
+    hydrated,
+    unlocked,
+    consume,
+    openPaywall,
+    activePrompt,
+  ]);
 
   const handleNext = useCallback(() => {
     if (paywallOpen || fullDeck.length === 0) return;
-    const nextIdx =
-      currentIndex + 1 >= fullDeck.length ? 0 : currentIndex + 1;
+    const nextIdx = currentIndex + 1 >= fullDeck.length ? 0 : currentIndex + 1;
     const nextCard = fullDeck[nextIdx];
     if (nextCard && !consume(nextCard.id)) {
       openPaywall();
@@ -283,6 +299,12 @@ export function AdultCardDeck({
     setCurrentIndex(nextIdx);
   }, [paywallOpen, fullDeck, currentIndex, consume, openPaywall]);
 
+  const swipe = useRef<SwipeCardHandle>(null);
+  const requestNext = useCallback(() => {
+    if (swipe.current && !paywallOpen) swipe.current.fling(-1);
+    else handleNext();
+  }, [handleNext, paywallOpen]);
+
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.target instanceof HTMLElement) {
@@ -291,12 +313,12 @@ export function AdultCardDeck({
       }
       if (event.code === "Space" || event.code === "ArrowRight") {
         event.preventDefault();
-        handleNext();
+        requestNext();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleNext]);
+  }, [requestNext]);
 
   // Avoid a flash of the preview limit before localStorage has been read.
   if (!hydrated) {
@@ -338,31 +360,37 @@ export function AdultCardDeck({
       </div>
 
       <div className="relative w-full" style={{ perspective: "1200px" }}>
-        <div
-          className={`preserve-3d transition-[filter] duration-200 ${
-            paywallOpen ? "pointer-events-none select-none blur-md" : ""
-          }`}
+        <SwipeCard
+          ref={swipe}
           key={activePrompt?.id ?? "empty"}
-          aria-hidden={paywallOpen}
+          onSwipe={handleNext}
+          disabled={paywallOpen}
         >
-          {activePrompt ? (
-            <PromptCard
-              prompt={toDisplayPrompt(activePrompt)}
-              gameEmoji={meta.emoji}
-              gameTitle={meta.label}
-              themeKey="18+"
-            />
-          ) : (
-            <div className="min-h-[16rem] rounded-3xl border border-red-500/40 bg-card p-6 text-center text-muted sm:min-h-[20rem]">
-              {activeText}
-            </div>
-          )}
-        </div>
+          <div
+            className={`preserve-3d transition-[filter] duration-200 ${
+              paywallOpen ? "pointer-events-none select-none blur-md" : ""
+            }`}
+            aria-hidden={paywallOpen}
+          >
+            {activePrompt ? (
+              <PromptCard
+                prompt={toDisplayPrompt(activePrompt)}
+                gameEmoji={meta.emoji}
+                gameTitle={meta.label}
+                themeKey="18+"
+              />
+            ) : (
+              <div className="min-h-[16rem] rounded-3xl border border-red-500/40 bg-card p-6 text-center text-muted sm:min-h-[20rem]">
+                {activeText}
+              </div>
+            )}
+          </div>
+        </SwipeCard>
         {paywallOpen ? <PaywallOverlay onUnlock={unlock} /> : null}
       </div>
 
       <DeckControls
-        onNext={handleNext}
+        onNext={requestNext}
         nextDisabled={paywallOpen}
         onRestart={() => setCurrentIndex(0)}
         restartLabel="Start over"
@@ -384,7 +412,7 @@ export function AdultCardDeck({
         {paywallOpen
           ? "Unlock the full 18+ deck to keep going."
           : unlocked
-            ? "Tip: press Space or → for the next card."
+            ? "Tip: swipe the card away, or press Space or →."
             : `${cap} free 18+ previews, shared across every game and helper.`}
       </p>
 

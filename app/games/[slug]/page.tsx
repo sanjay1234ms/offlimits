@@ -12,6 +12,8 @@ import {
   corePageBySlug,
 } from "@/data/corePages";
 import { shareMetadata } from "@/lib/seo";
+import { PageHero } from "@/components/PageHero";
+import { logoMotion } from "@/data/logoMotion";
 
 interface GamePageProps {
   params: { slug: string };
@@ -85,16 +87,28 @@ export default function GamePage({ params }: GamePageProps) {
 
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <div className="mx-auto max-w-2xl px-4 pt-10 sm:px-6">
-        <h1
-          className={`flex items-center gap-2 text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl`}
-        >
-          <span aria-hidden>{game.emoji}</span>
-          {game.title}
-        </h1>
-        <p className="mt-2 max-w-xl text-sm text-muted sm:text-base">
+      <PageHero
+        title={
+          <span className="flex items-center gap-3">
+            <span
+              aria-hidden
+              data-motion={logoMotion(game.slug)}
+              className="game-logo is-playing inline-block"
+            >
+              {game.emoji}
+            </span>
+            {game.title}
+          </span>
+        }
+        eyebrow={`🎮 ${game.players} · ${game.time}`}
+        emojis={[game.emoji, "🎉"]}
+        width="max-w-2xl"
+      >
+        <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
           {game.blurb}
         </p>
+      </PageHero>
+      <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <div className="mt-8">
           {competitive ? (
             <CompetitiveShell gameTitle={game.title} gameSlug={params.slug}>

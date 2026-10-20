@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 const TITLE = "Terms of Service: 18+ Rules and Party Pass";
 const DESCRIPTION =
@@ -16,10 +17,13 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-dvh bg-background">
-      <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Terms of Service
-        </h1>
+      <PageHero
+        title="Terms of Service"
+        eyebrow="📜 The fine print"
+        emojis={["📜", "🤝"]}
+        width="max-w-2xl"
+      />
+      <div className="mx-auto max-w-2xl px-4 pb-14 sm:px-6">
         <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted sm:text-base">
           <p>
             OffLimits is provided free of charge, as-is, for entertainment. We

@@ -6,6 +6,9 @@ import { SectionHeading } from "./SectionHeading";
 import { catalogBySlug, type CatalogGame } from "@/data/catalog";
 import type { LandingPage as LandingPageData } from "@/data/landingPages";
 import { shareMetadata } from "@/lib/seo";
+import { PageHero } from "./PageHero";
+import { RandomPick } from "./RandomPick";
+import { Reveal } from "./Reveal";
 
 export function landingMetadata(page: LandingPageData): Metadata {
   return {
@@ -41,10 +44,11 @@ export function LandingPage({ page }: { page: LandingPageData }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <section className="mx-auto max-w-content px-4 pb-6 pt-12 sm:px-6 sm:pt-16">
-        <h1 className="text-balance text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-          {page.h1}
-        </h1>
+      <PageHero
+        title={page.h1}
+        eyebrow="🎉 Party guide"
+        emojis={picks.slice(0, 3).map((p) => p.game.emoji)}
+      >
         <div className="mt-4 flex max-w-2xl flex-col gap-3 text-pretty text-base text-muted sm:text-lg">
           {page.intro.map((para, i) => (
             <p key={i}>{para}</p>
@@ -63,7 +67,10 @@ export function LandingPage({ page }: { page: LandingPageData }) {
             </Link>
           ) : null}
           {page.occasionHref ? (
-            <Link href={page.occasionHref} className="btn-ghost w-full sm:w-auto">
+            <Link
+              href={page.occasionHref}
+              className="btn-ghost w-full sm:w-auto"
+            >
               Play the curated deck
             </Link>
           ) : null}
@@ -71,25 +78,34 @@ export function LandingPage({ page }: { page: LandingPageData }) {
             Open a party room
           </Link>
         </div>
-      </section>
+        <div className="pb-6" />
+      </PageHero>
 
       <section className="mx-auto max-w-content px-4 py-6 sm:px-6">
         <SectionHeading title={page.picksHeading} />
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {picks.map(({ game, why }) => (
-            <div key={game.slug} className="flex flex-col gap-2">
-              <CatalogCard game={game} />
-              <p className="px-1 text-sm text-muted">{why}</p>
-            </div>
+          {picks.map(({ game, why }, i) => (
+            <Reveal key={game.slug} delay={(i % 3) * 90}>
+              <div className="flex h-full flex-col gap-2">
+                <CatalogCard game={game} />
+                <p className="px-1 text-sm text-muted">{why}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+      <section
+        id="landing-prompts"
+        className="mx-auto max-w-2xl px-4 py-8 sm:px-6"
+      >
         <SectionHeading title={page.promptsHeading} />
+        <RandomPick target="landing-prompts" />
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-muted marker:font-extrabold marker:text-accent sm:text-base">
           {page.prompts.map((prompt) => (
-            <li key={prompt}>{prompt}</li>
+            <li key={prompt} className="rounded-lg px-2 py-1 transition-colors">
+              {prompt}
+            </li>
           ))}
         </ol>
       </section>
@@ -115,7 +131,7 @@ export function LandingPage({ page }: { page: LandingPageData }) {
           {page.faq.map((item) => (
             <details
               key={item.q}
-              className="group rounded-xl border border-border bg-surface/60 px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
+              className="group rounded-xl border border-border bg-surface/60 px-4 py-3 transition-colors hover:border-accent open:border-accent [&_summary::-webkit-details-marker]:hidden"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-foreground">
                 {item.q}
@@ -126,7 +142,7 @@ export function LandingPage({ page }: { page: LandingPageData }) {
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
+              <p className="mt-2 text-sm leading-relaxed text-muted group-open:animate-fade-up">
                 {item.a}
               </p>
             </details>

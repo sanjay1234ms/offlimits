@@ -10,6 +10,8 @@ import {
   type QuestionList,
 } from "@/data/questionLists";
 import { shareMetadata } from "@/lib/seo";
+import { PageHero } from "./PageHero";
+import { RandomPick } from "./RandomPick";
 
 /** Deck cards for a list, in deck order (heat ascending within a category). */
 function cardsFor(list: QuestionList): DeckCard[] {
@@ -45,7 +47,13 @@ function playHref(list: QuestionList): string {
   return `/play?${params.toString()}`;
 }
 
-function NumberedList({ items, start = 1 }: { items: string[]; start?: number }) {
+function NumberedList({
+  items,
+  start = 1,
+}: {
+  items: string[];
+  start?: number;
+}) {
   return (
     <ol
       start={start}
@@ -85,22 +93,27 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
 
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <section className="mx-auto max-w-2xl px-4 pb-4 pt-12 sm:px-6 sm:pt-16">
-        <h1 className="text-balance text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-          {list.h1}
-        </h1>
+      <PageHero
+        title={list.h1}
+        eyebrow={`📝 ${n} questions`}
+        emojis={["🤔", "😂", "🙈"]}
+        width="max-w-2xl"
+      >
         <p className="mt-4 text-pretty text-base text-muted sm:text-lg">
           {fillCount(list.intro, n)}
         </p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-6 flex flex-col gap-3 pb-4 sm:flex-row">
           {PlayButton}
           {core ? (
-            <Link href={`/games/${core.slug}`} className="btn-ghost w-full sm:w-auto">
+            <Link
+              href={`/games/${core.slug}`}
+              className="btn-ghost w-full sm:w-auto"
+            >
               How to play {core.h1.replace(/ Questions$/, "")}
             </Link>
           ) : null}
         </div>
-      </section>
+      </PageHero>
 
       <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
         <SectionHeading title="How to play" />
@@ -111,7 +124,11 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
         </ol>
       </section>
 
-      <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
+      <section
+        id="question-list"
+        className="mx-auto max-w-2xl px-4 py-6 sm:px-6"
+      >
+        <RandomPick target="question-list" />
         {isTod ? (
           <>
             <SectionHeading title={`${truths.length} truth questions`} />
@@ -137,7 +154,7 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
             <li key={l.slug}>
               <Link
                 href={`/questions/${l.slug}`}
-                className="block rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:border-accent"
+                className="block rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent"
               >
                 {l.h1}
               </Link>
