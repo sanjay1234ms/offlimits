@@ -8,7 +8,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Host Toolkit: House Rules, Scoring & Party Tips";
 const DESCRIPTION =
-  "Host guide for OffLimits party games: house rules, drinking forfeits, scoring and adjudication, setups for 10+ players, and how Party Pass and 18+ mode work.";
+  "Host guide for OffLimits party games: house rules, drinking forfeits, scoring, setups for 10+ players, and how Party Pass and 18+ mode work.";
 
 export const metadata: Metadata = {
   title: TITLE,

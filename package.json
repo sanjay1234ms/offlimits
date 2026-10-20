@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap:lastmod": "node scripts/sitemap-lastmod.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.4",

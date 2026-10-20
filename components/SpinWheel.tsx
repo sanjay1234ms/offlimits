@@ -273,10 +273,10 @@ export function SpinWheel({ initialOptions, initialTitle }: SpinWheelProps = {})
         {/* Options editor */}
         <div className="card flex h-max flex-col gap-4">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-bold text-foreground">
+            <p className="text-sm font-bold text-foreground">
               Options{" "}
               <span className="text-muted">[{count}]</span>
-            </h2>
+            </p>
             <button
               type="button"
               onClick={() => setOptions([])}

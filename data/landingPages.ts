@@ -30,7 +30,7 @@ export interface LandingPage {
 export const LANDING_PAGES: Record<string, LandingPage> = {
   "christmas-party-games": {
     path: "/christmas-party-games",
-    title: "Christmas Party Games: Free Games for Family, Friends & Office",
+    title: "Christmas Party Games for Family & Friends",
     description:
       "Free Christmas party games you can play on one phone: Christmas Would You Rather, holiday charades, trivia and more. No app, no signup, ready in seconds.",
     h1: "Christmas Party Games",
@@ -76,7 +76,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "office-party-games": {
     path: "/office-party-games",
-    title: "Office Party Games: Free Team Games & Icebreakers for Work",
+    title: "Office Party Games: Free Icebreakers for Work",
     description:
       "Free office party games and work icebreakers that run on one phone or a shared screen. Work-safe questions, team trivia, charades and more. No signup.",
     h1: "Office Party Games",
@@ -122,7 +122,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "halloween-party-games": {
     path: "/halloween-party-games",
-    title: "Halloween Party Games: Free Spooky Games for Groups",
+    title: "Halloween Party Games: Free Spooky Group Games",
     description:
       "Free Halloween party games for kids, teens and adults: spooky Would You Rather, Halloween charades, imposter games and more. Play on one phone, no signup.",
     h1: "Halloween Party Games",
@@ -167,9 +167,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "drinking-games": {
     path: "/drinking-games",
-    title: "Drinking Games: Free Online Drinking Games for Groups",
+    title: "Drinking Games: Free Online Games for Groups",
     description:
-      "Free online drinking games you can play on one phone: Never Have I Ever, Most Likely To, Truth or Dare and more, with sip rules and a forfeit wheel. 18+ only.",
+      "Free drinking games to play on one phone: Never Have I Ever, Most Likely To, Truth or Dare and more, with sip rules and a forfeit wheel. 18+ only.",
     h1: "Drinking Games",
     intro: [
       "Free drinking games that run on one phone, with house rules built in. Pick a game, agree on the sip rules below, and pass the phone around.",
@@ -213,7 +213,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
 
   "classroom-games": {
     path: "/classroom-games",
-    title: "Classroom Games: Free Games for Students on One Screen",
+    title: "Classroom Games: Free Games for Students",
     description:
       "Free classroom games for students: trivia, charades, This or That, Would You Rather and more. Run them from one screen or projector, no student accounts.",
     h1: "Classroom Games",
@@ -258,7 +258,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "party-games-for-large-groups": {
     path: "/party-games-for-large-groups",
-    title: "Party Games for Large Groups: Free Games for 10 to 30+ People",
+    title: "Party Games for Large Groups (10 to 30+)",
     description:
       "Free party games for large groups of 10, 20 or 30+ people. Everyone plays every round, on one shared phone or their own. No signup, no download, no app.",
     h1: "Party Games for Large Groups",
@@ -303,9 +303,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "virtual-party-games": {
     path: "/virtual-party-games",
-    title: "Virtual Party Games for Zoom & Teams: Free Online Games",
+    title: "Virtual Party Games for Zoom & Teams",
     description:
-      "Free virtual party games for Zoom, Teams and Google Meet. Share your screen or open a party room so everyone plays on their own phone. No signup, no download.",
+      "Free virtual party games for Zoom, Teams and Google Meet. Share your screen or open a party room so everyone plays on their own phone. No signup.",
     h1: "Virtual Party Games for Zoom and Teams",
     intro: [
       "Free games for video calls. Share your screen on Zoom, Teams or Google Meet and read the questions out, or open a party room so everyone answers on their own phone.",
@@ -346,9 +346,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "sleepover-games": {
     path: "/sleepover-games",
-    title: "Sleepover Games: Free Truth or Dare, Would You Rather & More",
+    title: "Sleepover Games: Truth or Dare & More",
     description:
-      "Free sleepover games for teens and tweens: clean Truth or Dare, Would You Rather, Never Have I Ever, charades and more. Play on one phone, no signup needed.",
+      "Free sleepover games for teens and tweens: clean Truth or Dare, Would You Rather, Never Have I Ever, charades and more. One phone, no signup.",
     h1: "Sleepover Games",
     intro: [
       "Free sleepover games you can play on one phone, from clean Truth or Dare to charades and Would You Rather.",
@@ -390,7 +390,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "couples-games": {
     path: "/couples-games",
-    title: "Couples Games: Free Date Night Games to Play Together",
+    title: "Couples Games: Free Date Night Games",
     description:
       "Free couples games for date night: Would You Rather, How Well Do You Know Me, Truth or Dare and This or That for couples. Play on one phone, no signup.",
     h1: "Couples Games for Date Night",
