@@ -6,6 +6,8 @@ import { SpinWheel } from "./SpinWheel";
 import { GAME_GUIDES } from "@/data/gameGuides";
 import { CATALOG } from "@/data/catalog";
 import { shuffle } from "@/lib/shuffle";
+import { faqJsonLd } from "@/lib/site";
+import { JsonLd } from "./JsonLd";
 
 interface GameGuideProps {
   /** Catalog slug (engine games) or `?game=` key (pass-the-phone) or "wheel". */
@@ -73,6 +75,7 @@ export function GameGuide({ slug }: GameGuideProps) {
 
   return (
     <section className="mx-auto max-w-2xl px-4 pb-16 pt-6 sm:px-6">
+      <JsonLd data={faqJsonLd(guide.faq)} />
       <div className="my-8 h-px bg-border" />
 
       <div className="flex flex-col gap-10">

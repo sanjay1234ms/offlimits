@@ -11,21 +11,57 @@ export function absoluteUrl(path: string): string {
   return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
+/** One-line brand summary reused by the entity schema and /llms.txt. It
+ * also separates OffLimits from the unrelated "Off Limits!" iOS word game. */
+export const BRAND_DESCRIPTION =
+  "OffLimits (playofflimits.com) is a free collection of browser-based party games for groups: Would You Rather, Never Have I Ever, Truth or Dare, Most Likely To, trivia, charades and more. Games run on one phone passed around the room, with no app download and no signup.";
+
+/** Public profiles for the brand. Add each social account URL here as it is
+ * created; Google uses these to connect the profiles to the site. */
+export const BRAND_SAME_AS: string[] = [];
+
 export const ORGANIZATION_JSON_LD: JsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
-  alternateName: ["PlayOffLimits", "playofflimits.com"],
+  alternateName: [
+    "PlayOffLimits",
+    "Play OffLimits",
+    "OffLimits Party Games",
+    "playofflimits.com",
+  ],
   url: `${SITE_URL}/`,
-  logo: `${SITE_URL}/icon.svg`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/logo.png`,
+    width: 512,
+    height: 512,
+  },
+  description: BRAND_DESCRIPTION,
+  disambiguatingDescription:
+    "OffLimits is the website playofflimits.com, a free browser party game site. It is not the \"Off Limits! Word Party Game\" iOS app.",
   email: CONTACT_EMAIL,
+  brand: { "@id": `${SITE_URL}/#brand` },
+  ...(BRAND_SAME_AS.length ? { sameAs: BRAND_SAME_AS } : {}),
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
     email: CONTACT_EMAIL,
     url: `${SITE_URL}/contact`,
   },
+};
+
+export const BRAND_JSON_LD: JsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "@id": `${SITE_URL}/#brand`,
+  name: SITE_NAME,
+  alternateName: ["PlayOffLimits", "OffLimits Party Games"],
+  url: `${SITE_URL}/`,
+  logo: `${SITE_URL}/logo.png`,
+  slogan: "Party games with no limits",
+  description: BRAND_DESCRIPTION,
 };
 
 /** Breadcrumb trail; the homepage is prepended automatically. */

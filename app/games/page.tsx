@@ -7,7 +7,7 @@ import { COMPETITIVE_ENGINE_SLUGS } from "@/data/competitive";
 import { PICKER_META, PICKER_SLUGS } from "@/data/pickers";
 import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbJsonLd } from "@/lib/site";
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "All Party Games: Find a Game for Your Group";
 const DESCRIPTION =
@@ -77,7 +77,23 @@ const GROUPS: {
 export default function GamesPage() {
   return (
     <div className="min-h-dvh bg-background pb-24">
-      <JsonLd data={breadcrumbJsonLd([{ name: "All games", path: "/games" }])} />
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([{ name: "All games", path: "/games" }]),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "All OffLimits party games",
+            url: absoluteUrl("/games"),
+            itemListElement: GROUPS.flatMap((g) => g.links).map((link, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: link.label,
+              url: absoluteUrl(link.href),
+            })),
+          },
+        ]}
+      />
       <PageHero
         title="What kind of game do you need?"
         eyebrow="🎲 All games"

@@ -21,7 +21,7 @@ export const CORE_GAME_PAGES: CoreGamePage[] = [
       "Hundreds of funny, hard and clean Would You Rather questions. Play free on any phone, no signup or download. Pick a question, pass the phone, argue it out.",
     h1: "Would You Rather Questions",
     intro:
-      "Two impossible options, one choice, and a room full of people who want you to defend it. Tap for a new question, filter for family, office or couples, and pass the phone around. Free, no signup.",
+      "Two impossible options, one choice, and a room full of people who want you to defend it. Play Would You Rather online with hundreds of funny, hard and clean questions: tap for a new one, filter for family, office or couples, and pass the phone around. Free, no signup.",
   },
   {
     slug: "never-have-i-ever",

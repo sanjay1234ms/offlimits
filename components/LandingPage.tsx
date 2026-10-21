@@ -10,7 +10,7 @@ import { PageHero } from "./PageHero";
 import { RandomPick } from "./RandomPick";
 import { Reveal } from "./Reveal";
 import { JsonLd } from "./JsonLd";
-import { breadcrumbJsonLd } from "@/lib/site";
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/site";
 
 export function landingMetadata(page: LandingPageData): Metadata {
   return {
@@ -44,6 +44,19 @@ export function LandingPage({ page }: { page: LandingPageData }) {
       <JsonLd
         data={[
           faqJsonLd,
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: page.picksHeading,
+            url: absoluteUrl(page.path),
+            numberOfItems: picks.length,
+            itemListElement: picks.map(({ game }, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: game.title,
+              url: absoluteUrl(game.href),
+            })),
+          },
           breadcrumbJsonLd([{ name: page.h1, path: page.path }]),
         ]}
       />
