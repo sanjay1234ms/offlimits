@@ -4,7 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Footer, Header, ThemeProvider, TipJar } from "@/components";
 import { JsonLd } from "@/components/JsonLd";
-import { ORGANIZATION_JSON_LD } from "@/lib/site";
+import { BRAND_JSON_LD, ORGANIZATION_JSON_LD } from "@/lib/site";
 
 const GA_ID = "G-ZVT3JPNBLF";
 
@@ -85,7 +85,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
-        <JsonLd data={ORGANIZATION_JSON_LD} />
+        <JsonLd data={[ORGANIZATION_JSON_LD, BRAND_JSON_LD]} />
         <ThemeProvider>
           <Header />
           {children}

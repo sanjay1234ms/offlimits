@@ -3,6 +3,13 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Dices, Flame } from "lucide-react";
 import { CATALOG } from "@/data/catalog";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  BRAND_DESCRIPTION,
+  SITE_URL,
+  absoluteUrl,
+  webApplicationJsonLd,
+} from "@/lib/site";
 import {
   CompetitiveGames,
   GameCatalog,
@@ -35,20 +42,57 @@ const GAME_COUNT = CATALOG.filter((g) => !g.adult).length;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "OffLimits: Free Online Party Games for Groups",
+    absolute: "OffLimits Party Games: Free Online Games for Groups",
   },
   alternates: { canonical: "/" },
 };
 
 // Tells Google the site's name (and the "playofflimits" spelling people
-// search for) so brand searches resolve to the homepage.
+// search for) so brand searches resolve to the homepage. No SearchAction:
+// the site has no search page for it to point at.
 const WEBSITE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
   name: "OffLimits",
-  alternateName: ["playofflimits", "Play OffLimits", "playofflimits.com"],
-  url: "https://playofflimits.com/",
+  alternateName: [
+    "playofflimits",
+    "Play OffLimits",
+    "OffLimits Party Games",
+    "playofflimits.com",
+  ],
+  url: `${SITE_URL}/`,
+  description: BRAND_DESCRIPTION,
+  inLanguage: "en",
+  publisher: { "@id": `${SITE_URL}/#organization` },
 };
+
+// The site itself as a free, no-install app, plus the games listed on the page.
+const HOME_JSON_LD = [
+  WEBSITE_JSON_LD,
+  {
+    ...webApplicationJsonLd({
+      name: "OffLimits Party Games",
+      description: BRAND_DESCRIPTION,
+      path: "/",
+    }),
+    "@id": `${SITE_URL}/#app`,
+    featureList: CATALOG.filter((g) => !g.adult).map((g) => g.title),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Free party games on OffLimits",
+    url: `${SITE_URL}/`,
+    numberOfItems: CATALOG.filter((g) => !g.adult).length,
+    itemListElement: CATALOG.filter((g) => !g.adult).map((g, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: g.title,
+      url: absoluteUrl(g.href),
+    })),
+  },
+];
 
 const SEASONAL_LINKS = [
   { href: "/halloween-party-games", label: "Halloween party games" },
@@ -79,10 +123,7 @@ const OCCASION_TICKER = [
 export default function HomePage() {
   return (
     <div className="min-h-dvh bg-background">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
-      />
+      <JsonLd data={HOME_JSON_LD} />
       <main>
         <Hero />
 

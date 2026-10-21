@@ -36,7 +36,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     h1: "Christmas Party Games",
     intro: [
       "Free Christmas party games that run in the browser. Nobody has to print cards, download an app or make an account. Open a game on any phone, pass it around, and you are playing before the mince pies are out.",
-      "They work for a family Christmas, a night in with friends, or the office party, and every game starts clean so you can play in front of the whole family.",
+      "There is something for every kind of Christmas get-together: Christmas Would You Rather to break the ice, holiday charades and a team Christmas quiz once everyone has eaten, and imposter games for big family groups. Every game starts clean, so you can play in front of grandparents and kids, and the 18+ packs stay locked unless the adults turn them on.",
     ],
     picksHeading: "Best games for a Christmas party",
     picks: [
@@ -59,6 +59,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       "Would you rather do all the cooking or all the washing up on Christmas Day?",
       "Would you rather have a white Christmas or a Christmas on the beach?",
       "Would you rather wrap every present or untangle every string of lights?",
+      "Would you rather sit at the kids' table every year or host Christmas dinner every year?",
+      "Would you rather get coal in your stocking or socks under the tree?",
+      "Would you rather sing carols door to door or perform in the school nativity again?",
+      "Would you rather have Christmas in July or two Christmases in December?",
+      "Would you rather be stuck in a lift with Santa or with the Grinch?",
     ],
     tipsHeading: "How to run Christmas party games",
     tips: [
@@ -72,6 +77,10 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are the games family friendly?", a: "Yes. Every game starts in a clean, family-safe mode. Adult content only appears if someone turns it on and confirms they are 18 or over." },
       { q: "How many people can play?", a: "Most games work for 3 to 30 players on one phone. You can also open a party room so everyone plays on their own phone." },
       { q: "Do these work for an office Christmas party?", a: "Yes. Use the Office filter in Would You Rather and Most Likely To, or try trivia in teams. See our office party games page for more ideas." },
+      { q: "What are the best Christmas party games for adults?", a: "Most Likely To, Truth or Dare and Buzzkill get the loudest laughs with adults. For a grown-up crowd later in the evening, the optional 18+ packs add spicier questions once everyone has confirmed they are over 18." },
+      { q: "What Christmas games can you play with no supplies?", a: "All of them. Would You Rather, charades, trivia and Odd One Out only need one phone. There is nothing to print, buy or set up." },
+      { q: "What are good Christmas games for a large group?", a: "Odd One Out, Most Likely To and team trivia work best for big family gatherings because everyone plays every round. Split into two teams for charades if there are more than ten of you." },
+      { q: "Can we play Christmas games over Zoom?", a: "Yes. Share your screen on Zoom, Teams or FaceTime and read the questions out, or open a party room so each family joins on their own phone." },
     ],
   },
   "office-party-games": {
@@ -127,8 +136,8 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       "Free Halloween party games for kids, teens and adults: spooky Would You Rather, Halloween charades, imposter games and more. Play on one phone, no signup.",
     h1: "Halloween Party Games",
     intro: [
-      "Free Halloween party games that run on any phone. Use the questions and charades ideas below as they are, or open one of the games and pass the phone around the room.",
-      "Everything starts clean, so it works for a kids' party, a classroom or a costume party with friends.",
+      "Free Halloween party games that run on any phone. Use the spooky Would You Rather questions and Halloween charades ideas below as they are, or open one of the games and pass the phone around the room.",
+      "Everything starts clean, so it works for a kids' Halloween party, a classroom or a teen sleepover. For an adult costume party, Truth or Dare, Most Likely To and the imposter game Odd One Out keep the whole room playing, and there is nothing to print or set up.",
     ],
     picksHeading: "Best games for a Halloween party",
     picks: [
@@ -151,6 +160,10 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       "Charades: a vampire at the dentist",
       "Charades: trick-or-treating at a house that gives out vegetables",
       "Charades: a mummy unravelling at the worst moment",
+      "Would you rather have a skeleton as a best friend or a black cat that talks?",
+      "Would you rather trick-or-treat in a blizzard or in a heatwave?",
+      "Charades: a ghost who is scared of people",
+      "Charades: Frankenstein learning to dance",
     ],
     tipsHeading: "How to run Halloween party games",
     tips: [
@@ -163,6 +176,10 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are these Halloween games free?", a: "Yes. Every game is free, with no signup and no download." },
       { q: "Are they OK for kids?", a: "Yes. All games start in a clean mode. Adult content stays off unless an adult turns it on and confirms their age." },
       { q: "How many players do we need?", a: "Most games work for 3 to 30 people on one phone, and you can open a party room so everyone plays on their own phone." },
+      { q: "What are the best Halloween party games for adults?", a: "Odd One Out plays like a murder mystery with the lights down, and Truth or Dare and Most Likely To get louder as the night goes on. Adults can turn on the 18+ packs after an age check." },
+      { q: "What Halloween games are good for teens?", a: "Truth or Dare with the clean packs, spooky Would You Rather and Fake News Factory, where everyone writes a ghost story that sounds true and the group spots the fakes." },
+      { q: "What are easy Halloween games with no prep?", a: "Read the spooky Would You Rather questions and charades ideas on this page out loud, or open any game on one phone. Nothing needs printing or buying." },
+      { q: "What Halloween games work for a big group or classroom?", a: "Odd One Out, charades in two teams and a quick Halloween trivia round all work for 10 to 30 people, and nobody has to sit out." },
     ],
   },
   "drinking-games": {

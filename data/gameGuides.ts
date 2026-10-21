@@ -769,6 +769,22 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     },
     faq: [
       {
+        q: "How do you play Would You Rather?",
+        a: "Someone reads out two options, and every player has to pick one. No neither, no both. Then each person defends their choice in a sentence before you move to the next question. On OffLimits you tap for each new question and pass the phone along.",
+      },
+      {
+        q: "What are good Would You Rather questions?",
+        a: "The best ones make both options equally tempting or equally awful, so the room splits. The deck here has funny, hard, clean and couples questions, and the question lists page has ready-made sets for kids, work and couples.",
+      },
+      {
+        q: "Can you play Would You Rather online for free?",
+        a: "Yes. It runs in any phone or laptop browser with no download and no signup. Pass one phone around, or open a party room so everyone plays on their own phone.",
+      },
+      {
+        q: "Is Would You Rather OK for kids?",
+        a: "Yes. The game starts in a clean mode, and the Friends category with the Spicy Meter at one keeps every question family friendly. The 18+ pack stays locked behind an age check.",
+      },
+      {
         q: "Someone will not pick A or B.",
         a: "That is a Bail out. Tap it, spin the forfeit wheel, and they take what it lands on. Then they still answer.",
       },
