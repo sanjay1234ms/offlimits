@@ -11,6 +11,7 @@ import {
   webApplicationJsonLd,
 } from "@/lib/site";
 import {
+  ChristmasSection,
   CompetitiveGames,
   GameCatalog,
   GameMarquee,
@@ -147,6 +148,12 @@ export default function HomePage() {
             <GameCatalog />
           </div>
         </section>
+
+        <Reveal>
+          <div className="pt-8">
+            <ChristmasSection />
+          </div>
+        </Reveal>
 
         <Reveal>
           <section className="mx-auto max-w-content px-4 py-10 sm:px-6">
