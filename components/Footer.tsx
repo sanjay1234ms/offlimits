@@ -46,6 +46,8 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Sleepover Games", href: "/sleepover-games" },
       { label: "Couples Games", href: "/couples-games" },
       { label: "Secret Santa Generator", href: "/secret-santa" },
+      { label: "White Elephant Game", href: "/white-elephant" },
+      { label: "Secret Santa Questionnaire", href: "/secret-santa/questionnaire" },
       { label: "Couples Game Night", href: "/play?category=couples" },
       { label: "House Party Icebreakers", href: "/play?vibe=icebreaker" },
       {

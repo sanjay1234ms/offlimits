@@ -1,34 +1,13 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import {
-  ChristmasCountdown,
-  JiggleBadge,
-  SecretSantaGift,
-  Snowfall,
-} from "./HolidayFx";
-
-const SIDE_CARDS = [
-  {
-    href: "/christmas-party-games",
-    emoji: "🎄",
-    badge: "bg-emerald-300",
-    title: "Christmas party games",
-    blurb: "Festive Would You Rather, charades and trivia for the whole family.",
-  },
-  {
-    href: "/office-party-games",
-    emoji: "🥂",
-    badge: "bg-sky-300",
-    title: "Office holiday party",
-    blurb: "Icebreakers that get the team laughing, and nobody called into HR.",
-  },
-];
+import { ChristmasCountdown, SecretSantaGift, Snowfall } from "./HolidayFx";
+import { HolidayCards } from "./HolidayCards";
 
 const CARD =
   "rounded-[1.75rem] border-[3px] border-slate-900 bg-white text-slate-900 shadow-[6px_6px_0_#0f172a] transition-[transform,box-shadow] duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[9px_9px_0_#0f172a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[3px_3px_0_#0f172a]";
 
-/** Seasonal homepage band: a big interactive Secret Santa card plus quick
- * links to the Christmas and office party pages, over falling snow. */
+/** Seasonal homepage band: a big interactive Secret Santa card plus live
+ * questionnaire and White Elephant cards, over falling snow. */
 export function ChristmasSection() {
   return (
     <section
@@ -65,8 +44,8 @@ export function ChristmasSection() {
                 Secret Santa
               </h3>
               <p className="mt-2 max-w-xs text-sm text-slate-600 sm:text-base">
-                Type the names, hit draw, pass the phone. Nobody gets
-                themselves and nobody else sees who you got.
+                Add the names, hit draw, share one link. Everyone taps
+                their name to see who they got, and nobody else can.
               </p>
               <Link
                 href="/secret-santa"
@@ -79,29 +58,7 @@ export function ChristmasSection() {
             <SecretSantaGift />
           </div>
 
-          <div className="grid gap-5">
-            {SIDE_CARDS.map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                className={`${CARD} group flex items-center gap-4 p-5 sm:p-6`}
-              >
-                <JiggleBadge emoji={card.emoji} className={card.badge} />
-                <span className="min-w-0 flex-1">
-                  <span className="block text-lg font-black tracking-tight">
-                    {card.title}
-                  </span>
-                  <span className="mt-0.5 block text-sm text-slate-600">
-                    {card.blurb}
-                  </span>
-                </span>
-                <ArrowRight
-                  className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-slate-900"
-                  aria-hidden
-                />
-              </Link>
-            ))}
-          </div>
+          <HolidayCards />
         </div>
       </div>
     </section>

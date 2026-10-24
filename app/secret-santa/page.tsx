@@ -74,6 +74,8 @@ const FAQ = [
 
 const MORE_TOOLS = [
   { href: "/christmas-party-games", label: "Christmas party games", emoji: "🎄" },
+  { href: "/white-elephant", label: "White Elephant game", emoji: "🐘" },
+  { href: "/secret-santa/questionnaire", label: "Santa questionnaire", emoji: "📝" },
   { href: "/office-party-games", label: "Office party games", emoji: "💼" },
   { href: "/pickers/name", label: "Random name picker", emoji: "🎯" },
   { href: "/pickers/teams", label: "Team generator", emoji: "👥" },
