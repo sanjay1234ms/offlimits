@@ -14,6 +14,7 @@ export { ScrollProgress } from "./ScrollProgress";
 export { Tilt } from "./Tilt";
 export { LogoPlayground } from "./LogoPlayground";
 export { OccasionStrip } from "./OccasionStrip";
+export { ChristmasSection } from "./ChristmasSection";
 export { SectionHeading } from "./SectionHeading";
 export { PageHero } from "./PageHero";
 export { SwipeCard } from "./SwipeCard";
