@@ -44,7 +44,15 @@ const FAQ = [
   },
   {
     q: "Can the organiser see who got who?",
-    a: "No. After the draw you only get the link, never the list of pairings, so whoever sets it up can take part without spoiling their own surprise.",
+    a: "No. The matching happens on our server and the organiser page only shows who has opened their name, never the pairings, so whoever sets it up can take part without spoiling their own surprise.",
+  },
+  {
+    q: "Can two people open the same name?",
+    a: "No. The first phone to open a name claims it, and it locks for everyone else. That same phone can come back to the link any time to see its match again.",
+  },
+  {
+    q: "What if someone taps the wrong name?",
+    a: "Open your organiser page and tap Reset next to that name. It unlocks so the right person can open it, and nobody sees any pairings along the way.",
   },
   {
     q: "Can I stop couples drawing each other?",
@@ -55,16 +63,12 @@ const FAQ = [
     a: "Never. The draw checks every pairing before the link is made.",
   },
   {
-    q: "Are the names saved anywhere?",
-    a: "No. The draw is packed into the link itself, so there's no account or database holding your group's names. Anyone with the link can open it, so share it only with your group.",
-  },
-  {
-    q: "What if we're all in the same room?",
-    a: "After drawing, choose \"Everyone's here: use this phone\" and pass it around. Each person taps their name, looks, and hides it before handing it on.",
+    q: "How long does the draw stay available?",
+    a: "About five months, long enough for the whole gifting season. After that it's deleted. There are no accounts, so save your organiser link somewhere safe.",
   },
   {
     q: "What if I need to change the names?",
-    a: "Tap Edit and redraw. That makes a fresh link, so send the new one and tell people to ignore the old one.",
+    a: "Tap Edit and redraw. That makes a brand new draw, so send the new link and tell people to ignore the old one.",
   },
 ];
 
