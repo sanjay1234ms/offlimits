@@ -9,7 +9,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Secret Santa Generator: Free Name Draw";
 const DESCRIPTION =
-  "Free Secret Santa generator. Type everyone's names, draw, and pass the phone so each person privately sees who they're buying for. No email, no signup.";
+  "Free Secret Santa generator. Add names, keep couples apart, set a budget and share one link. Everyone taps their name to see who they're buying for. No email, no signup.";
 
 export const metadata: Metadata = {
   title: { absolute: `${TITLE} | OffLimits` },
@@ -19,29 +19,61 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  "Type everyone's name, one per line, and add a budget if you like.",
-  "Tap Draw names. Nobody can draw themselves.",
-  "Pass the phone. Each person taps their own name, sees who they're buying for, then hides it.",
-  "Once everyone has looked, you're done. Nothing is saved or sent anywhere.",
+  {
+    title: "Add everyone's names",
+    body: "One per line. You need at least three people, and big groups work just as well.",
+  },
+  {
+    title: "Set any rules",
+    body: "Keep partners or siblings apart, pick a budget and currency, and add the swap date.",
+  },
+  {
+    title: "Share one link",
+    body: "Drop it in the group chat. Each person taps their own name and sees only their match.",
+  },
 ];
 
 const FAQ = [
   {
     q: "Is this Secret Santa generator free?",
-    a: "Yes. No signup, no emails and no app. It runs entirely on the phone you're holding.",
+    a: "Yes. No signup, no app and no email addresses. You add names, draw, and share a link.",
+  },
+  {
+    q: "How does everyone find out who they got?",
+    a: "Send the one link to your group. Each person opens it, taps their name, confirms it's them, and opens a gift to see who they're buying for.",
+  },
+  {
+    q: "Can the organiser see who got who?",
+    a: "No. After the draw you only get the link, never the list of pairings, so whoever sets it up can take part without spoiling their own surprise.",
+  },
+  {
+    q: "Can I stop couples drawing each other?",
+    a: "Yes. Add a keep-apart rule for any two people and they'll never get each other, in either direction. If the rules can't all work for your group, we'll tell you before drawing.",
   },
   {
     q: "Can someone draw themselves?",
-    a: "No. The draw always gives everyone someone else.",
+    a: "Never. The draw checks every pairing before the link is made.",
   },
   {
     q: "Are the names saved anywhere?",
-    a: "No. Names stay on this phone and disappear when you close or refresh the page.",
+    a: "No. The draw is packed into the link itself, so there's no account or database holding your group's names. Anyone with the link can open it, so share it only with your group.",
   },
   {
-    q: "How many people can take part?",
-    a: "Three or more. There's no upper limit.",
+    q: "What if we're all in the same room?",
+    a: "After drawing, choose \"Everyone's here: use this phone\" and pass it around. Each person taps their name, looks, and hides it before handing it on.",
   },
+  {
+    q: "What if I need to change the names?",
+    a: "Tap Edit and redraw. That makes a fresh link, so send the new one and tell people to ignore the old one.",
+  },
+];
+
+const MORE_TOOLS = [
+  { href: "/christmas-party-games", label: "Christmas party games", emoji: "🎄" },
+  { href: "/office-party-games", label: "Office party games", emoji: "💼" },
+  { href: "/pickers/name", label: "Random name picker", emoji: "🎯" },
+  { href: "/pickers/teams", label: "Team generator", emoji: "👥" },
+  { href: "/wheel", label: "Spin the wheel", emoji: "🎡" },
 ];
 
 export default function SecretSantaPage() {
@@ -52,26 +84,60 @@ export default function SecretSantaPage() {
         title="Secret Santa Generator"
         eyebrow="🎁 Gift swap"
         emojis={["🎁", "🎄", "🎅"]}
-        width="max-w-2xl"
+        width="max-w-3xl"
       >
         <p className="mt-4 text-pretty text-base text-muted sm:text-lg">
-          Draw Secret Santa names in seconds on one phone. No emails, no
-          accounts, and nobody can draw themselves.
+          Draw names for your group in under a minute. One link, no signup, no
+          email addresses, and not even the organiser sees who got who.
         </p>
       </PageHero>
-      <section className="mx-auto max-w-2xl px-4 pb-6 sm:px-6">
+
+      <section id="santa-tool" className="mx-auto max-w-5xl scroll-mt-24 px-4 pb-6 sm:px-6">
         <div className="mt-6">
           <SecretSantaDraw />
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
+      <section className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
         <SectionHeading title="How it works" />
-        <ol className="mt-4 list-decimal space-y-2 pl-6 text-sm leading-relaxed text-muted sm:text-base">
-          {STEPS.map((s) => (
-            <li key={s}>{s}</li>
+        <ol className="mt-5 flex flex-col gap-3">
+          {STEPS.map((s, i) => (
+            <li key={s.title} className="glass-card flex items-start gap-4 p-4 sm:p-5">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-white">
+                {i + 1}
+              </span>
+              <div>
+                <h3 className="font-extrabold text-foreground">{s.title}</h3>
+                <p className="mt-0.5 text-sm leading-relaxed text-muted">{s.body}</p>
+              </div>
+            </li>
           ))}
         </ol>
+      </section>
+
+      <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
+        <SectionHeading title="Why draw names online instead of from a hat" />
+        <div className="mt-4 space-y-4 text-base leading-relaxed text-muted">
+          <p>
+            Pulling names from a hat has two flaws. Someone always picks their
+            own name and you start again with everyone watching, and it only
+            works when the whole group is in one room. For families spread
+            across cities and teams that work from home, that rarely happens.
+          </p>
+          <p>
+            An online draw fixes both. Every pairing is checked before anyone
+            looks, so nobody gets themselves, and people can join from their
+            phone wherever they are. Keep-apart rules go one better than a hat
+            ever could: partners who share a house won&apos;t end up shopping
+            for each other.
+          </p>
+          <p>
+            The one thing to agree up front is the budget. Mismatched spending
+            causes more awkward moments than any bad match, so set a number
+            when you make the draw and everyone sees it when they open their
+            name.
+          </p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
@@ -97,16 +163,22 @@ export default function SecretSantaPage() {
             </details>
           ))}
         </div>
-        <p className="mt-8 text-sm text-muted">
-          Planning the party too? See our{" "}
-          <Link
-            href="/christmas-party-games"
-            className="font-semibold text-accent hover:underline"
-          >
-            Christmas party games
-          </Link>
-          .
-        </p>
+      </section>
+
+      <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
+        <SectionHeading title="More for the holidays" />
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {MORE_TOOLS.map((t) => (
+            <Link
+              key={t.href}
+              href={t.href}
+              className="glass-card flex items-center gap-2 px-4 py-3 text-sm font-bold text-foreground transition-transform hover:-translate-y-0.5"
+            >
+              <span aria-hidden>{t.emoji}</span>
+              {t.label}
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );
