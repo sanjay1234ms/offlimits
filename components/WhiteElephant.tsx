@@ -99,7 +99,7 @@ function ShuffleNames({
           onChange={(e) => setRaw(e.target.value)}
           rows={6}
           spellCheck={false}
-          placeholder={"Priya\nSam\nJordan\nAlex"}
+          placeholder={"Priya\nJulia\nJordan\nAlex"}
           className={`${FIELD} resize-y font-mono leading-relaxed`}
         />
       </label>

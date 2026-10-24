@@ -4,6 +4,8 @@ import { CATALOG } from "@/data/catalog";
 import { ConfettiLink } from "./ConfettiLink";
 import { HeroDeck } from "./HeroDeck";
 import { HeroSpotlight } from "./HeroSpotlight";
+import { Magnetic } from "./Magnetic";
+import { PeekMascot } from "./PeekMascot";
 import { RotatingWord } from "./RotatingWord";
 import { SurpriseButton } from "./SurpriseButton";
 
@@ -76,8 +78,11 @@ export function Hero() {
 
           <h1 className="text-balance text-5xl font-black leading-[1.05] tracking-tight text-foreground sm:text-7xl">
             Party games with{" "}
-            <span className="mt-2 inline-block -rotate-2 animate-sticker rounded-2xl border-[3px] border-slate-900 bg-yellow-300 px-3 pb-1 text-slate-900 shadow-[5px_5px_0_#0f172a] motion-reduce:animate-none sm:px-4">
-              no limits
+            <span className="relative mt-2 inline-block">
+              <PeekMascot />
+              <span className="relative z-10 inline-block -rotate-2 animate-sticker rounded-2xl border-[3px] border-slate-900 bg-yellow-300 px-3 pb-1 text-slate-900 shadow-[5px_5px_0_#0f172a] motion-reduce:animate-none sm:px-4">
+                no limits
+              </span>
             </span>
           </h1>
 
@@ -95,6 +100,7 @@ export function Hero() {
 
           <div className="flex w-full flex-col items-center gap-4 lg:items-start">
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              <Magnetic className="w-full sm:w-auto">
               <ConfettiLink
                 href="/games/would-you-rather"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-full border-[3px] border-slate-900 bg-lime-300 px-8 py-4 text-lg font-extrabold text-slate-900 shadow-[5px_5px_0_#0f172a] transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[7px_7px_0_#0f172a] active:translate-y-0.5 active:shadow-[2px_2px_0_#0f172a] sm:w-auto"
@@ -105,7 +111,10 @@ export function Hero() {
                   aria-hidden
                 />
               </ConfettiLink>
+              </Magnetic>
+              <Magnetic className="w-full sm:w-auto">
               <SurpriseButton className="inline-flex w-full items-center justify-center gap-2 rounded-full border-[3px] border-slate-900 bg-white px-7 py-4 text-lg font-extrabold text-slate-900 shadow-[5px_5px_0_#0f172a] transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[7px_7px_0_#0f172a] active:translate-y-0.5 active:shadow-[2px_2px_0_#0f172a] sm:w-auto" />
+              </Magnetic>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm font-semibold lg:justify-start">
               <Link

@@ -106,7 +106,7 @@ function ResultCard({
 /* ------------------------------------------------------------------ */
 
 function NamePicker({ meta }: { meta: PickerMeta }) {
-  const [raw, setRaw] = useState("Alex\nJordan\nSam\nTaylor\nMorgan\nCasey");
+  const [raw, setRaw] = useState("Alex\nJordan\nJulia\nTaylor\nMorgan\nCasey");
   const [remaining, setRemaining] = useState<string[] | null>(null);
   const [drawn, setDrawn] = useState<string | null>(null);
   const pool = useMemo(() => parseList(raw), [raw]);
@@ -162,7 +162,7 @@ function NamePicker({ meta }: { meta: PickerMeta }) {
 
 function TeamGenerator({ meta }: { meta: PickerMeta }) {
   const [raw, setRaw] = useState(
-    "Alex\nJordan\nSam\nTaylor\nMorgan\nCasey\nJamie\nRiley",
+    "Alex\nJordan\nReg\nTaylor\nMorgan\nCasey\nJamie\nRiley",
   );
   const [teamCount, setTeamCount] = useState(2);
   const [teams, setTeams] = useState<string[][] | null>(null);

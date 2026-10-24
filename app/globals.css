@@ -776,3 +776,25 @@ body {
 :root:not(.dark) .filter-chip.is-adult[aria-pressed="true"] {
   color: #ffffff;
 }
+
+/* ---------- Homepage interaction extras ---------- */
+
+/* PeekMascot: squish on tap. */
+@keyframes peek-squish {
+  0% { transform: scale(1, 1); }
+  35% { transform: scale(1.18, 0.78) translateY(4px); }
+  70% { transform: scale(0.92, 1.1) translateY(-3px); }
+  100% { transform: scale(1, 1); }
+}
+.peek-mascot { transform-origin: bottom center; }
+
+/* ScrollWords: giant outlined type. */
+.scroll-words {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(148, 163, 184, 0.35);
+}
+.scroll-words--accent {
+  -webkit-text-stroke: 2px rgba(244, 114, 182, 0.55);
+}
+:root:not(.dark) .scroll-words { -webkit-text-stroke-color: rgba(15, 23, 42, 0.18); }
+:root:not(.dark) .scroll-words--accent { -webkit-text-stroke-color: rgba(219, 39, 119, 0.45); }

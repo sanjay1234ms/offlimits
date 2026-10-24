@@ -23,6 +23,30 @@ import {
   SectionHeading,
   TwoWaysToPlay,
 } from "@/components";
+import { QuickRound, type QuickPrompt } from "@/components/QuickRound";
+import { ScrollWords } from "@/components/ScrollWords";
+import gamesData from "@/data/games.json";
+
+const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** Clean "Would you rather X or Y?" prompts from the main deck, split into
+ * two tappable sides for the homepage quick round. Picked at build time so
+ * the full deck never ships to the browser. */
+const QUICK_PROMPTS: QuickPrompt[] = (
+  gamesData as { game: string; prompt: string; isAdult: boolean }[]
+)
+  .filter(
+    (p) =>
+      p.game === "would_you_rather" &&
+      !p.isAdult &&
+      p.prompt.length < 130 &&
+      /^Would you rather .+ or .+\?$/.test(p.prompt) &&
+      p.prompt.split(" or ").length === 2,
+  )
+  .map((p) => {
+    const [a, b] = p.prompt.slice("Would you rather ".length, -1).split(" or ");
+    return { a: capitalise(a), b: capitalise(b) };
+  });
 
 // The physics playground is purely interactive and sits below the fold, so it
 // loads on the client only; the placeholder keeps its exact size (no CLS).
@@ -150,7 +174,15 @@ export default function HomePage() {
         </section>
 
         <Reveal>
-          <div className="pt-8">
+          <section className="py-12 sm:py-16">
+            <QuickRound prompts={QUICK_PROMPTS} />
+          </section>
+        </Reveal>
+
+        <ScrollWords />
+
+        <Reveal>
+          <div className="pt-2">
             <ChristmasSection />
           </div>
         </Reveal>

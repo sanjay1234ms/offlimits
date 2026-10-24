@@ -16,7 +16,7 @@ const TICKER = [
   { q: "Never buy yourself…", a: "Fancy hot sauce 🌶️" },
 ];
 
-const PLAYERS = ["Priya", "Sam", "Jo", "Alex"];
+const PLAYERS = ["Priya", "Julia", "Reg", "Alex"];
 const GIFTS = ["🕯️", "🧦", "☕", "🍫"];
 
 function useTick(ms: number) {

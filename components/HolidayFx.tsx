@@ -300,7 +300,7 @@ const SAMPLE_NAMES = [
   "Aisha",
   "Grandma",
   "Leo",
-  "Sam",
+  "Reg",
   "Mei",
   "Your boss",
   "Marcus",
