@@ -8,11 +8,12 @@ import type { PromptGame } from "@/types";
 import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/site";
+import { KEYWORD_PAGES, itemCount, type KeywordPage } from "@/data/keywordPages";
 
 const TITLE =
   "Party Game Questions: Would You Rather & More";
 const DESCRIPTION =
-  "Free lists of Would You Rather, Never Have I Ever, Most Likely To, This or That and Truth or Dare questions for friends, couples, kids and work.";
+  "Free lists of Would You Rather, Never Have I Ever, Truth or Dare, trivia, icebreaker, charades and Christmas questions for friends, couples, kids and work.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -52,6 +53,46 @@ const GROUPS: { game: PromptGame; heading: string; blurb: string }[] = [
     heading: "Truth or Dare questions",
     blurb:
       "The classic: pick truth and answer honestly, or pick dare and do it. These lists keep things fun rather than mean, with friend-group truths and dares plus a couples list for two.",
+  },
+];
+
+const KEYWORD_GROUPS: {
+  id: KeywordPage["group"];
+  heading: string;
+  blurb: string;
+  unit: string;
+}[] = [
+  {
+    id: "seasonal",
+    heading: "Holiday and seasonal lists",
+    blurb:
+      "Christmas trivia, festive Would You Rather and Never Have I Ever, Thanksgiving quizzes and New Year's Eve games, ready for the family table or the office party.",
+    unit: "ideas",
+  },
+  {
+    id: "questions",
+    heading: "More question lists",
+    blurb:
+      "Truth or dare for kids, teens and adults, icebreakers, hot seat, Paranoia, 21 Questions and questions to ask your partner.",
+    unit: "questions",
+  },
+  {
+    id: "trivia",
+    heading: "Trivia questions with answers",
+    blurb: "Tap any question to reveal its answer, so the quizmaster can play too.",
+    unit: "questions",
+  },
+  {
+    id: "games",
+    heading: "Charades, Pictionary and icebreaker games",
+    blurb: "Word lists and game ideas sorted by difficulty, from kids to adults.",
+    unit: "ideas",
+  },
+  {
+    id: "gifts",
+    heading: "Gift swap guides",
+    blurb: "White Elephant rules plus gift ideas for White Elephant and Secret Santa, sorted by budget.",
+    unit: "ideas",
   },
 ];
 
@@ -117,6 +158,40 @@ export default function QuestionsIndexPage() {
                       {l.h1}
                       <span className="shrink-0 text-xs font-bold text-muted">
                         {questionCount(l)} questions
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+        {KEYWORD_GROUPS.map((group) => {
+          const pages = KEYWORD_PAGES.filter((p) => p.group === group.id);
+          if (pages.length === 0) return null;
+          return (
+            <section key={group.id} className="mt-10">
+              <h2 className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">
+                {group.heading}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{group.blurb}</p>
+              <ul className="mt-4 grid gap-2">
+                {pages.map((p, i) => (
+                  <li
+                    key={p.path}
+                    className="animate-fade-up [animation-fill-mode:both]"
+                    style={{ animationDelay: `${120 + i * 40}ms` }}
+                  >
+                    <Link
+                      href={p.path}
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-[transform,border-color,box-shadow] duration-200 hover:translate-x-1 hover:border-accent hover:shadow-[0_10px_30px_-18px_var(--accent-glow)] sm:text-base"
+                    >
+                      <span>
+                        {p.h1}
+                        {p.adult ? <span className="ml-2 text-xs font-bold text-rose-400">18+</span> : null}
+                      </span>
+                      <span className="shrink-0 text-xs font-bold text-muted">
+                        {itemCount(p)} {group.unit}
                       </span>
                     </Link>
                   </li>

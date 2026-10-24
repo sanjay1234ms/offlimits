@@ -27,6 +27,19 @@ import { QuickRound, type QuickPrompt } from "@/components/QuickRound";
 import { ScrollWords } from "@/components/ScrollWords";
 import gamesData from "@/data/games.json";
 
+/** Homepage shortcuts into the most searched question lists. */
+const QUESTION_CHIPS = [
+  { href: "/questions/christmas-trivia-questions", label: "Christmas trivia", emoji: "🎄" },
+  { href: "/questions/christmas-would-you-rather-questions", label: "Christmas Would You Rather", emoji: "🎅" },
+  { href: "/questions/funny-would-you-rather-questions", label: "Would You Rather", emoji: "🤔" },
+  { href: "/questions/truth-or-dare-questions", label: "Truth or Dare", emoji: "😈" },
+  { href: "/questions/never-have-i-ever-questions", label: "Never Have I Ever", emoji: "🙈" },
+  { href: "/questions/trivia-questions-and-answers", label: "Trivia with answers", emoji: "🧠" },
+  { href: "/questions/icebreaker-questions", label: "Icebreakers", emoji: "🧊" },
+  { href: "/questions/charades-ideas", label: "Charades ideas", emoji: "🎭" },
+  { href: "/questions/hot-seat-questions", label: "Hot seat", emoji: "🔥" },
+];
+
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** Clean "Would you rather X or Y?" prompts from the main deck, split into
@@ -176,6 +189,35 @@ export default function HomePage() {
         <Reveal>
           <section className="py-12 sm:py-16">
             <QuickRound prompts={QUICK_PROMPTS} />
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section className="mx-auto max-w-content px-4 pb-6 sm:px-6">
+            <SectionHeading
+              eyebrow="📝 Question lists"
+              title="Need more questions?"
+              subtitle="Free lists to read out, print or play. Pick one for your crowd."
+            />
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              {QUESTION_CHIPS.map((chip, i) => (
+                <Link
+                  key={chip.href}
+                  href={chip.href}
+                  style={{ animationDelay: `${i * 45}ms` }}
+                  className="inline-flex items-center gap-1.5 rounded-full border-2 border-slate-900 bg-white px-4 py-2 text-sm font-extrabold text-slate-900 shadow-[3px_3px_0_#0f172a] transition-[transform,box-shadow] hover:-translate-y-0.5 hover:rotate-[-1deg] hover:shadow-[5px_5px_0_#0f172a] active:translate-y-0.5 active:shadow-[1px_1px_0_#0f172a] motion-safe:animate-pop-in [animation-fill-mode:both]"
+                >
+                  <span aria-hidden>{chip.emoji}</span>
+                  {chip.label}
+                </Link>
+              ))}
+              <Link
+                href="/questions"
+                className="inline-flex items-center gap-1.5 rounded-full border-2 border-slate-900 bg-yellow-300 px-4 py-2 text-sm font-extrabold text-slate-900 shadow-[3px_3px_0_#0f172a] transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[5px_5px_0_#0f172a]"
+              >
+                See all question lists →
+              </Link>
+            </div>
           </section>
         </Reveal>
 

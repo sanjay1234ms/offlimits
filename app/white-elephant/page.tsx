@@ -174,6 +174,8 @@ export default function WhiteElephantPage() {
           {[
             { href: "/secret-santa", label: "Secret Santa generator", emoji: "🎅" },
             { href: "/secret-santa/questionnaire", label: "Santa questionnaire", emoji: "📝" },
+            { href: "/white-elephant/rules", label: "Full White Elephant rules", emoji: "📜" },
+            { href: "/white-elephant/gift-ideas", label: "White Elephant gift ideas", emoji: "🎁" },
             { href: "/christmas-party-games", label: "Christmas party games", emoji: "🎄" },
           ].map((t) => (
             <Link

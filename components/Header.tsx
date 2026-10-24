@@ -13,6 +13,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const links = [
   { href: "/", label: "Home" },
   { href: "/games", label: "Games" },
+  { href: "/questions", label: "Questions" },
   { href: "/party", label: "Party" },
   { href: "/wheel", label: "Wheel" },
 ];
