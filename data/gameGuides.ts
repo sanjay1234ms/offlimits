@@ -323,7 +323,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
   "pirate-barrel": {
     howToPlay: [
       "Set how many players you have and pick a barrel size: 12 slots for a quick round, 24 for a long, tense one.",
-      "The screen says whose turn it is. That player taps Throw a knife, taps the barrel, or taps a slot to aim. The knife spins in and sticks.",
+      "The screen says whose turn it is. That player taps Throw a knife, or drags to spin the 3D barrel and taps a slot to aim. The knife spins in and sticks.",
       "The barrel shakes for a moment. If the pirate stays sitting, the phone goes to the next player.",
       "One slot is the trap, chosen at random each barrel. Whoever hits it launches the pirate off the barrel and loses the round.",
       "The loser takes the penalty you agreed on, then taps New barrel. The trap moves every time.",
@@ -379,6 +379,67 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
       {
         q: "Can I play alone?",
         a: "Set Players to 1 and see how many knives you can land before the pirate launches. Try to beat your best on the 24-slot barrel.",
+      },
+    ],
+  },
+
+  "rock-paper-scissors": {
+    howToPlay: [
+      "Pick a mode: vs Computer to play solo, or 2 Players to battle a friend on one phone. Then choose best of 3 or best of 5.",
+      "Tap Rock, Paper or Scissors, or press 1, 2 or 3 on a keyboard. In 2 Players, Player 1 picks in secret and passes the phone.",
+      "Both fists shake in 3D to \"Rock… Paper… Scissors…\" and on SHOOT! the throws are revealed together.",
+      "Watch the clash: rock smashes scissors, scissors snip paper in half, paper wraps the rock. A draw bumps and throws again.",
+      "First to two wins takes a best of 3, first to three a best of 5. Tap Play again for a rematch.",
+    ],
+    hostPlaybook: [
+      "Use it to settle anything: who goes first, who picks the movie, who does the dishes. Agree what's at stake before the first throw.",
+      "In 2 Players mode, the player waiting looks away. The phone hides Player 1's pick, so there's no peeking and no late throws.",
+      "Run a quick bracket at a party: winners stay on, losers hand the phone to the next challenger.",
+      "Best of 5 is the fairest way to settle something that actually matters. One throw is a coin flip.",
+    ],
+    features: [
+      "Real 3D characters with googly eyes that react to every result, plus a different clash animation for each win.",
+      "The computer learns your habits as you play: your favourite throw, what you do after a win or a loss, and how you answer its last throw.",
+      "A live meter shows how often it has read your throw. Anything above a third means it has found a pattern.",
+      "Win streaks, a scoreboard and confetti for the match winner.",
+    ],
+    rosterSharing: [
+      "No accounts. The computer only remembers your throws while the page is open, so a refresh gives you a clean slate.",
+      "Play on any phone, tablet or laptop. Phones without 3D support get a simple version with the same smart computer.",
+    ],
+    wheel: {
+      title: "Rock Paper Scissors Stakes Wheel",
+      options: [
+        "Loser picks the next game",
+        "Loser does the dishes",
+        "Winner picks the music",
+        "Loser tells a funny story",
+        "Best of 5 rematch",
+        "Loser does 10 squats",
+        "Winner gets the last slice",
+        "Free pass",
+      ],
+    },
+    faq: [
+      {
+        q: "Can you really beat the computer?",
+        a: "Yes, but not by luck. It looks for patterns in how you play. Mix up your throws, avoid repeating a winning throw, and watch its read meter drop toward a third.",
+      },
+      {
+        q: "What beats what?",
+        a: "Rock beats scissors, scissors beats paper, and paper beats rock. Two of the same is a draw, and you throw again.",
+      },
+      {
+        q: "What is the best first throw?",
+        a: "Paper, slightly. People open with rock a little more often than the other two, so paper has a tiny edge before there's any history.",
+      },
+      {
+        q: "Can two people play on one phone?",
+        a: "Yes. Choose 2 Players. Player 1 picks in secret, passes the phone, Player 2 picks, then both throws are revealed together.",
+      },
+      {
+        q: "Does the computer cheat?",
+        a: "No. It picks its throw before yours is revealed, using only your earlier throws. It never sees the throw you're making.",
       },
     ],
   },

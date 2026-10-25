@@ -134,8 +134,14 @@ export const ENGINE_GAME_SEO: Record<
   },
   "pirate-barrel": {
     h1: "Pirate Barrel Party Game",
-    title: "Pirate Barrel: Free Pop the Pirate Game Online",
+    title: "Pirate Barrel Game: Free 3D Pop the Pirate Online",
     description:
-      "Take turns throwing knives into the barrel. One slot launches the pirate. A free pop-the-pirate party game for kids and adults on one phone, no download.",
+      "Play the Pirate Barrel game free in 3D. Spin the barrel, throw knives into the slots, and whoever hits the trap launches the pirate. Pop-up pirate for kids and adults, no download.",
+  },
+  "rock-paper-scissors": {
+    h1: "Rock Paper Scissors Online",
+    title: "Rock Paper Scissors Online: Free 3D Game vs Computer",
+    description:
+      "Play rock paper scissors online free in 3D. Beat a computer that learns your habits, or play a friend on one phone. Best of 3 or 5, no download.",
   },
 };

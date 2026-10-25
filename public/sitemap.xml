@@ -277,8 +277,14 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://playofflimits.com/games/rock-paper-scissors</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://playofflimits.com/games/pirate-barrel</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

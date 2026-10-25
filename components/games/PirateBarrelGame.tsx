@@ -6,6 +6,28 @@ import type { CatalogGame } from "@/data/catalog";
 import { sfx } from "@/lib/audio";
 import { haptic, HAPTIC } from "@/lib/haptics";
 import { track, trackCardNext, trackGameFinished } from "@/lib/analytics";
+import dynamic from "next/dynamic";
+
+const PirateBarrel3DGame = dynamic(
+  () => import("./PirateBarrel3D").then((m) => m.PirateBarrel3DGame),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-[30rem] w-full items-center justify-center rounded-3xl border-2 border-amber-500/40 bg-gradient-to-b from-sky-400 to-sky-700 text-sm font-bold text-white">
+        Rolling out the barrel…
+      </div>
+    ),
+  },
+);
+
+function hasWebGL(): boolean {
+  try {
+    const c = document.createElement("canvas");
+    return Boolean(c.getContext("webgl2") ?? c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
 
 const SLOT_OPTIONS = [12, 16, 24] as const;
 const FLIGHT_MS = 560;
@@ -186,8 +208,8 @@ function Pirate({ popped }: { popped: boolean }) {
   );
 }
 
-/** Pirate Barrel, throw knives into the barrel. One slot launches the pirate. */
-export function PirateBarrelGame({ game }: { game: CatalogGame }) {
+/** Flat SVG Pirate Barrel, the fallback when WebGL isn't available. */
+function PirateBarrelGameClassic({ game }: { game: CatalogGame }) {
   const [slotCount, setSlotCount] = useState<number>(16);
   const [playerCount, setPlayerCount] = useState(4);
   const [trap, setTrap] = useState(-1);
@@ -588,4 +610,13 @@ export function PirateBarrelGame({ game }: { game: CatalogGame }) {
       </div>
     </div>
   );
+}
+
+/** Pirate Barrel: the 3D barrel when the device supports WebGL, otherwise
+ * the flat SVG version. */
+export function PirateBarrelGame({ game }: { game: CatalogGame }) {
+  const [webgl, setWebgl] = useState<boolean | null>(null);
+  useEffect(() => setWebgl(hasWebGL()), []);
+  if (webgl === null) return <div className="h-[30rem] w-full" aria-hidden />;
+  return webgl ? <PirateBarrel3DGame game={game} /> : <PirateBarrelGameClassic game={game} />;
 }

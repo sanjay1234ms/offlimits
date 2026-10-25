@@ -20,6 +20,7 @@ import { catalogBySlug, type CatalogGame } from "@/data/catalog";
 import { BuzzkillGame } from "./BuzzkillGame";
 import { Fast5Game } from "./Fast5Game";
 import { PirateBarrelGame } from "./PirateBarrelGame";
+import { RockPaperScissorsGame } from "./RockPaperScissorsGame";
 import { ScoringRow } from "./ScoringRow";
 import { useScoreContext } from "./ScoreContext";
 import { CompetitiveFilters } from "./CompetitiveFilters";
@@ -741,6 +742,8 @@ export function GameRunner({ slug }: { slug: string }) {
       return <Fast5Game game={game} />;
     case "pirate-barrel":
       return <PirateBarrelGame game={game} />;
+    case "rps":
+      return <RockPaperScissorsGame game={game} />;
     case "simple":
     default:
       return (

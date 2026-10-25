@@ -10,7 +10,8 @@ export type GameEngine =
   | "odd-one-out"
   | "buzzkill"
   | "fast-5"
-  | "pirate-barrel";
+  | "pirate-barrel"
+  | "rps";
 
 /** Catalog filter vocabularies (game-card level, not prompt level). */
 export type CatalogGroupSize = "2-4" | "5-10" | "11-20" | "20+";
@@ -334,6 +335,24 @@ export const CATALOG: CatalogGame[] = [
     audiences: ["Family", "Friends", "Office"],
     vibes: ["Funny", "Quick fire"],
     engine: "pirate-barrel",
+  },
+  {
+    slug: "rock-paper-scissors",
+    title: "Rock Paper Scissors",
+    emoji: "✊",
+    blurb: "3D showdown against a computer that learns your habits, or a friend on the same phone.",
+    players: "1-2 players",
+    time: "1-3 min",
+    mode: "One phone",
+    href: "/games/rock-paper-scissors",
+    gradient: "from-violet-600/25 to-fuchsia-700/10",
+    border: "border-violet-500/40",
+    text: "text-violet-300",
+    groupSizes: ["2-4"],
+    audiences: ["Family", "Friends", "Office", "Couples"],
+    vibes: ["Competitive", "Quick fire"],
+    engine: "rps",
+    competitive: true,
   },
 ];
 

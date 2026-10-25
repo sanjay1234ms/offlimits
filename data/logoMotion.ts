@@ -36,6 +36,7 @@ const MOTIONS: Record<string, LogoMotion> = {
   buzzkill: "nope",
   "fast-5": "tick",
   "pirate-barrel": "sway",
+  "rock-paper-scissors": "jab",
 };
 
 export function logoMotion(slug: string): LogoMotion {

@@ -21,6 +21,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Buzzkill", href: "/games/buzzkill" },
       { label: "Fast 5", href: "/games/fast-5" },
       { label: "Pirate Barrel", href: "/games/pirate-barrel" },
+      { label: "Rock Paper Scissors", href: "/games/rock-paper-scissors" },
     ],
   },
   {
