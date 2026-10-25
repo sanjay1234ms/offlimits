@@ -30,10 +30,12 @@ export function useRoom(code: string | null, options: UseRoomOptions = {}) {
   const [room, setRoom] = useState<RoomView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const stopped = useRef(false);
+  const misses = useRef(0);
 
   useEffect(() => {
     if (!code) return;
     stopped.current = false;
+    misses.current = 0;
 
     async function tick() {
       try {
@@ -43,9 +45,12 @@ export function useRoom(code: string | null, options: UseRoomOptions = {}) {
         });
         if (stopped.current) return;
         if (res.status === 404) {
-          setError("That room has closed.");
+          // One miss can be a blip; only call it closed after a few in a row.
+          misses.current += 1;
+          if (misses.current >= 3) setError("That room has closed.");
           return;
         }
+        misses.current = 0;
         if (!res.ok) {
           setError("Lost the room. Retrying…");
           return;

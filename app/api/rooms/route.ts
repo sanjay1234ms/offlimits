@@ -16,6 +16,11 @@ export async function POST(request: Request) {
       ? body.hostId
       : crypto.randomUUID();
 
-  const room = createRoom({ name: body.name, games: body.games, hostId });
-  return Response.json(room, { status: 201 });
+  try {
+    const room = await createRoom({ name: body.name, games: body.games, hostId });
+    return Response.json(room, { status: 201 });
+  } catch (err) {
+    console.error("[rooms] create", err);
+    return Response.json({ error: "Could not open a room. Try again." }, { status: 503 });
+  }
 }

@@ -5,7 +5,6 @@ import {
   leaveRoom,
   resetRoomToLobby,
   startRoom,
-  touchPlayer,
 } from "@/lib/roomStore";
 
 export const dynamic = "force-dynamic";
@@ -14,17 +13,22 @@ interface Ctx {
   params: { code: string };
 }
 
+const notFound = () => Response.json({ error: "Room not found" }, { status: 404 });
+const failed = (err: unknown) => {
+  console.error("[rooms]", err);
+  return Response.json({ error: "Room service unavailable" }, { status: 503 });
+};
+
 /** GET /api/rooms/[code]?p=<playerId>, poll room state (and heartbeat). */
 export async function GET(request: Request, { params }: Ctx) {
   const code = params.code.toUpperCase();
   const playerId = new URL(request.url).searchParams.get("p");
-  if (playerId) touchPlayer(code, playerId);
-
-  const room = getRoom(code);
-  if (!room) {
-    return Response.json({ error: "Room not found" }, { status: 404 });
+  try {
+    const room = await getRoom(code, playerId);
+    return room ? Response.json(room) : notFound();
+  } catch (err) {
+    return failed(err);
   }
-  return Response.json(room);
 }
 
 /** POST /api/rooms/[code], host/player actions. */
@@ -43,43 +47,35 @@ export async function POST(request: Request, { params }: Ctx) {
     return Response.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  switch (body.action) {
-    case "join": {
-      if (!body.playerId) {
-        return Response.json({ error: "Missing playerId" }, { status: 400 });
+  try {
+    switch (body.action) {
+      case "join": {
+        if (!body.playerId) {
+          return Response.json({ error: "Missing playerId" }, { status: 400 });
+        }
+        const room = await joinRoom(code, body.playerId, body.name ?? "");
+        return room ? Response.json(room) : notFound();
       }
-      const room = joinRoom(code, body.playerId, body.name ?? "");
-      if (!room) {
-        return Response.json({ error: "Room not found" }, { status: 404 });
+      case "leave": {
+        if (body.playerId) await leaveRoom(code, body.playerId);
+        return Response.json({ ok: true });
       }
-      return Response.json(room);
-    }
-    case "leave": {
-      if (body.playerId) leaveRoom(code, body.playerId);
-      return Response.json({ ok: true });
-    }
-    case "start": {
-      const room = startRoom(code);
-      if (!room) {
-        return Response.json({ error: "Room not found" }, { status: 404 });
+      case "start": {
+        const room = await startRoom(code);
+        return room ? Response.json(room) : notFound();
       }
-      return Response.json(room);
-    }
-    case "next": {
-      const room = advanceRoom(code, body.dir === -1 ? -1 : 1);
-      if (!room) {
-        return Response.json({ error: "Room not found" }, { status: 404 });
+      case "next": {
+        const room = await advanceRoom(code, body.dir === -1 ? -1 : 1);
+        return room ? Response.json(room) : notFound();
       }
-      return Response.json(room);
-    }
-    case "reset": {
-      const room = resetRoomToLobby(code);
-      if (!room) {
-        return Response.json({ error: "Room not found" }, { status: 404 });
+      case "reset": {
+        const room = await resetRoomToLobby(code);
+        return room ? Response.json(room) : notFound();
       }
-      return Response.json(room);
+      default:
+        return Response.json({ error: "Unknown action" }, { status: 400 });
     }
-    default:
-      return Response.json({ error: "Unknown action" }, { status: 400 });
+  } catch (err) {
+    return failed(err);
   }
 }
