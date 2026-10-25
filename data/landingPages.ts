@@ -7,6 +7,15 @@ export interface LandingPick {
   why: string;
 }
 
+/** A classic (non-app) party game idea with quick instructions. */
+export interface LandingIdea {
+  name: string;
+  how: string;
+  players?: string;
+  /** What you need, e.g. "Paper and pens". Omit for "Nothing". */
+  needs?: string;
+}
+
 export interface LandingPage {
   path: string;
   title: string;
@@ -25,14 +34,18 @@ export interface LandingPage {
   occasionHref?: string;
   /** Small print shown under the intro (e.g. drink responsibly). */
   note?: string;
+  /** Extra game ideas, grouped (adults, families, office...). */
+  ideas?: { heading: string; intro?: string; items: LandingIdea[] }[];
+  /** Hand-picked related pages, shown near the end. */
+  related?: { href: string; label: string; emoji: string }[];
 }
 
 export const LANDING_PAGES: Record<string, LandingPage> = {
   "christmas-party-games": {
     path: "/christmas-party-games",
-    title: "Christmas Party Games for Family & Friends",
+    title: "Christmas Party Games: 30+ Fun Games for Adults & Families",
     description:
-      "Free Christmas party games you can play on one phone: Christmas Would You Rather, holiday charades, trivia and more. No app, no signup, ready in seconds.",
+      "30+ Christmas party games for adults, families, kids and the office: charades, trivia, White Elephant, Would You Rather and no-prep games. Free, play on one phone.",
     h1: "Christmas Party Games",
     intro: [
       "Free Christmas party games that run in the browser. Nobody has to print cards, download an app or make an account. Open a game on any phone, pass it around, and you are playing before the mince pies are out.",
@@ -46,6 +59,66 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "most_likely_to", why: "Big laughs with family. Count to three and point." },
       { slug: "odd-one-out", why: "One imposter, one secret word. Works for 3 to 30 people." },
       { slug: "buzzkill", why: "A taboo-style team game that gets loud fast." },
+    ],
+    ideas: [
+      {
+        heading: "Christmas party games for adults",
+        intro: "Grown-up games for the after-dinner crowd. Most need nothing but the people in the room.",
+        items: [
+          { name: "White Elephant gift swap", how: "Everyone brings a wrapped gift, draws a number, and on their turn opens a new gift or steals one. Our free game runner tracks every steal and freezes gifts automatically.", players: "6-40", needs: "One wrapped gift each" },
+          { name: "Christmas Never Have I Ever", how: "Everyone holds up ten fingers. Read a holiday confession like \"never have I ever regifted a present\" and anyone guilty puts a finger down.", players: "4+" },
+          { name: "Christmas movie quote off", how: "Two teams take turns quoting a Christmas movie line. The other team must name the film in five seconds or lose a point.", players: "6+" },
+          { name: "Plastic wrap ball", how: "Wrap small prizes into a giant ball of cling film. Players unwrap as fast as they can while the next person rolls dice; a double passes the ball on.", players: "5-15", needs: "Cling film, small prizes, two dice" },
+          { name: "Ugly sweater awards", how: "Everyone votes in secret for best, worst and most creative sweater. Announce the winners like an awards show with a speech.", players: "Any", needs: "Paper slips" },
+          { name: "Holiday hot seat", how: "One person sits in the hot seat for 60 seconds while everyone fires festive questions: worst gift, best Christmas, most awkward family moment.", players: "4+" },
+        ],
+      },
+      {
+        heading: "Christmas games for families and kids",
+        intro: "Easy games that work across three generations, from grandparents to toddlers.",
+        items: [
+          { name: "Christmas charades", how: "Act out a Christmas movie, song or character without speaking. Use our Christmas charades list and a one-minute timer per turn.", players: "4+", needs: "Our charades list" },
+          { name: "Christmas trivia quiz", how: "Split the table into teams and run four rounds: movies, songs, traditions and food. Answers are on our Christmas trivia page.", players: "4-30" },
+          { name: "Pin the nose on Rudolph", how: "Draw Rudolph on a big sheet, blindfold each player, spin them twice and let them try to stick on the red nose. Closest wins.", players: "3+", needs: "Paper, red sticker, blindfold" },
+          { name: "Present hot potato", how: "Wrap a small gift in many layers. Pass it around while music plays; whoever holds it when the music stops unwraps one layer.", players: "5-20", needs: "Layered gift, music" },
+          { name: "Christmas scavenger hunt", how: "Hide candy canes, baubles and tiny elves around the house with a clue on each. First team to find them all wins.", players: "3-20", needs: "Small hidden items" },
+          { name: "Snowball toss", how: "Set up buckets at different distances and throw cotton-wool or paper snowballs. Further buckets score more points.", players: "2+", needs: "Buckets, cotton balls" },
+          { name: "Christmas Would You Rather", how: "Read a festive dilemma, everyone points to a side, and the smaller side defends their choice. Our list has 45 ready to go.", players: "3+" },
+          { name: "Name that carol", how: "Hum the first few notes of a carol. First person to name it scores a point and hums the next one.", players: "3+" },
+        ],
+      },
+      {
+        heading: "Office Christmas party games",
+        intro: "Work-safe games that include everyone and finish before anyone gets bored.",
+        items: [
+          { name: "Secret Santa", how: "Draw names a few weeks before, set a budget, and exchange gifts at the party. Our free generator keeps every pairing secret, even from the organiser.", players: "4-100" },
+          { name: "Christmas This or That", how: "Rapid-fire festive pairs like real tree or fake tree. Everyone answers on instinct; it takes five minutes and warms up any meeting.", players: "Any" },
+          { name: "Gingerbread decorating contest", how: "Teams get a plain gingerbread house and 15 minutes. The office votes on the winner.", players: "Teams of 3-5", needs: "Gingerbread kits" },
+          { name: "Holiday Pictionary", how: "Draw Christmas words on a whiteboard while your team guesses against a one-minute timer.", players: "6+", needs: "Whiteboard or paper" },
+          { name: "Two truths and a holiday lie", how: "Share two true holiday facts about yourself and one invented one. Colleagues guess the lie.", players: "4-20" },
+        ],
+      },
+      {
+        heading: "No-prep and virtual Christmas games",
+        intro: "Nothing to buy or print. Perfect for a last-minute party or a video call with family far away.",
+        items: [
+          { name: "Christmas emoji quiz", how: "Send emoji combos in the chat (🎅🏠🔑 = Home Alone… roughly). First correct guess scores.", players: "Any", needs: "Group chat" },
+          { name: "Most Likely To, holiday edition", how: "Who's most likely to fall asleep after dinner or open presents early? Everyone points on three.", players: "4+" },
+          { name: "Christmas story chain", how: "One person starts a Christmas story with one sentence; everyone adds a line in turn until it becomes ridiculous.", players: "3+" },
+          { name: "Guess the gift", how: "Describe a gift using only three words. Everyone guesses what it is before it gets unwrapped.", players: "3+" },
+          { name: "Rock Paper Scissors tournament", how: "Settle who carves, who washes up, or who opens the first present with a quick bracket on our 3D Rock Paper Scissors game.", players: "2-16" },
+        ],
+      },
+    ],
+    related: [
+      { href: "/questions/christmas-trivia-questions", label: "Christmas trivia with answers", emoji: "🧠" },
+      { href: "/questions/christmas-would-you-rather-questions", label: "Christmas Would You Rather", emoji: "🎅" },
+      { href: "/questions/christmas-never-have-i-ever", label: "Christmas Never Have I Ever", emoji: "🙈" },
+      { href: "/questions/christmas-this-or-that", label: "Christmas This or That", emoji: "⚡" },
+      { href: "/questions/christmas-charades-ideas", label: "Christmas charades ideas", emoji: "🎭" },
+      { href: "/secret-santa", label: "Secret Santa generator", emoji: "🎁" },
+      { href: "/white-elephant", label: "White Elephant game", emoji: "🐘" },
+      { href: "/new-years-eve-party-games", label: "New Year's Eve party games", emoji: "🎆" },
     ],
     promptsHeading: "Christmas Would You Rather questions",
     prompts: [
@@ -129,11 +202,103 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Do people need to sign up?", a: "No. There is no signup, no download and no cost." },
     ],
   },
+  "18-plus-party-games": {
+    path: "/18-plus-party-games",
+    title: "18+ Party Games: 25 Adult Games for Game Night (Free)",
+    description:
+      "25 18+ party games for adults: dirty truth or dare, spicy Never Have I Ever, Most Likely To after dark, couples games and drinking twists. Play free on one phone.",
+    h1: "18+ Party Games for Adults",
+    intro: [
+      "Party games for grown-ups who already know each other a little too well. Spicy truth or dare, Never Have I Ever after dark, Most Likely To with no filter, and a handful of classic adult party games you can run with nothing but a phone.",
+      "Every game starts clean. The 18+ packs only open after an age check, the first few spicy cards are free to try, and a 24-hour Party Pass unlocks every adult deck for the night. No account, no download, no app store rating to worry about.",
+    ],
+    note: "Adults only. Everyone playing should be 18 or older and up for the vibe. Anyone can skip any card, any time.",
+    picksHeading: "Best 18+ games to play tonight",
+    picks: [
+      { slug: "18plus", why: "The uncensored deck: confessions, wild dares and late-night questions with zero filter." },
+      { slug: "truth_or_dare", why: "Switch on the 18+ pack for flirty truths and bold dares. One skip each keeps it fun." },
+      { slug: "never_have_i_ever", why: "The spicy pack turns a classic into a night of confessions. Fingers down, stories out." },
+      { slug: "most_likely_to", why: "Who's most likely to… after dark. Point on three and make them explain." },
+      { slug: "would_you_rather", why: "Impossible adult dilemmas that start real arguments about dating, exes and bad decisions." },
+      { slug: "how-well-do-you-know-me", why: "For couples: answer for each other in secret, then compare. Brutally revealing." },
+    ],
+    ideas: [
+      {
+        heading: "Adult party games for groups",
+        intro: "Classic grown-up party games. Most need nothing, a few need a deck of cards.",
+        items: [
+          { name: "Dirty truth or dare", how: "Flirty truths and bold dares for close friends. Start mild, escalate slowly, and respect every skip. Our list has a free preview to get you going.", players: "4-10" },
+          { name: "Never Have I Ever, juicy edition", how: "Ten fingers up. Read a confession about dating, nights out or bad decisions; anyone guilty puts one down and owes the story.", players: "4+" },
+          { name: "Paranoia", how: "Whisper a \"who here would…\" question to the next player, who answers out loud with a name. A coin flip decides whether the question is revealed.", players: "5+", needs: "A coin" },
+          { name: "Hot seat after dark", how: "One person, 60 seconds, every question fair game: worst date, biggest red flag, most embarrassing text.", players: "4+" },
+          { name: "Date, Marry, Avoid", how: "Name three celebrities (or fictional characters). The player has to pick one to date, one to marry and one to avoid, and justify it.", players: "3+" },
+          { name: "Two truths and a lie, dating edition", how: "Two true dating stories and one invented. The group votes on the lie; fool them all for a point.", players: "4+" },
+          { name: "Spin the bottle, grown-up edition", how: "Spin to pick who answers the next spicy question or takes the next dare. Kisses optional and only with a yes.", players: "5+", needs: "A bottle" },
+          { name: "Charades after dark", how: "Act out cheeky movie titles and awkward situations, like a walk of shame or a first date going wrong.", players: "6+" },
+          { name: "Most Likely To, no filter", how: "Who's most likely to text an ex tonight or get kicked out of a bar? Point on three; the most-pointed player explains.", players: "5+" },
+          { name: "Confession box", how: "Everyone writes an anonymous confession on a slip. Read them out one by one and guess who wrote each.", players: "5+", needs: "Paper and a bowl" },
+        ],
+      },
+      {
+        heading: "Spicy games for couples",
+        intro: "Two-player games for date night, from flirty to seriously honest.",
+        items: [
+          { name: "How Well Do You Know Me", how: "Both answer questions about each other in secret, then reveal. Score a point for every match.", players: "2" },
+          { name: "Couples truth or dare", how: "Take turns choosing truth or dare from a couples list. One skip each per game.", players: "2" },
+          { name: "21 questions, flirty edition", how: "One partner asks 21 questions in a row, the other answers honestly. Then swap.", players: "2" },
+          { name: "Dirty Would You Rather", how: "Impossible spicy dilemmas for two. Explain your answer or forfeit the next turn.", players: "2+" },
+          { name: "Truth or drink for two", how: "Ask a hard question. Answer it honestly or take a sip instead. Water counts.", players: "2", needs: "Drinks (any kind)" },
+        ],
+      },
+      {
+        heading: "Drinking game twists (legal drinking age only)",
+        intro: "Optional. Every one of these works just as well with water, juice or a forfeit instead.",
+        items: [
+          { name: "Truth or drink", how: "Answer the question honestly or take a sip instead. The juicier the question, the bigger the sip.", players: "3+", needs: "Drinks" },
+          { name: "Never Have I Ever, drinking version", how: "Instead of fingers down, anyone guilty takes a sip.", players: "4+", needs: "Drinks" },
+          { name: "Pirate Barrel sips", how: "Take turns throwing knives into our 3D barrel. Whoever launches the pirate takes a sip.", players: "2-20", needs: "Drinks" },
+          { name: "Most Likely To, cheers edition", how: "Everyone points on three. Each finger pointed at you is a sip.", players: "5+", needs: "Drinks" },
+        ],
+      },
+    ],
+    promptsHeading: "A taste of the 18+ questions",
+    prompts: [
+      "Who in this room would you most want to kiss?",
+      "What's the boldest text you've ever sent?",
+      "Would you rather date someone ten years older or five years younger?",
+    ],
+    tipsHeading: "How to run an 18+ game night",
+    tips: [
+      "Agree the vibe before the first card. Everyone should be 18+, know each other, and want to play.",
+      "Start mild and escalate. The best adult game nights warm up slowly; nobody enjoys being blindsided on question one.",
+      "One free skip per player, no questions asked. Respecting a skip keeps everyone playing all night.",
+      "If you're drinking, keep water and a sober forfeit on offer, and never pressure anyone to drink.",
+      "What's said at game night stays at game night. No screenshots of anyone's answers.",
+    ],
+    faq: [
+      { q: "Are these 18+ party games free?", a: "Yes, to start. Every game is free in its clean mode, and you can try the first few 18+ cards free. A 24-hour Party Pass unlocks every adult deck for the night." },
+      { q: "How does the age check work?", a: "Before any 18+ content appears, the phone asks you to confirm everyone playing is 18 or over. Clean modes never show adult content." },
+      { q: "What are the best adult party games?", a: "Dirty truth or dare, juicy Never Have I Ever, Paranoia and Most Likely To are the most popular. For couples, How Well Do You Know Me and couples truth or dare." },
+      { q: "Do I need to drink to play?", a: "No. Every game works without alcohol. The drinking twists are optional and only for people of legal drinking age." },
+      { q: "Are the questions explicit?", a: "They're spicy and revealing rather than graphic: dating, crushes, exes, confessions and bold dares. Anyone can skip any card." },
+      { q: "Can we play on one phone?", a: "Yes. Pass one phone around the circle, or open a party room so everyone plays on their own phone." },
+    ],
+    related: [
+      { href: "/questions/dirty-truth-or-dare-questions", label: "Dirty truth or dare questions", emoji: "🔥" },
+      { href: "/questions/dirty-would-you-rather-questions", label: "Dirty Would You Rather", emoji: "😳" },
+      { href: "/questions/juicy-never-have-i-ever-questions", label: "Juicy Never Have I Ever", emoji: "🙈" },
+      { href: "/questions/paranoia-questions", label: "Paranoia questions", emoji: "🤫" },
+      { href: "/questions/hot-seat-questions", label: "Hot seat questions", emoji: "🪑" },
+      { href: "/drinking-games", label: "Drinking games", emoji: "🍻" },
+      { href: "/couples-games", label: "Couples games", emoji: "💘" },
+      { href: "/questions/truth-or-dare-questions", label: "Truth or dare questions", emoji: "😈" },
+    ],
+  },
   "halloween-party-games": {
     path: "/halloween-party-games",
-    title: "Halloween Party Games: Free Spooky Group Games",
+    title: "Halloween Party Games: 29 Spooky Games for Adults & Kids",
     description:
-      "Free Halloween party games for kids, teens and adults: spooky Would You Rather, Halloween charades, imposter games and more. Play on one phone, no signup.",
+      "29 Halloween party games for adults, kids, teens and big groups: murder in the dark, mummy wrap, spooky Would You Rather, charades and no-prep games. Free.",
     h1: "Halloween Party Games",
     intro: [
       "Free Halloween party games that run on any phone. Use the spooky Would You Rather questions and Halloween charades ideas below as they are, or open one of the games and pass the phone around the room.",
@@ -147,6 +312,65 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "truth_or_dare", why: "Pick the clean packs for teens and the party packs for adults." },
       { slug: "fake-news-factory", why: "Make up a ghost story that sounds true, then spot the fakes." },
       { slug: "trivia", why: "Run a quick quiz between costume judging and snacks." },
+    ],
+    ideas: [
+      {
+        heading: "Halloween party games for adults",
+        intro: "For costume parties and grown-up nights in. Turn the lights down first.",
+        items: [
+          { name: "Murder in the dark", how: "Deal secret roles: one murderer, one detective. Lights go off, the murderer taps a victim, they scream, lights on, and the detective questions everyone.", players: "6-15", needs: "Playing cards" },
+          { name: "Costume contest awards", how: "Everyone votes in secret for scariest, funniest and most creative costume. Announce winners with a dramatic speech.", players: "Any", needs: "Paper slips" },
+          { name: "Halloween hot seat", how: "One person in the hot seat answers rapid spooky questions for 60 seconds: scariest movie, worst costume, ever seen a ghost?", players: "4+" },
+          { name: "Mystery box", how: "Fill covered boxes with peeled grapes (eyeballs), cold spaghetti (brains) and gummy worms. Guests reach in blind and guess.", players: "Any", needs: "Boxes and gross-feeling food" },
+          { name: "Halloween Paranoia", how: "Whisper a spooky \"who here would…\" question to the next player, they answer out loud with a name, and a coin flip decides if the question is revealed.", players: "5+", needs: "A coin" },
+          { name: "Horror movie emoji quiz", how: "Send emoji clues for horror films (🎈🤡 = It). First correct answer scores.", players: "Any" },
+        ],
+      },
+      {
+        heading: "Halloween games for kids and families",
+        intro: "Not-too-scary games that work for little monsters and grandparents alike.",
+        items: [
+          { name: "Mummy wrap race", how: "Teams of two race to wrap one player head to toe in toilet paper. Fastest complete mummy wins.", players: "Teams of 2", needs: "Toilet paper" },
+          { name: "Pumpkin bowling", how: "Line up toilet-roll ghosts as pins and roll a small pumpkin to knock them down.", players: "2+", needs: "Small pumpkin, toilet rolls" },
+          { name: "Pin the hat on the witch", how: "Draw a witch, blindfold each player, spin them, and let them stick on the hat. Closest wins.", players: "3+", needs: "Paper, blindfold" },
+          { name: "Halloween scavenger hunt", how: "Hide plastic spiders, eyeballs and candy around the house with spooky clues. First team to find them all wins.", players: "3-20", needs: "Small hidden items" },
+          { name: "Monster freeze dance", how: "Play spooky music and dance like a monster. When the music stops, freeze; anyone who moves is out.", players: "4+", needs: "Music" },
+          { name: "Bobbing for apples", how: "Float apples in a tub of water. Hands behind backs, players try to grab one with their teeth.", players: "Any", needs: "Tub, apples, towels" },
+          { name: "Halloween charades", how: "Act out a zombie, a vampire at the dentist or a ghost scared of people. Our charades ideas include a Halloween set.", players: "4+" },
+          { name: "Spooky Would You Rather", how: "Would you rather spend a night in a haunted house or a graveyard? Everyone picks a side and defends it.", players: "3+" },
+        ],
+      },
+      {
+        heading: "Halloween games for teens and big groups",
+        intro: "Louder games that keep a crowd of 10 to 30 playing together.",
+        items: [
+          { name: "Odd One Out, Halloween edition", how: "Everyone gets the secret word except the imposter. Give spooky clues, then vote on who's faking it. Plays like a mini murder mystery.", players: "4-30" },
+          { name: "Truth or Dare, spooky edition", how: "Truths about scariest moments and dares like \"howl like a werewolf.\" Our teen list keeps it fun, not mean.", players: "4+" },
+          { name: "Ghost in the graveyard", how: "One ghost hides outside in the dark. Everyone counts to midnight, goes looking, and runs back to base when the ghost is found.", players: "6+", needs: "A dark yard" },
+          { name: "Witch's brew relay", how: "Teams race to carry \"potion\" (water) in spoons from one cauldron to another. Most potion after two minutes wins.", players: "Teams of 3+", needs: "Bowls, spoons, water" },
+          { name: "Halloween trivia", how: "Run a quick quiz between costume judging and snacks: horror movies, candy and Halloween history.", players: "4-30" },
+        ],
+      },
+      {
+        heading: "No-prep Halloween games",
+        intro: "Last-minute party? These need nothing but a phone.",
+        items: [
+          { name: "Most Likely To, Halloween edition", how: "Who's most likely to scream first in a haunted house or eat all the candy? Point on three.", players: "4+" },
+          { name: "Fake ghost stories", how: "Everyone tells a short ghost story. Some are \"true,\" some are made up, and the group votes on which really happened.", players: "4+" },
+          { name: "Spin the spooky wheel", how: "Put dares, songs and challenges on a spin wheel and let fate pick each turn.", players: "Any" },
+          { name: "Never Have I Ever, Halloween edition", how: "Never have I ever worn the same costume twice, been scared by a decoration, or eaten candy before trick-or-treating.", players: "4+" },
+        ],
+      },
+    ],
+    related: [
+      { href: "/questions/truth-or-dare-questions-for-teens", label: "Truth or dare for teens", emoji: "😈" },
+      { href: "/questions/paranoia-questions", label: "Paranoia questions", emoji: "🤫" },
+      { href: "/questions/hot-seat-questions", label: "Hot seat questions", emoji: "🔥" },
+      { href: "/questions/charades-ideas", label: "Charades ideas", emoji: "🎭" },
+      { href: "/games/odd-one-out", label: "Odd One Out imposter game", emoji: "🕵️" },
+      { href: "/wheel", label: "Spin the wheel", emoji: "🎡" },
+      { href: "/christmas-party-games", label: "Christmas party games", emoji: "🎄" },
+      { href: "/18-plus-party-games", label: "18+ party games", emoji: "🔥" },
     ],
     promptsHeading: "Halloween Would You Rather and charades ideas",
     prompts: [

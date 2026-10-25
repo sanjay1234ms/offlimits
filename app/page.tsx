@@ -314,6 +314,12 @@ export default function HomePage() {
                 <Flame className="h-4 w-4" aria-hidden />
                 Try 18+ mode
               </Link>
+              <Link
+                href="/18-plus-party-games"
+                className="text-sm font-bold text-red-400 underline underline-offset-4 hover:text-red-300"
+              >
+                See all 25 adult party games
+              </Link>
             </div>
           </section>
         </Reveal>

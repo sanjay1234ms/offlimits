@@ -56,10 +56,10 @@ export const CORE_GAME_PAGES: CoreGamePage[] = [
   {
     slug: "truth-or-dare",
     game: "truth_or_dare",
-    title: "Truth or Dare Questions: Free Online Game",
+    title: "Truth or Dare Online: Free Game on One Phone",
     description:
-      "Free Truth or Dare on any phone: clean truths and dares for teens, friends and family, plus spicier packs for adults. No app, no signup.",
-    h1: "Truth or Dare",
+      "Play truth or dare online free: the phone deals truths and dares for friends, teens and family, with spicier 18+ packs for adults. No app, no signup.",
+    h1: "Truth or Dare Online",
     intro:
       "Pick truth or dare, or let the phone decide. Choose the packs that fit your group, from clean family dares to party-night truths, and pass the phone to the next player. Free, no signup.",
   },

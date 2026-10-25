@@ -226,19 +226,6 @@ export const QUESTION_LISTS: QuestionList[] = [
     howTo: TOT_HOW_TO,
   },
   {
-    slug: "truth-or-dare-questions",
-    game: "truth_or_dare",
-    title: "{n} Truth or Dare Questions for Friends",
-    description:
-      "{n} truth or dare questions and dares for friends, sleepovers and parties. Clean and funny. Read the full list or play free on any phone, no app or signup.",
-    h1: "Truth or Dare Questions",
-    intro:
-      "{n} truths and dares for friends, sleepovers and parties. All clean enough for a mixed group, still awkward enough to be fun.",
-    sources: [{ category: "Friends", heats: [1, 2, 3] }],
-    playCategory: "friends",
-    howTo: TOD_HOW_TO,
-  },
-  {
     slug: "truth-or-dare-questions-for-couples",
     game: "truth_or_dare",
     title: "{n} Truth or Dare Questions for Couples",

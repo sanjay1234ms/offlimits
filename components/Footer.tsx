@@ -87,6 +87,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
         label: "Large Group Setups (10+ Players)",
         href: "/host#large-groups",
       },
+      { label: "18+ Party Games", href: "/18-plus-party-games" },
       { label: "Party Pass & 18+ Access", href: "/host#party-pass" },
     ],
   },

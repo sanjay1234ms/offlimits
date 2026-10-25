@@ -3,11 +3,13 @@ import { GIFT_PAGES } from "./gifts";
 import { QUESTION_PAGES } from "./questions";
 import { SEASONAL_PAGES } from "./seasonal";
 import { TRIVIA_PAGES } from "./trivia";
+import { TRUTH_OR_DARE_PAGES } from "./truthOrDare";
 import type { KeywordItem, KeywordPage } from "./types";
 
 export type { KeywordItem, KeywordPage, KeywordSection, TriviaItem } from "./types";
 
 export const KEYWORD_PAGES: KeywordPage[] = [
+  ...TRUTH_OR_DARE_PAGES,
   ...SEASONAL_PAGES,
   ...QUESTION_PAGES,
   ...TRIVIA_PAGES,

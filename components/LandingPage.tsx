@@ -28,6 +28,7 @@ export function LandingPage({ page }: { page: LandingPageData }) {
     .map((p) => ({ game: catalogBySlug(p.slug), why: p.why }))
     .filter((p): p is { game: CatalogGame; why: string } => !!p.game);
   const first = picks[0]?.game;
+  const ideaNames = (page.ideas ?? []).flatMap((g) => g.items.map((i) => i.name));
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -47,15 +48,22 @@ export function LandingPage({ page }: { page: LandingPageData }) {
           {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: page.picksHeading,
+            name: page.h1,
             url: absoluteUrl(page.path),
-            numberOfItems: picks.length,
-            itemListElement: picks.map(({ game }, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              name: game.title,
-              url: absoluteUrl(game.href),
-            })),
+            numberOfItems: picks.length + ideaNames.length,
+            itemListElement: [
+              ...picks.map(({ game }, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: game.title,
+                url: absoluteUrl(game.href),
+              })),
+              ...ideaNames.map((name, i) => ({
+                "@type": "ListItem",
+                position: picks.length + i + 1,
+                name,
+              })),
+            ],
           },
           breadcrumbJsonLd([{ name: page.h1, path: page.path }]),
         ]}
@@ -112,6 +120,41 @@ export function LandingPage({ page }: { page: LandingPageData }) {
         </div>
       </section>
 
+      {page.ideas?.map((group, gi) => (
+        <section key={group.heading} className="mx-auto max-w-content px-4 py-6 sm:px-6">
+          <SectionHeading title={group.heading} />
+          {group.intro ? <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">{group.intro}</p> : null}
+          <ol className="mt-5 grid gap-3 sm:grid-cols-2">
+            {group.items.map((idea, i) => {
+              const n = (page.ideas ?? []).slice(0, gi).reduce((k, g) => k + g.items.length, 0) + i + 1;
+              return (
+                <li key={idea.name}>
+                  <Reveal delay={(i % 2) * 80}>
+                    <div className="glass-card flex h-full gap-3 p-4 transition-transform duration-200 hover:-translate-y-0.5 sm:p-5">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-extrabold text-white">
+                        {n}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="font-extrabold text-foreground">{idea.name}</h3>
+                        <p className="mt-1 text-sm leading-relaxed text-muted">{idea.how}</p>
+                        <p className="mt-2 flex flex-wrap gap-1.5 text-[11px] font-bold">
+                          {idea.players ? (
+                            <span className="rounded-full bg-white/5 px-2 py-0.5 text-muted ring-1 ring-border">👥 {idea.players}</span>
+                          ) : null}
+                          <span className="rounded-full bg-white/5 px-2 py-0.5 text-muted ring-1 ring-border">
+                            🧰 {idea.needs ?? "Nothing needed"}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))}
+
       <section
         id="landing-prompts"
         className="mx-auto max-w-2xl px-4 py-8 sm:px-6"
@@ -166,6 +209,25 @@ export function LandingPage({ page }: { page: LandingPageData }) {
           ))}
         </div>
       </section>
+
+      {page.related?.length ? (
+        <section className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+          <SectionHeading title="Keep the party going" />
+          <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {page.related.map((r) => (
+              <li key={r.href}>
+                <Link
+                  href={r.href}
+                  className="flex items-center gap-2 rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent"
+                >
+                  <span aria-hidden>{r.emoji}</span>
+                  {r.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }
