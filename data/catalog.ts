@@ -55,6 +55,8 @@ export interface CatalogGame {
   competitive?: boolean;
   /** Occasion games live on an event page, e.g. "Bachelorette". */
   occasion?: string;
+  /** Standalone bluffing game with its own page (e.g. Werewolf). */
+  bluff?: boolean;
 }
 
 export const CATALOG: CatalogGame[] = [
@@ -355,6 +357,24 @@ export const CATALOG: CatalogGame[] = [
     vibes: ["Competitive", "Quick fire"],
     engine: "rps",
     competitive: true,
+  },
+
+  {
+    slug: "werewolf",
+    title: "Werewolf / Mafia",
+    emoji: "🐺",
+    blurb: "Secret roles, a spoken narrator and a night of lies. Play on one phone, or every phone in a Party Room.",
+    players: "4-20 players",
+    time: "15-30 min",
+    mode: "One phone or every phone",
+    href: "/werewolf-game",
+    gradient: "from-red-700/25 to-indigo-900/20",
+    border: "border-red-500/40",
+    text: "text-red-300",
+    groupSizes: ["2-4", "5-10", "11-20"],
+    audiences: ["Friends", "Family", "Office"],
+    vibes: ["Revealing", "Competitive"],
+    bluff: true,
   },
 
   /* Occasion games: they live on the event pages (/<occasion>#play-<tool>). */

@@ -33,7 +33,7 @@ const GROUPS: {
     heading: "Pass-the-phone question games",
     blurb:
       "One phone, one question at a time, and the whole room answers. These are the quickest games to start: no teams, no scores, just filters for who is playing and how spicy it should get.",
-    links: CLEAN.filter((g) => !g.engine && !g.occasion).map((g) => ({
+    links: CLEAN.filter((g) => !g.engine && !g.occasion && !g.bluff).map((g) => ({
       href: g.href,
       label: g.title,
       blurb: g.blurb,
@@ -50,9 +50,9 @@ const GROUPS: {
   {
     heading: "Bluffing, word and reaction games",
     blurb:
-      "Imposters, fake headlines, tongue twisters and a pirate who might pop at any second. Pass the phone and see who cracks first.",
+      "Werewolf and Mafia, imposters, fake headlines, tongue twisters and a pirate who might pop at any second. Pass the phone and see who cracks first.",
     links: CLEAN.filter(
-      (g) => g.engine && !COMPETITIVE_ENGINE_SLUGS.includes(g.slug),
+      (g) => g.bluff || (g.engine && !COMPETITIVE_ENGINE_SLUGS.includes(g.slug)),
     ).map((g) => ({ href: g.href, label: g.title, blurb: g.blurb })),
   },
   {

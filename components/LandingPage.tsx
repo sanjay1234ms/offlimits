@@ -139,7 +139,9 @@ export function LandingPage({
           {group.intro ? <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">{group.intro}</p> : null}
           <ol className="mt-5 grid gap-3 sm:grid-cols-2">
             {group.items.map((idea, i) => {
-              const n = (page.ideas ?? []).slice(0, gi).reduce((k, g) => k + g.items.length, 0) + i + 1;
+              const n = group.plain
+                ? i + 1
+                : (page.ideas ?? []).slice(0, gi).filter((g) => !g.plain).reduce((k, g) => k + g.items.length, 0) + i + 1;
               return (
                 <li key={idea.name}>
                   <Reveal delay={(i % 2) * 80}>
@@ -150,6 +152,7 @@ export function LandingPage({
                       <div className="min-w-0">
                         <h3 className="font-extrabold text-foreground">{idea.name}</h3>
                         <p className="mt-1 text-sm leading-relaxed text-muted">{idea.how}</p>
+                        {group.plain ? null : (
                         <p className="mt-2 flex flex-wrap gap-1.5 text-[11px] font-bold">
                           {idea.players ? (
                             <span className="rounded-full bg-white/5 px-2 py-0.5 text-muted ring-1 ring-border">👥 {idea.players}</span>
@@ -158,6 +161,7 @@ export function LandingPage({
                             🧰 {idea.needs ?? "Nothing needed"}
                           </span>
                         </p>
+                        )}
                       </div>
                     </div>
                   </Reveal>

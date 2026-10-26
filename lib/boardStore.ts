@@ -3,7 +3,7 @@
  * in-memory otherwise or if the tables are missing. Quiz answers and pool
  * results never leave the server until they're meant to. */
 
-export type BoardKind = "quiz" | "pool";
+export type BoardKind = "quiz" | "pool" | "wolf";
 
 export interface QuizQuestion {
   q: string;
@@ -29,18 +29,18 @@ export interface PoolConfig {
   fields: PoolField[];
 }
 
-interface BoardRow {
+export interface BoardRow {
   id: string;
   kind: BoardKind;
   owner_token: string;
   title: string;
-  config: QuizConfig | PoolConfig;
+  config: QuizConfig | PoolConfig | Record<string, unknown>;
   result: Record<string, string> | null;
   created_at: string;
   expires_at: string;
 }
 
-interface EntryRow {
+export interface EntryRow {
   id?: number;
   board_id: string;
   name: string;
@@ -74,8 +74,8 @@ async function sb(path: string, init: RequestInit = {}, prefer = "return=represe
 interface Backend {
   insertBoard(b: BoardRow): Promise<void>;
   getBoard(id: string): Promise<BoardRow | null>;
-  setResult(id: string, result: Record<string, string>): Promise<void>;
-  entries(id: string): Promise<EntryRow[]>;
+  setResult(id: string, result: unknown): Promise<void>;
+  entries(id: string, limit?: number): Promise<EntryRow[]>;
   addEntry(e: EntryRow): Promise<void>;
   setScores(scores: { id: number; score: number }[]): Promise<void>;
 }
@@ -94,8 +94,8 @@ const supabaseBackend: Backend = {
     const res = await sb(`party_boards?id=eq.${enc(id)}`, { method: "PATCH", body: JSON.stringify({ result }) }, "return=minimal");
     if (!res.ok) throw new Error(`board result ${res.status}`);
   },
-  async entries(id) {
-    const res = await sb(`party_board_entries?board_id=eq.${enc(id)}&select=*&order=created_at.asc&limit=500`);
+  async entries(id, limit = 500) {
+    const res = await sb(`party_board_entries?board_id=eq.${enc(id)}&select=*&order=created_at.asc&limit=${limit}`);
     if (!res.ok) throw new Error(`entries read ${res.status}`);
     return (await res.json()) as EntryRow[];
   },
@@ -130,7 +130,7 @@ const memoryBackend: Backend = {
   },
   async setResult(id, result) {
     const b = MEM.boards.get(id);
-    if (b) b.result = result;
+    if (b) b.result = structuredClone(result) as BoardRow["result"];
   },
   async entries(id) {
     return structuredClone(MEM.entries.get(id) ?? []);
@@ -180,7 +180,7 @@ const db: Backend = useSupabase
 
 const LIFETIME_DAYS = 120;
 
-function randomId(n: number): string {
+export function randomId(n: number): string {
   const a = "abcdefghijkmnpqrstuvwxyz23456789";
   const bytes = crypto.getRandomValues(new Uint8Array(n));
   return Array.from(bytes, (b) => a[b % a.length]).join("");
@@ -292,9 +292,10 @@ export async function createBoard(input: {
 }
 
 async function liveBoard(id: string): Promise<BoardRow | null> {
+  // Quiz and pool only: werewolf rooms (lib/wolfStore.ts) hold secret roles.
   if (!/^[a-z0-9]{6,16}$/.test(id)) return null;
   const b = await db.getBoard(id);
-  return b && new Date(b.expires_at).getTime() > Date.now() ? b : null;
+  return b && b.kind !== "wolf" && new Date(b.expires_at).getTime() > Date.now() ? b : null;
 }
 
 export async function getBoard(id: string): Promise<BoardView | null> {
@@ -379,3 +380,6 @@ export async function isOwner(id: string, token: unknown): Promise<boolean> {
   const b = await liveBoard(id);
   return Boolean(b && typeof token === "string" && token === b.owner_token);
 }
+
+/** Low-level storage for other multi-phone games (lib/wolfStore.ts). */
+export const boardDb = db;

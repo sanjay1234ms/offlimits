@@ -445,6 +445,168 @@ export const EVENT_PAGES: Record<string, LandingPage> = {
     ],
   },
 
+  "werewolf-game": {
+    path: "/werewolf-game",
+    title: "Werewolf Game Online: Free Narrator App, One Phone or Every Phone",
+    description:
+      "Play Werewolf free in your browser. The app deals secret roles and narrates the night out loud, so everyone plays. One phone, or every phone in a Party Room. 4-20 players.",
+    h1: "Werewolf Game",
+    intro: [
+      "The classic party game of lies and accusations, with a narrator that never has to sit out. The app deals secret roles, calls the werewolves, Seer and Doctor awake one by one in a spooky voice, then runs the day vote.",
+      "Play on one phone in the middle of the table, or open a Party Room so everyone gets their secret role and votes on their own phone. Free, no app, no signup, 4 to 20 players.",
+    ],
+    picksHeading: "More games for a big group",
+    picks: [
+      { slug: "odd-one-out", why: "Another imposter game: one player doesn't know the secret word." },
+      { slug: "most-likely-to-vote", why: "Secret votes, big reveal. A gentler way to accuse your friends." },
+      { slug: "truth_or_dare", why: "For the eliminated players who need something to do." },
+      { slug: "fake-news-factory", why: "Bluff your way through fake headlines." },
+      { slug: "pirate-barrel", why: "Settle who narrates the next round." },
+    ],
+    ideas: [
+      {
+        heading: "How to play Werewolf",
+        plain: true,
+        intro: "The app is your narrator. Here's the flow of every round.",
+        items: [
+          { name: "Deal the roles", how: "Add everyone's names. Pass the phone around (or each player opens the room on their own phone) and secretly look at your role card." },
+          { name: "Night falls", how: "Everyone closes their eyes. The narrator wakes the Werewolves, who silently pick a victim, then the Seer (who checks one player) and the Doctor (who protects one player)." },
+          { name: "Morning", how: "Everyone wakes up and the narrator reveals who was eaten, or that the Doctor saved them. Dead players stay quiet from now on." },
+          { name: "Day: discuss and vote", how: "The village argues about who the werewolves are. Then everyone votes, and the player with the most votes is out. A tie means nobody goes." },
+          { name: "Repeat until someone wins", how: "The village wins when every werewolf is gone. The werewolves win when they equal or outnumber the villagers." },
+        ],
+      },
+      {
+        heading: "Werewolf roles",
+        plain: true,
+        items: [
+          { name: "🐺 Werewolf", how: "Knows the other werewolves. Each night, the pack picks someone to eat. By day, pretends to be an innocent villager." },
+          { name: "🧑‍🌾 Villager", how: "No special power, just instincts. Watch for nervous liars and vote the werewolves out." },
+          { name: "🔮 Seer", how: "Each night, learns whether one player is a werewolf. Share it carefully: the wolves will come for you." },
+          { name: "🩺 Doctor", how: "Each night, protects one player (even themselves). If the wolves pick that player, nobody dies." },
+        ],
+      },
+      {
+        heading: "How many werewolves?",
+        plain: true,
+        intro: "The app suggests this automatically, and you can change it.",
+        items: [
+          { name: "4-5 players", how: "1 werewolf, plus a Seer from 5 players." },
+          { name: "6-9 players", how: "2 werewolves, a Seer and a Doctor." },
+          { name: "10-14 players", how: "3 werewolves, a Seer and a Doctor." },
+          { name: "15-20 players", how: "4 werewolves, a Seer and a Doctor." },
+        ],
+      },
+      {
+        heading: "House rules and variations",
+        items: [
+          { name: "Mafia", how: "Same game, city skin: the Mafia hunts civilians, a Detective investigates. Switch the theme above.", players: "4-20" },
+          { name: "Hidden roles", how: "Turn off role reveals so nobody learns what an eliminated player was. Much harder for the village." },
+          { name: "Speed rounds", how: "Shorten the day timer to one minute for chaotic, fast games." },
+          { name: "Ghost hints", how: "Dead players may give one yes/no nod per game. Agree before you start." },
+        ],
+      },
+    ],
+    promptsHeading: "Lines to use when you're accused",
+    prompts: [
+      "If I were a werewolf, would I really be this bad at lying?",
+      "The Seer checked me last night. Ask them.",
+      "Why is everyone so quiet about the person who voted first?",
+      "I protected someone last night. That's all I'm saying.",
+      "Vote me out and you'll regret it tomorrow morning.",
+      "Interesting how you knew exactly who died before the narrator said it.",
+    ],
+    tipsHeading: "Tips for a great game",
+    tips: [
+      "Play with 7-12 people for the best mix of chaos and strategy.",
+      "Put the narrator phone in the middle with the volume up, or use a Party Room so night actions are silent taps on every phone.",
+      "Everyone taps something at night in Party Room mode, so nobody can tell who the wolves are from who's busy.",
+      "Talk a lot on day one. Quiet players are the most suspicious.",
+    ],
+    faq: [
+      { q: "How do you play Werewolf?", a: "Everyone gets a secret role. At night the werewolves pick a victim while the Seer and Doctor use their powers. During the day everyone debates and votes someone out. The village wins by eliminating every werewolf; the werewolves win when they equal the villagers." },
+      { q: "Do we need a narrator?", a: "No. The app narrates out loud and runs every phase, so everyone gets to play." },
+      { q: "Can everyone use their own phone?", a: "Yes. Open a Party Room, share the code, and each player sees their secret role, makes night choices and votes on their own phone. The host's phone narrates." },
+      { q: "How many players do you need for Werewolf?", a: "At least 4, and up to 20. It's best with 7 to 12." },
+      { q: "What's the difference between Werewolf and Mafia?", a: "They're the same game with different themes. Werewolf has werewolves, villagers and a Seer; Mafia has the Mafia, civilians and a Detective. Switch the theme above." },
+      { q: "Is this Werewolf game free?", a: "Yes, completely free in your browser. No app, no signup." },
+    ],
+    related: [
+      { href: "/mafia-game", label: "Mafia party game", emoji: "🕴️" },
+      { href: "/halloween-party-games", label: "Halloween party games", emoji: "🎃" },
+      { href: "/party-games-for-large-groups", label: "Games for large groups", emoji: "👥" },
+      { href: "/games/odd-one-out", label: "Odd One Out imposter game", emoji: "🕵️" },
+      { href: "/party", label: "Party Rooms", emoji: "📱" },
+    ],
+  },
+
+  "mafia-game": {
+    path: "/mafia-game",
+    title: "Mafia Party Game Online: Free Narrator, Roles on Every Phone",
+    description:
+      "Play the Mafia party game free online. The app deals secret roles (Mafia, Detective, Doctor, Civilians), narrates every night and runs the vote. One phone or every phone.",
+    h1: "Mafia Party Game",
+    intro: [
+      "The Mafia party game with an automatic narrator: the app deals the roles, wakes the Mafia, the Detective and the Doctor one by one, then runs the town's vote. Nobody has to sit out to host.",
+      "Play on one phone in the middle, or open a Party Room and everyone gets their secret role on their own phone. Free, no app, 4 to 20 players.",
+    ],
+    picksHeading: "More bluffing games",
+    picks: [
+      { slug: "odd-one-out", why: "Find the imposter who doesn't know the secret word." },
+      { slug: "fake-news-factory", why: "Spot the made-up headline." },
+      { slug: "most-likely-to-vote", why: "Secret votes and dramatic reveals." },
+      { slug: "truth_or_dare", why: "Something for the players who got whacked early." },
+    ],
+    ideas: [
+      {
+        heading: "How to play Mafia",
+        plain: true,
+        items: [
+          { name: "Get your role", how: "Add players, then everyone secretly looks at their role: Mafia, Detective, Doctor or Civilian." },
+          { name: "Night", how: "Eyes closed. The Mafia silently pick a target, the Detective investigates one player, and the Doctor saves one." },
+          { name: "Morning", how: "The narrator announces who was taken out, or that the Doctor saved them." },
+          { name: "Day", how: "The town debates and votes. Most votes is out; a tie means nobody goes." },
+          { name: "Win", how: "The town wins when the Mafia are all gone. The Mafia win when they equal the civilians." },
+        ],
+      },
+      {
+        heading: "Mafia roles",
+        plain: true,
+        items: [
+          { name: "🕴️ Mafia", how: "Knows the other Mafia. Picks a target each night and lies through their teeth by day." },
+          { name: "🧍 Civilian", how: "No powers. Read the room and vote out the Mafia." },
+          { name: "🕵️ Detective", how: "Investigates one player each night and learns if they're Mafia." },
+          { name: "🩺 Doctor", how: "Saves one player each night, themselves included." },
+        ],
+      },
+    ],
+    promptsHeading: "Things a guilty mobster would say",
+    prompts: [
+      "I was asleep the whole night, I swear.",
+      "Why would the Mafia kill their own friend? Think about it.",
+      "The Detective is bluffing. There's no way they checked me.",
+      "Let's not rush the vote. We could be wrong.",
+    ],
+    tipsHeading: "Tips for running Mafia",
+    tips: [
+      "With 8+ players, use 2 Mafia, a Detective and a Doctor.",
+      "Use Party Room mode so night choices are silent taps on everyone's phone.",
+      "Hide roles when someone is out for an expert-level game.",
+    ],
+    faq: [
+      { q: "How do you play Mafia?", a: "Players secretly get roles. At night the Mafia pick a target while the Detective and Doctor use their powers; by day the town debates and votes someone out. The town wins by removing all the Mafia." },
+      { q: "How many players do you need for Mafia?", a: "4 to 20. It's best with 7 to 12." },
+      { q: "Can we play Mafia on separate phones?", a: "Yes. Create a Party Room, share the code, and everyone sees their secret role and votes on their own phone." },
+      { q: "Is Mafia the same as Werewolf?", a: "Yes, it's the same game with a different theme. Switch between them above." },
+    ],
+    related: [
+      { href: "/werewolf-game", label: "Werewolf game", emoji: "🐺" },
+      { href: "/party-games-for-large-groups", label: "Games for large groups", emoji: "👥" },
+      { href: "/games/odd-one-out", label: "Odd One Out imposter game", emoji: "🕵️" },
+      { href: "/halloween-party-games", label: "Halloween party games", emoji: "🎃" },
+    ],
+  },
+
   "most-likely-to-game": {
     path: "/most-likely-to-game",
     title: "Most Likely To Game: Free Secret-Vote Party Game Online",

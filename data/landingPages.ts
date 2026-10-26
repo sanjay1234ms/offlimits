@@ -35,7 +35,8 @@ export interface LandingPage {
   /** Small print shown under the intro (e.g. drink responsibly). */
   note?: string;
   /** Extra game ideas, grouped (adults, families, office...). */
-  ideas?: { heading: string; intro?: string; items: LandingIdea[] }[];
+  /** `plain` groups (rules, roles) number from 1 and skip the players/needs chips. */
+  ideas?: { heading: string; intro?: string; plain?: boolean; items: LandingIdea[] }[];
   /** Hand-picked related pages, shown near the end. */
   related?: { href: string; label: string; emoji: string }[];
 }
@@ -172,6 +173,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     ],
     picksHeading: "Best games for the office",
     picks: [
+      { slug: "werewolf", why: "Mafia is a team-building classic: switch to the Mafia theme." },
       { slug: "this_or_that", why: "A fast, low-pressure icebreaker. Two options, first instinct." },
       { slug: "would_you_rather", why: "Turn on the Office filter for work-safe questions that still get people talking." },
       { slug: "trivia", why: "Team quiz with live scorekeeping. Great for a holiday party." },
@@ -206,6 +208,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Do people need to sign up?", a: "No. There is no signup, no download and no cost." },
     ],
     related: [
+      { href: "/mafia-game", label: "Mafia party game", emoji: "🕴️" },
       { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
       { href: "/baby-shower-games", label: "Baby shower games", emoji: "🍼" },
       { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
@@ -319,6 +322,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     ],
     picksHeading: "Best games for a Halloween party",
     picks: [
+      { slug: "werewolf", why: "The ultimate spooky party game: secret werewolves, a narrator voice and a full moon." },
       { slug: "odd-one-out", why: "A spooky whodunit. Everyone gets the secret word except the imposter." },
       { slug: "charades", why: "Use the Halloween ideas below with the built-in timer." },
       { slug: "would_you_rather", why: "Start with the spooky questions below, then keep going in the app." },
@@ -376,6 +380,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       },
     ],
     related: [
+      { href: "/werewolf-game", label: "Werewolf game (narrator app)", emoji: "🐺" },
       { href: "/questions/truth-or-dare-questions-for-teens", label: "Truth or dare for teens", emoji: "😈" },
       { href: "/questions/paranoia-questions", label: "Paranoia questions", emoji: "🤫" },
       { href: "/questions/hot-seat-questions", label: "Hot seat questions", emoji: "🔥" },
@@ -537,6 +542,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     ],
     picksHeading: "Best games for big groups",
     picks: [
+      { slug: "werewolf", why: "Werewolf works for up to 20, and in a Party Room everyone plays on their own phone." },
       { slug: "most_likely_to", why: "Everyone points at once, so 30 people play as easily as 3." },
       { slug: "odd-one-out", why: "Works for up to 30 players. Add a second imposter past ten." },
       { slug: "never_have_i_ever", why: "Everyone plays every question at the same time." },
@@ -571,6 +577,8 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Do people need to download anything?", a: "No. Everything runs in the browser. No app, no signup." },
     ],
     related: [
+      { href: "/werewolf-game", label: "Werewolf game (narrator app)", emoji: "🐺" },
+      { href: "/mafia-game", label: "Mafia party game", emoji: "🕴️" },
       { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
       { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
       { href: "/bachelorette-party-games", label: "Bachelorette party games", emoji: "👰" },
@@ -589,6 +597,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     ],
     picksHeading: "Best games for video calls",
     picks: [
+      { slug: "werewolf", why: "Open a Party Room: everyone gets their secret role on their own phone, even on a video call." },
       { slug: "would_you_rather", why: "Everyone votes in the chat. The minority defends their choice." },
       { slug: "trivia", why: "Teams in breakout rooms, scores on the shared screen." },
       { slug: "this_or_that", why: "Answer by typing 1 or 2 in the chat. Fast and easy." },
@@ -620,6 +629,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are they work-appropriate?", a: "Yes. Use the Office filter for work-safe questions. Adult modes stay off unless someone turns them on." },
     ],
     related: [
+      { href: "/werewolf-game", label: "Werewolf game (narrator app)", emoji: "🐺" },
       { href: "/baby-shower-games", label: "Baby shower games", emoji: "🍼" },
       { href: "/bridal-shower-games", label: "Bridal shower games", emoji: "💐" },
       { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
@@ -669,6 +679,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Do we need a phone each?", a: "No. One phone passed around is enough." },
     ],
     related: [
+      { href: "/werewolf-game", label: "Werewolf game (narrator app)", emoji: "🐺" },
       { href: "/questions/most-likely-to-questions-for-teens", label: "Most Likely To for teens", emoji: "📱" },
       { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
       { href: "/questions/funny-most-likely-to-questions", label: "Funny Most Likely To", emoji: "😂" },

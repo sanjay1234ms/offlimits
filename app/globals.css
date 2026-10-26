@@ -798,3 +798,17 @@ body {
 }
 :root:not(.dark) .scroll-words { -webkit-text-stroke-color: rgba(15, 23, 42, 0.18); }
 :root:not(.dark) .scroll-words--accent { -webkit-text-stroke-color: rgba(219, 39, 119, 0.45); }
+
+/* Werewolf narrator "speaking" bars */
+.narrator-bar {
+  height: 100%;
+  transform-origin: bottom;
+  animation: narrator-bar 0.9s ease-in-out infinite;
+}
+@keyframes narrator-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .narrator-bar { animation: none; transform: scaleY(0.7); }
+}

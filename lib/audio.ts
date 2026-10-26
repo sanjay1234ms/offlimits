@@ -214,3 +214,128 @@ export const rpsSfx = {
 export function primeAudio(): void {
   getCtx();
 }
+
+/** Werewolf / Mafia sound set. */
+export const wolfSfx = {
+  /** A rising-then-falling howl. */
+  howl: () => {
+    sweep(320, 620, 0.9, "sine", 0.12);
+    sweep(620, 380, 1.1, "sine", 0.1, 0.85);
+    sweep(330, 640, 0.9, "triangle", 0.04, 0.02);
+    noise(1.6, 0.025, "bandpass", 900, 0, 500);
+  },
+  /** Two low thumps. */
+  heartbeat: () => {
+    sweep(90, 45, 0.16, "sine", 0.4);
+    sweep(85, 42, 0.18, "sine", 0.32, 0.22);
+  },
+  /** Morning: a bright little rooster-ish trill. */
+  morning: () => {
+    [523, 659, 784, 988, 784].forEach((f, i) => tone(f, 0.12, "triangle", 0.1, i * 0.08));
+  },
+  /** Elimination gong. */
+  gong: () => {
+    sweep(140, 90, 1.6, "sine", 0.35);
+    sweep(283, 180, 1.4, "triangle", 0.08);
+    noise(0.4, 0.05, "lowpass", 600);
+  },
+  /** Card reveal shimmer. */
+  reveal: () => {
+    [880, 1175, 1568].forEach((f, i) => tone(f, 0.18, "sine", 0.06, i * 0.06));
+  },
+};
+
+/** Looping night ambience under the narrator: a low drone, crickets and
+ * the odd distant owl. Fades in and out; respects the effects mute. */
+let amb: { stop: () => void } | null = null;
+
+export const nightAmbience = {
+  start() {
+    const c = getCtx();
+    if (!c || amb || areEffectsMuted()) return;
+    const master = c.createGain();
+    master.gain.setValueAtTime(0.0001, c.currentTime);
+    master.gain.exponentialRampToValueAtTime(1, c.currentTime + 2.5);
+    master.connect(c.destination);
+
+    // Drone: two detuned low sines through a lowpass, gently breathing.
+    const lp = c.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 220;
+    const droneGain = c.createGain();
+    droneGain.gain.value = 0.045;
+    lp.connect(droneGain).connect(master);
+    const oscs = [55, 55.6, 82.4].map((f) => {
+      const o = c.createOscillator();
+      o.type = "sine";
+      o.frequency.value = f;
+      o.connect(lp);
+      o.start();
+      return o;
+    });
+    const lfo = c.createOscillator();
+    const lfoGain = c.createGain();
+    lfo.frequency.value = 0.08;
+    lfoGain.gain.value = 0.02;
+    lfo.connect(lfoGain).connect(droneGain.gain);
+    lfo.start();
+
+    const timers: number[] = [];
+    const chirp = () => {
+      const t = c.currentTime;
+      const n = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n; i++) {
+        const o = c.createOscillator();
+        const g = c.createGain();
+        o.type = "sine";
+        o.frequency.value = 4300 + Math.random() * 300;
+        const s = t + i * 0.07;
+        g.gain.setValueAtTime(0.0001, s);
+        g.gain.linearRampToValueAtTime(0.012, s + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, s + 0.05);
+        o.connect(g).connect(master);
+        o.start(s);
+        o.stop(s + 0.07);
+      }
+      timers.push(window.setTimeout(chirp, 700 + Math.random() * 1600));
+    };
+    const owl = () => {
+      const t = c.currentTime;
+      [0, 0.55].forEach((d, i) => {
+        const o = c.createOscillator();
+        const g = c.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(i ? 390 : 420, t + d);
+        o.frequency.exponentialRampToValueAtTime(i ? 330 : 360, t + d + 0.42);
+        g.gain.setValueAtTime(0.0001, t + d);
+        g.gain.linearRampToValueAtTime(0.03, t + d + 0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.45);
+        o.connect(g).connect(master);
+        o.start(t + d);
+        o.stop(t + d + 0.5);
+      });
+      timers.push(window.setTimeout(owl, 14000 + Math.random() * 12000));
+    };
+    timers.push(window.setTimeout(chirp, 1200));
+    timers.push(window.setTimeout(owl, 6000));
+
+    amb = {
+      stop() {
+        timers.forEach((id) => window.clearTimeout(id));
+        const t = c.currentTime;
+        master.gain.cancelScheduledValues(t);
+        master.gain.setValueAtTime(master.gain.value, t);
+        master.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+        window.setTimeout(() => {
+          oscs.forEach((o) => o.stop());
+          lfo.stop();
+          master.disconnect();
+        }, 2000);
+      },
+    };
+  },
+  stop() {
+    amb?.stop();
+    amb = null;
+  },
+};
