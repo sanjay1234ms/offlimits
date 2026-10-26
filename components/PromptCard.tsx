@@ -7,6 +7,8 @@ interface PromptCardProps {
   gameTitle: string;
   /** Overrides the per-prompt game theme (the 18+ deck forces its own). */
   themeKey?: GameThemeKey;
+  /** Flip in on mount. Off inside SwipeCard, which deals its own entrance. */
+  flip?: boolean;
 }
 
 /** The large, tactile face-up card showing the active question, with a
@@ -16,12 +18,13 @@ export function PromptCard({
   gameEmoji,
   gameTitle,
   themeKey,
+  flip = true,
 }: PromptCardProps) {
   const theme = gameTheme(themeKey ?? prompt.game);
 
   return (
     <div
-      className={`glass-card animate-card-flip relative flex min-h-[17rem] w-full flex-col justify-between gap-6 overflow-hidden p-6 sm:min-h-[21rem] sm:p-9 ${theme.edgeShadow}`}
+      className={`glass-card ${flip ? "animate-card-flip" : ""} relative flex min-h-[17rem] w-full flex-col justify-between gap-6 overflow-hidden p-6 sm:min-h-[21rem] sm:p-9 ${theme.edgeShadow}`}
     >
       <div
         aria-hidden

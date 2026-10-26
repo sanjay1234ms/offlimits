@@ -1,5 +1,6 @@
 import { GAME_PAGES } from "./games";
 import { GIFT_PAGES } from "./gifts";
+import { MOST_LIKELY_PAGES } from "./mostLikely";
 import { QUESTION_PAGES } from "./questions";
 import { SEASONAL_PAGES } from "./seasonal";
 import { TRIVIA_PAGES } from "./trivia";
@@ -12,6 +13,7 @@ export const KEYWORD_PAGES: KeywordPage[] = [
   ...TRUTH_OR_DARE_PAGES,
   ...SEASONAL_PAGES,
   ...QUESTION_PAGES,
+  ...MOST_LIKELY_PAGES,
   ...TRIVIA_PAGES,
   ...GAME_PAGES,
   ...GIFT_PAGES,

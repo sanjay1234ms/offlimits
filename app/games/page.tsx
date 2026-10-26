@@ -33,7 +33,7 @@ const GROUPS: {
     heading: "Pass-the-phone question games",
     blurb:
       "One phone, one question at a time, and the whole room answers. These are the quickest games to start: no teams, no scores, just filters for who is playing and how spicy it should get.",
-    links: CLEAN.filter((g) => !g.engine).map((g) => ({
+    links: CLEAN.filter((g) => !g.engine && !g.occasion).map((g) => ({
       href: g.href,
       label: g.title,
       blurb: g.blurb,
@@ -54,6 +54,16 @@ const GROUPS: {
     links: CLEAN.filter(
       (g) => g.engine && !COMPETITIVE_ENGINE_SLUGS.includes(g.slug),
     ).map((g) => ({ href: g.href, label: g.title, blurb: g.blurb })),
+  },
+  {
+    heading: "Games for bachelorettes, showers, birthdays and holidays",
+    blurb:
+      "Made for the occasion: a dirty Bride Edition deck, quizzes everyone plays on their own phone with a live leaderboard, a baby prediction pool and hot-potato games for the family table.",
+    links: CLEAN.filter((g) => g.occasion).map((g) => ({
+      href: g.href,
+      label: `${g.title} (${g.occasion})`,
+      blurb: g.blurb,
+    })),
   },
   {
     heading: "Wheels and random pickers",

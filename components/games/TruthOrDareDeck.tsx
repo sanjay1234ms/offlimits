@@ -24,6 +24,7 @@ import { groupSizeOptions, vibeOptions } from "@/data/filters";
 import type { GroupSize, Prompt, Vibe } from "@/types";
 import { PromptCard } from "../PromptCard";
 import { SwipeCard } from "../SwipeCard";
+import { DeckStage } from "../DeckStage";
 import { PaywallOverlay } from "../PaywallOverlay";
 import { AgeGateModal } from "../AgeGateModal";
 import { IntensityDial } from "./IntensityDial";
@@ -394,7 +395,8 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
       </div>
 
       {/* Card */}
-      <div className="relative w-full" style={{ perspective: "1200px" }}>
+      <DeckStage theme={adult18 || current?.isAdult ? "18+" : current?.kind === "dare" ? "dare" : current?.kind === "truth" ? "truth" : "truth_or_dare"}>
+      <div className="relative mx-auto w-[86%] max-w-xl" style={{ perspective: "1200px" }}>
         <SwipeCard
           key={current?.id ?? "empty"}
           onSwipe={(dir) => drawCard(dir < 0 ? "truth" : "dare")}
@@ -414,6 +416,7 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
                 gameEmoji={theme.emoji}
                 gameTitle="Truth or Dare"
                 themeKey={current.isAdult ? "18+" : "truth_or_dare"}
+                flip={false}
               />
             ) : (
               <div
@@ -435,6 +438,7 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
         </SwipeCard>
         {paywallOpen ? <PaywallOverlay onUnlock={unlock} /> : null}
       </div>
+      </DeckStage>
 
       {current && !paywallOpen ? (
         <CardExtras

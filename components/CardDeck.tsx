@@ -20,6 +20,7 @@ import type { AdultCard } from "@/data/adultDeck";
 import { PromptCard } from "./PromptCard";
 import { PaywallOverlay } from "./PaywallOverlay";
 import { SwipeCard, type SwipeCardHandle } from "./SwipeCard";
+import { DeckStage } from "./DeckStage";
 import { CardExtras } from "./games/CardExtras";
 import { trackCardNext, trackDeckComplete } from "@/lib/analytics";
 
@@ -166,18 +167,21 @@ export function CardDeck({
         </span>
       </div>
 
-      <div className="w-full" style={{ perspective: "1200px" }}>
-        <SwipeCard ref={swipe} key={current.id} onSwipe={handleNext}>
-          <div className="preserve-3d">
-            <PromptCard
-              prompt={current}
-              gameEmoji={deck.emoji}
-              gameTitle={deck.title}
-              themeKey={deck.id}
-            />
-          </div>
-        </SwipeCard>
-      </div>
+      <DeckStage theme={deck.id}>
+        <div className="mx-auto w-[86%] max-w-xl" style={{ perspective: "1200px" }}>
+          <SwipeCard ref={swipe} key={current.id} onSwipe={handleNext} peek>
+            <div className="preserve-3d">
+              <PromptCard
+                prompt={current}
+                gameEmoji={deck.emoji}
+                gameTitle={deck.title}
+                themeKey={deck.id}
+                flip={false}
+              />
+            </div>
+          </SwipeCard>
+        </div>
+      </DeckStage>
 
       <DeckControls onNext={requestNext} onRestart={restart} />
 
@@ -359,12 +363,14 @@ export function AdultCardDeck({
         )}
       </div>
 
-      <div className="relative w-full" style={{ perspective: "1200px" }}>
+      <DeckStage theme="18+">
+      <div className="relative mx-auto w-[86%] max-w-xl" style={{ perspective: "1200px" }}>
         <SwipeCard
           ref={swipe}
           key={activePrompt?.id ?? "empty"}
           onSwipe={handleNext}
           disabled={paywallOpen}
+          peek
         >
           <div
             className={`preserve-3d transition-[filter] duration-200 ${
@@ -378,6 +384,7 @@ export function AdultCardDeck({
                 gameEmoji={meta.emoji}
                 gameTitle={meta.label}
                 themeKey="18+"
+                flip={false}
               />
             ) : (
               <div className="min-h-[16rem] rounded-3xl border border-red-500/40 bg-card p-6 text-center text-muted sm:min-h-[20rem]">
@@ -388,6 +395,7 @@ export function AdultCardDeck({
         </SwipeCard>
         {paywallOpen ? <PaywallOverlay onUnlock={unlock} /> : null}
       </div>
+      </DeckStage>
 
       <DeckControls
         onNext={requestNext}

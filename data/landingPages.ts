@@ -59,6 +59,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "most_likely_to", why: "Big laughs with family. Count to three and point." },
       { slug: "odd-one-out", why: "One imposter, one secret word. Works for 3 to 30 people." },
       { slug: "buzzkill", why: "A taboo-style team game that gets loud fast." },
+      { slug: "most-likely-to-vote", why: "Who's most likely to regift? Vote in secret, reveal together." },
     ],
     ideas: [
       {
@@ -119,6 +120,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { href: "/secret-santa", label: "Secret Santa generator", emoji: "🎁" },
       { href: "/white-elephant", label: "White Elephant game", emoji: "🐘" },
       { href: "/new-years-eve-party-games", label: "New Year's Eve party games", emoji: "🎆" },
+      { href: "/thanksgiving-games", label: "Thanksgiving games", emoji: "🦃" },
+      { href: "/questions/most-likely-to-questions-for-family", label: "Most Likely To for family", emoji: "👨‍👩‍👧" },
+      { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
     ],
     promptsHeading: "Christmas Would You Rather questions",
     prompts: [
@@ -201,6 +205,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "How long does a game take?", a: "Most rounds take 5 to 20 minutes, so they fit at the start of a meeting or as a break during an event." },
       { q: "Do people need to sign up?", a: "No. There is no signup, no download and no cost." },
     ],
+    related: [
+      { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
+      { href: "/baby-shower-games", label: "Baby shower games", emoji: "🍼" },
+      { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
+    ],
   },
   "18-plus-party-games": {
     path: "/18-plus-party-games",
@@ -221,6 +230,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "most_likely_to", why: "Who's most likely to… after dark. Point on three and make them explain." },
       { slug: "would_you_rather", why: "Impossible adult dilemmas that start real arguments about dating, exes and bad decisions." },
       { slug: "how-well-do-you-know-me", why: "For couples: answer for each other in secret, then compare. Brutally revealing." },
+      { slug: "bride-truth-or-dare", why: "The Bride Edition deck goes from cute to filthy on a five-step spicy meter." },
     ],
     ideas: [
       {
@@ -292,6 +302,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { href: "/drinking-games", label: "Drinking games", emoji: "🍻" },
       { href: "/couples-games", label: "Couples games", emoji: "💘" },
       { href: "/questions/truth-or-dare-questions", label: "Truth or dare questions", emoji: "😈" },
+      { href: "/bachelorette-party-games", label: "Bachelorette party games", emoji: "👰" },
+      { href: "/questions/dirty-most-likely-to-questions", label: "Dirty Most Likely To", emoji: "🍑" },
+      { href: "/valentines-day-games", label: "Valentine's Day games", emoji: "💞" },
     ],
   },
   "halloween-party-games": {
@@ -371,6 +384,9 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { href: "/wheel", label: "Spin the wheel", emoji: "🎡" },
       { href: "/christmas-party-games", label: "Christmas party games", emoji: "🎄" },
       { href: "/18-plus-party-games", label: "18+ party games", emoji: "🔥" },
+      { href: "/thanksgiving-games", label: "Thanksgiving games", emoji: "🦃" },
+      { href: "/questions/funny-most-likely-to-questions", label: "Funny Most Likely To", emoji: "😂" },
+      { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
     ],
     promptsHeading: "Halloween Would You Rather and charades ideas",
     prompts: [
@@ -426,6 +442,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "buzzkill", why: "Say a forbidden word and your team drinks." },
       { slug: "fast-5", why: "Miss the five before the buzzer, take a sip." },
       { slug: "pirate-barrel", why: "Launch the pirate and you drink. Rounds take a minute." },
+      { slug: "bride-truth-or-dare", why: "Truth or shot, bachelorette style." },
     ],
     promptsHeading: "Simple sip rules",
     prompts: [
@@ -449,6 +466,12 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are these drinking games free?", a: "Yes. Every game is free in the browser, with no signup and no download. An optional Party Pass unlocks extra 18+ packs." },
       { q: "Can we play without drinking?", a: "Yes. Every game works without alcohol. Use the forfeit wheel or keep score instead." },
       { q: "What's the best drinking game for a big group?", a: "Most Likely To and Never Have I Ever work best for big groups because everyone plays every round." },
+    ],
+    related: [
+      { href: "/bachelorette-party-games", label: "Bachelorette party games", emoji: "👰" },
+      { href: "/questions/dirty-most-likely-to-questions", label: "Dirty Most Likely To", emoji: "🍑" },
+      { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
+      { href: "/questions/most-likely-to-questions-for-friends", label: "Most Likely To for friends", emoji: "👯" },
     ],
   },
 
@@ -496,6 +519,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are they safe for school?", a: "Yes. Every game starts in a clean mode. Adult content is hidden behind an 18+ age check and never turns on by itself." },
       { q: "Can I use them on a projector or smartboard?", a: "Yes. Open any game in the browser and it scales to a big screen." },
     ],
+    related: [
+      { href: "/questions/most-likely-to-questions-for-teens", label: "Most Likely To for teens", emoji: "📱" },
+      { href: "/questions/most-likely-to-questions-for-family", label: "Most Likely To for family", emoji: "👨‍👩‍👧" },
+      { href: "/thanksgiving-games", label: "Thanksgiving games", emoji: "🦃" },
+    ],
   },
   "party-games-for-large-groups": {
     path: "/party-games-for-large-groups",
@@ -515,6 +543,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "trivia", why: "Split into teams of five and keep score." },
       { slug: "charades", why: "Two big teams, one timer, lots of shouting." },
       { slug: "this_or_that", why: "Everyone answers by moving to one side of the room." },
+      { slug: "most-likely-to-vote", why: "Secret votes on one phone, then a big reveal." },
     ],
     promptsHeading: "Most Likely To questions for big groups",
     prompts: [
@@ -540,6 +569,12 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "What's the best party game for a big group?", a: "Most Likely To and Odd One Out work best, because everyone plays every round." },
       { q: "How many people can play?", a: "Most games work for up to 30 people on one phone, and party rooms let everyone join on their own phone." },
       { q: "Do people need to download anything?", a: "No. Everything runs in the browser. No app, no signup." },
+    ],
+    related: [
+      { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
+      { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
+      { href: "/bachelorette-party-games", label: "Bachelorette party games", emoji: "👰" },
+      { href: "/bridal-shower-games", label: "Bridal shower games", emoji: "💐" },
     ],
   },
   "virtual-party-games": {
@@ -583,6 +618,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Do these work on Zoom, Teams and Google Meet?", a: "Yes. Share your browser tab, or open a party room so everyone plays on their own phone." },
       { q: "Is it free?", a: "Yes. No signup, no download and no cost." },
       { q: "Are they work-appropriate?", a: "Yes. Use the Office filter for work-safe questions. Adult modes stay off unless someone turns them on." },
+    ],
+    related: [
+      { href: "/baby-shower-games", label: "Baby shower games", emoji: "🍼" },
+      { href: "/bridal-shower-games", label: "Bridal shower games", emoji: "💐" },
+      { href: "/most-likely-to-game", label: "Most Likely To voting game", emoji: "🗳️" },
     ],
   },
   "sleepover-games": {
@@ -628,6 +668,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Are these sleepover games clean?", a: "Yes. Every game starts in a clean mode. Adult content is behind an 18+ age check." },
       { q: "Do we need a phone each?", a: "No. One phone passed around is enough." },
     ],
+    related: [
+      { href: "/questions/most-likely-to-questions-for-teens", label: "Most Likely To for teens", emoji: "📱" },
+      { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
+      { href: "/questions/funny-most-likely-to-questions", label: "Funny Most Likely To", emoji: "😂" },
+    ],
   },
   "couples-games": {
     path: "/couples-games",
@@ -647,6 +692,8 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { slug: "truth_or_dare", why: "Couples packs, from sweet to brave." },
       { slug: "never_have_i_ever", why: "Find out what you didn't know about each other." },
       { slug: "fast-5", why: "A quick competitive round when you want a winner." },
+      { slug: "couples-quiz", why: "Answer in secret and find out how in sync you really are." },
+      { slug: "couples-truth-or-dare", why: "Five levels for two, from sweet to very much not." },
     ],
     promptsHeading: "Questions for couples",
     prompts: [
@@ -668,6 +715,11 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     faq: [
       { q: "What's the best game for couples?", a: "How Well Do You Know Me and Would You Rather with the Couples filter are the most popular." },
       { q: "Is it free?", a: "Yes. Every game is free. An optional Party Pass unlocks extra 18+ packs if you want them." },
+    ],
+    related: [
+      { href: "/valentines-day-games", label: "Valentine's Day games", emoji: "💞" },
+      { href: "/questions/most-likely-to-questions-for-couples", label: "Most Likely To for couples", emoji: "💘" },
+      { href: "/bridal-shower-games", label: "Bridal shower games", emoji: "💐" },
     ],
   },
 };

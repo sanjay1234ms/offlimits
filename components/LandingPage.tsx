@@ -23,7 +23,14 @@ export function landingMetadata(page: LandingPageData): Metadata {
 
 /** Seasonal / occasion landing page: intro, game picks with one-tap play,
  * ready-to-read prompts, host tips and an FAQ (also emitted as JSON-LD). */
-export function LandingPage({ page }: { page: LandingPageData }) {
+export function LandingPage({
+  page,
+  children,
+}: {
+  page: LandingPageData;
+  /** Interactive games shown right under the hero. */
+  children?: React.ReactNode;
+}) {
   const picks = page.picks
     .map((p) => ({ game: catalogBySlug(p.slug), why: p.why }))
     .filter((p): p is { game: CatalogGame; why: string } => !!p.game);
@@ -105,6 +112,12 @@ export function LandingPage({ page }: { page: LandingPageData }) {
         </div>
         <div className="pb-6" />
       </PageHero>
+
+      {children ? (
+        <section id="play" className="mx-auto max-w-content scroll-mt-24 px-4 pb-4 pt-2 sm:px-6">
+          {children}
+        </section>
+      ) : null}
 
       <section className="mx-auto max-w-content px-4 py-6 sm:px-6">
         <SectionHeading title={page.picksHeading} />

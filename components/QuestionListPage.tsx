@@ -14,6 +14,7 @@ import { breadcrumbJsonLd, itemListJsonLd } from "@/lib/site";
 import { JsonLd } from "./JsonLd";
 import { PageHero } from "./PageHero";
 import { RandomPick } from "./RandomPick";
+import { MOST_LIKELY_PAGES } from "@/data/keywordPages/mostLikely";
 
 /** Deck cards for a list, in deck order (heat ascending within a category). */
 function cardsFor(list: QuestionList): DeckCard[] {
@@ -85,6 +86,14 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
   const related = QUESTION_LISTS.filter((l) => l.slug !== list.slug)
     .sort((a, b) => Number(b.game === list.game) - Number(a.game === list.game))
     .slice(0, 6);
+  // Most Likely To lists also point at the flavour pages and the vote game.
+  const extraLinks =
+    list.game === "most_likely_to"
+      ? [
+          { href: "/most-likely-to-game", label: "Most Likely To voting game" },
+          ...MOST_LIKELY_PAGES.map((p) => ({ href: p.path, label: p.h1 })),
+        ]
+      : [];
 
   const PlayButton = (
     <Link href={playHref(list)} className="btn-primary w-full sm:w-auto">
@@ -174,6 +183,16 @@ export function QuestionListPage({ list }: { list: QuestionList }) {
                 className="block rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent"
               >
                 {l.h1}
+              </Link>
+            </li>
+          ))}
+          {extraLinks.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="block rounded-xl border border-border bg-surface/60 px-4 py-3 text-sm font-semibold text-foreground transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent"
+              >
+                {l.label}
               </Link>
             </li>
           ))}

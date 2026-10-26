@@ -19,6 +19,7 @@ const nextConfig = {
         permanent: true,
       },
       { source: "/occasions/game-night", destination: "/games", permanent: true },
+      { source: "/occasions/birthday", destination: "/birthday-party-games", permanent: true },
     ];
   },
 };
