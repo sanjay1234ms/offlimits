@@ -5,7 +5,8 @@
  * loss, what follows each throw, how they answer the computer's last throw).
  * Every reader is scored on how well it would have called the player so far,
  * with older rounds fading out, and the computer throws against the best
- * one. A little randomness keeps it from being perfectly exploitable. */
+ * one, but only about a third of the time; the rest is random, and it never
+ * repeats a throw three times in a row, so it feels fair. */
 
 export type Move = "rock" | "paper" | "scissors";
 export type Outcome = "win" | "lose" | "draw";
@@ -89,6 +90,9 @@ const READERS: Record<string, Reader> = {
   },
 };
 
+/** How often the computer throws against its read instead of at random. */
+const READ_CHANCE = 0.35;
+
 export interface AiState {
   history: Round[];
   /** Decayed accuracy per reader. */
@@ -132,14 +136,15 @@ export function aiThrow(state: AiState, rand = Math.random): { move: Move; state
     }
   }
 
-  let move: Move;
-  if (guess && rand() > 0.12) {
-    move = BEATEN_BY[guess];
-  } else if (!h.length) {
-    // No history: people open with rock slightly more, and paper beats rock.
-    move = rand() < 0.45 ? "paper" : MOVES[Math.floor(rand() * 3)];
-  } else {
-    move = MOVES[Math.floor(rand() * 3)];
+  // Mostly random so it feels fair and unpredictable. The habit read only
+  // kicks in after a few rounds, and only some of the time.
+  let move: Move =
+    guess && h.length >= 3 && rand() < READ_CHANCE ? BEATEN_BY[guess] : MOVES[Math.floor(rand() * 3)];
+  // Never the same throw three times in a row.
+  const last = h.slice(-2).map((r) => r.ai);
+  if (last.length === 2 && last[0] === last[1] && move === last[0]) {
+    const others = MOVES.filter((m) => m !== move);
+    move = others[Math.floor(rand() * 2)];
   }
   return { move, state: { ...state, pending: { reader, guess } } };
 }
