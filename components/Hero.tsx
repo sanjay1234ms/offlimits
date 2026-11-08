@@ -126,12 +126,6 @@ export function Hero() {
               <span aria-hidden className="text-muted">
                 ·
               </span>
-              <Link href="/party" className="underline underline-offset-4">
-                Open a party room
-              </Link>
-              <span aria-hidden className="text-muted">
-                ·
-              </span>
               <Link
                 href="/play?category=18-plus&vibe=wild"
                 className="inline-flex items-center gap-1 text-rose-400 underline underline-offset-4"

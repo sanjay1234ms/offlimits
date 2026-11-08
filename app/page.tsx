@@ -25,6 +25,8 @@ import {
 } from "@/components";
 import { QuickRound, type QuickPrompt } from "@/components/QuickRound";
 import { ScrollWords } from "@/components/ScrollWords";
+import { RoomCard } from "@/components/RoomCard";
+import { DailyStrip } from "@/components/daily/DailyStrip";
 import gamesData from "@/data/games.json";
 
 /** Homepage shortcuts into the most searched question lists. */
@@ -164,6 +166,18 @@ export default function HomePage() {
       <JsonLd data={HOME_JSON_LD} />
       <main>
         <Hero />
+
+        <section
+          aria-label="Party room and today's puzzles"
+          className="relative mx-auto -mt-6 max-w-content px-4 pb-6 sm:-mt-10 sm:px-6"
+        >
+          <div className="mx-auto max-w-3xl lg:mx-0">
+            <RoomCard />
+          </div>
+          <div className="mt-8">
+            <DailyStrip />
+          </div>
+        </section>
 
         <div className="overflow-hidden py-4">
           <GameMarquee />
