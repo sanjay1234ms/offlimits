@@ -92,6 +92,20 @@ export function PartyForm() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Arriving from the homepage room card with ?join=CODE (already checked
+  // there): fill the code and go straight to "what should we call you?".
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search)
+      .get("join")
+      ?.toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .slice(0, 6);
+    if (code && code.length === 6) {
+      setJoinCode(code);
+      setJoinStage("name");
+    }
+  }, []);
+
   const selectedGames = useMemo(
     () => PARTY_GAMES.filter((game) => selected.includes(game.id)),
     [selected],
