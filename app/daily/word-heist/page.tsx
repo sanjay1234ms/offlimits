@@ -7,7 +7,7 @@ import { DAILY_GAMES } from "@/data/daily/puzzles";
 const GAME = DAILY_GAMES[0];
 const TITLE = "Word Heist: Daily Five-Letter Word Puzzle";
 const DESCRIPTION =
-  "Crack the five-letter vault code in six tries. A free daily word puzzle with a clue when you're stuck, streaks, practice days and a daily leaderboard. No signup.";
+  "Crack the five-letter vault code in six tries. A free daily word puzzle with a clue when you're stuck, streaks and practice days. No signup.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,7 +27,7 @@ export default function WordHeistPage() {
         "Type any real five-letter word and press Enter. It doesn't need to be right, it needs to be useful.",
         "Green tiles (with a bar) are the right letter in the right spot. Yellow tiles (with a dot) are in the word but somewhere else. Grey letters aren't in it at all.",
         "Use what you learned on the next guess. Made-up words are refused and don't cost you a try.",
-        "Stuck after three misses? Reveal one letter. It counts as half a try on the leaderboard.",
+        "Stuck after three misses? Reveal one letter. Your share card will show you used it.",
         "Crack it in six or fewer to keep your streak alive, then share your grid. It shows colours only, so no spoilers.",
       ]}
       tips={[
@@ -40,8 +40,8 @@ export default function WordHeistPage() {
         { q: "When does a new Word Heist puzzle come out?", a: "At midnight in your own time zone. Everyone in the world gets the same word that day." },
         { q: "Is Word Heist free?", a: "Yes. No app, no account and no signup. It runs in any phone or computer browser." },
         { q: "Why was my word refused?", a: "Guesses have to be real English five-letter words from our list of about 12,000. Names, brands and typos are refused, and a refused word doesn't use a try." },
-        { q: "How does the leaderboard work?", a: "Fewer tries ranks higher. A revealed letter counts as half a try. Ties go to the faster time, counted from your first key press, not from when you opened the page." },
-        { q: "I missed a day. Can I still play it?", a: "Yes. The last seven days stay open as practice. Practice rounds don't change your streak or the leaderboard." },
+        { q: "How do streaks work?", a: "Solve the puzzle each day to grow your streak. Miss a day or run out of tries and it starts again. Streaks are saved on your device, no account needed." },
+        { q: "I missed a day. Can I still play it?", a: "Yes. The last seven days stay open as practice. Practice rounds don't change your streak." },
         { q: "Can I play more than one a day?", a: "After today's puzzle you can crack bonus vaults with random words as many times as you like." },
       ]}
     >

@@ -229,7 +229,6 @@ export function WordHeist() {
 
   const misses = p.guesses.filter((g) => g !== answer).length;
   const canClue = !p.done && !p.clue && misses >= CLUE_AFTER;
-  const tries = p.won ? p.guesses.length : 7;
   const label = p.won ? `${p.guesses.length}/6${p.clue ? " +clue" : ""}` : "X/6";
   const number = round?.kind === "daily" ? round.day + 1 : null;
   const shareLines = [
@@ -302,7 +301,7 @@ export function WordHeist() {
             className="inline-flex items-center gap-1.5 rounded-full border-2 border-amber-500 bg-amber-50 px-4 py-1.5 text-sm font-black text-amber-800 hover:bg-amber-100"
           >
             <Lightbulb className="h-4 w-4" aria-hidden />
-            Stuck? Reveal a letter (costs half a try)
+            Stuck? Reveal a letter
           </button>
         ) : null}
 
@@ -340,12 +339,8 @@ export function WordHeist() {
             <FinishPanel
               key={JSON.stringify(round)}
               puzzle="word-heist"
-              day={round?.kind === "daily" ? round.day : -1}
               practice={practice}
               headline={p.won ? `Vault cracked in ${p.guesses.length}! 🔓` : "The vault stayed shut 🔒"}
-              label={label}
-              rank={tries + (p.clue && p.won ? 0.5 : 0)}
-              ms={p.ms}
               shareLines={shareLines}
               stats={stats}
             >
@@ -396,12 +391,12 @@ export function WordHeistRules() {
         &quot;sweet&quot; when the code has one E and only one E lights up.
       </p>
       <p>
-        <strong>Clue:</strong> after three misses you can reveal one letter. It counts as half a try on the
-        leaderboard, so a 4 with a clue sits just below a clean 4.
+        <strong>Clue:</strong> after three misses you can reveal one letter. Your share card shows you used it,
+        so a clean solve still has bragging rights.
       </p>
       <p>
-        <strong>Leaderboard:</strong> fewer tries wins, ties go to the faster time, counted from your first key.
-        Streaks live on this device. Missed a day? Play the last week as practice.
+        <strong>Streaks:</strong> solve it each day to keep your streak going. Streaks live on this device. Missed a
+        day? Play the last week as practice.
       </p>
     </>
   );

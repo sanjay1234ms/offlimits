@@ -374,12 +374,8 @@ export function OffTheMap() {
           <FinishPanel
             key={JSON.stringify(round)}
             puzzle="off-the-map"
-            day={round?.kind === "daily" ? round.day : -1}
             practice={practice}
             headline={total >= 400 ? "Human GPS 🧭" : total >= 250 ? "Well travelled ✈️" : total >= 120 ? "Scenic route 🗺️" : "Took the long way 🐢"}
-            label={`${total}`}
-            rank={-total}
-            ms={p.ms}
             shareLines={shareLines}
             stats={stats}
           >
@@ -428,9 +424,6 @@ export function OffTheMapRules() {
         35 at 2,600 km and 14 at 5,000 km. On country cards, a pin anywhere inside the border scores 100; outside it,
         the most you can get is 85. Distances go around the globe, so a pin across the edge of the map can still be
         close. Best possible day: 500.
-      </p>
-      <p>
-        <strong>Leaderboard:</strong> highest total wins, ties go to the faster time, counted from your first pin.
       </p>
     </>
   );
