@@ -28,7 +28,7 @@ export default function CloseCallPage() {
         "Tap your number on the pad. The ,000 key adds three zeros for the really big ones.",
         "Press Lock it in. One guess per question, no take-backs.",
         "See the real answer and how close you got as a percentage.",
-        "After five questions you get a score out of 1,000. Share it and see where you land on today's table.",
+        "After five questions you get a score out of 1,000. Share it with the group chat.",
       ]}
       tips={[
         { title: "Get the size right first", body: "Is it tens, thousands or millions? Being in the right ballpark matters more than the last digit." },
@@ -39,9 +39,9 @@ export default function CloseCallPage() {
       faq={[
         { q: "How is Close Call scored?", a: "Each guess scores the smaller number divided by the bigger one, so guessing double or half the answer both score 50%. Year questions lose 2% per year off. Five questions make a score out of 1,000." },
         { q: "Can I use a calculator or search?", a: "Nothing stops you, but it ruins the fun. The game is about good guessing, not looking things up." },
-        { q: "How are ties broken?", a: "By time, counted from your first tap, not from when you opened the page." },
+        { q: "Can I play with friends?", a: "Yes. Everyone gets the same five questions, so play at the same time and compare scores, or share your result in the group chat." },
         { q: "When do the questions change?", a: "At midnight in your time zone. Everyone gets the same five questions each day." },
-        { q: "Can I play past days?", a: "The last seven days are open as practice and don't count for streaks or the table. You can also play unlimited bonus rounds." },
+        { q: "Can I play past days?", a: "The last seven days are open as practice and don't count for streaks. You can also play unlimited bonus rounds." },
         { q: "Is it free?", a: "Yes. No app, no account, no signup." },
       ]}
     >

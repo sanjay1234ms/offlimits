@@ -9,7 +9,7 @@ import { DAILY_GAMES } from "@/data/daily/puzzles";
 
 const TITLE = "Daily Puzzles: Word, Map and Number Games";
 const DESCRIPTION =
-  "Three free daily puzzles: Word Heist (five-letter word), Off the Map (geography pins) and Close Call (number guessing). New puzzles at midnight, streaks and leaderboards.";
+  "Three free daily puzzles: Word Heist (five-letter word), Off the Map (geography pins) and Close Call (number guessing). New puzzles at midnight, streaks and spoiler-free sharing.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -29,8 +29,7 @@ export default function DailyPage() {
       />
       <PageHero title="Daily puzzles" eyebrow="📅 New every midnight" emojis={["🔐", "📍", "🎯"]}>
         <p className="mt-3 max-w-2xl text-pretty text-base text-muted sm:text-lg">
-          Three quick puzzles a day, the same for everyone. Keep your streak going, share your score in the group chat and
-          see where you land on today&apos;s table.
+          Three quick puzzles a day, the same for everyone. Keep your streak going, and share your score in the group chat.
         </p>
       </PageHero>
       <div className="mx-auto mt-6 max-w-content px-4 sm:px-6">

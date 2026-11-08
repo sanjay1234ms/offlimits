@@ -82,7 +82,7 @@ export function DailyFrame({ game, today, day, onPickDay, rules, children }: Dai
 
       {practice ? (
         <p className="bg-amber-50 px-4 py-2 text-center text-xs font-semibold text-amber-900 sm:px-5">
-          Practice round. It won&apos;t touch your streak or the leaderboard.{" "}
+          Practice round. It won&apos;t touch your streak.{" "}
           <button type="button" className="font-black underline" onClick={() => today !== null && onPickDay(today)}>
             Back to today
           </button>

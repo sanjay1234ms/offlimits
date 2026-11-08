@@ -286,12 +286,8 @@ export function CloseCall() {
           <FinishPanel
             key={JSON.stringify(round)}
             puzzle="close-call"
-            day={round?.kind === "daily" ? round.day : -1}
             practice={practice}
             headline={score >= 850 ? `Human calculator! ${score}/1000 🧮` : score >= 600 ? `Solid gut: ${score}/1000 🎯` : `${score}/1000. Wild guesses! 🎲`}
-            label={`${score}`}
-            rank={-score}
-            ms={p.ms}
             shareLines={shareLines}
             stats={stats}
           >
@@ -339,8 +335,7 @@ export function CloseCallRules() {
         both score 50%. For years, every year off costs 2%. Your day is out of 1,000 (each question is worth up to 200).
       </p>
       <p>
-        <strong>Leaderboard:</strong> highest score wins, ties go to the faster time, counted from your first tap.
-        No calculators, no searching. That&apos;s the fun.
+        <strong>House rule:</strong> no calculators, no searching. That&apos;s the fun.
       </p>
     </>
   );
