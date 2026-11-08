@@ -23,7 +23,7 @@ import { narrate, primeNarration, say, stopNarration } from "@/lib/narrate";
 import { nightAmbience, wolfSfx } from "@/lib/audio";
 import { haptic, HAPTIC } from "@/lib/haptics";
 import { confettiBurst } from "@/lib/confetti";
-import { track } from "@/lib/analytics";
+import { useWolfTracker } from "@/lib/wolfTracking";
 import { NarratorLine, PlayerGrid, RoleCard, Scene, SpeakingBadge, VoiceToggle } from "./ui";
 
 type Phase = "setup" | "deal" | "night" | "morning" | "day" | "verdict" | "end";
@@ -41,6 +41,7 @@ export function WolfLocal({ skin }: { skin: Skin }) {
   const S = useMemo(() => script(skin), [skin]);
   const R = ROLES[skin];
   const [phase, setPhase] = useState<Phase>("setup");
+  const { start: wolfStart, phase: wolfPhase, end: wolfEnd } = useWolfTracker("local");
   const [names, setNames] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
   const [setup, setSetup] = useState<Setup>(suggestSetup(6));
@@ -112,6 +113,11 @@ export function WolfLocal({ skin }: { skin: Skin }) {
   const steps = useMemo(() => nightOrder(roles, alive), [roles, alive]);
   const stepRole = steps[step] as Role | undefined;
   const players = names.map((name, i) => ({ i, name, alive: alive[i] ?? true }));
+  // Report each phase change, so GA4 shows where groups stop playing.
+  useEffect(() => {
+    if (phase !== "setup") wolfPhase(phase, round);
+  }, [phase, round, wolfPhase]);
+
   const mood = phase === "end" ? (win === "wolves" ? "blood" : "day") : phase === "day" || phase === "verdict" ? "day" : phase === "morning" ? "dawn" : "night";
   const dark = mood !== "day";
 
@@ -151,7 +157,7 @@ export function WolfLocal({ skin }: { skin: Skin }) {
     nightAmbience.stop();
     primeNarration();
     narrate(S.intro);
-    track("werewolf_start", { skin, players: names.length, mode: "local" });
+    wolfStart(names.length, skin);
     scrollTop();
   }
 
@@ -274,7 +280,7 @@ export function WolfLocal({ skin }: { skin: Skin }) {
       const r = top.current?.getBoundingClientRect();
       if (r) confettiBurst(r.left + r.width / 2, r.top + 120, 70);
     } else wolfSfx.howl();
-    track("werewolf_end", { skin, winner: team, mode: "local" });
+    wolfEnd(team);
     scrollTop();
   }
 
