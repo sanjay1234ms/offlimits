@@ -9,7 +9,7 @@ import { narrate, primeNarration, say, stopNarration } from "@/lib/narrate";
 import { nightAmbience, wolfSfx } from "@/lib/audio";
 import { haptic, HAPTIC } from "@/lib/haptics";
 import { confettiBurst } from "@/lib/confetti";
-import { track } from "@/lib/analytics";
+import { useWolfTracker } from "@/lib/wolfTracking";
 import { NarratorLine, PlayerGrid, RoleCard, Scene, SpeakingBadge, VoiceToggle } from "./ui";
 
 const PID_KEY = "ol-wolf-pid";
@@ -110,6 +110,7 @@ export function WolfRoom({ code }: { code: string }) {
   // Phase changes: a buzz on every phone; the host's phone narrates, with
   // night ambience under it, and holds each reveal until the narrator says it.
   const [held, setHeld] = useState(false);
+  const { start: wolfStart, phase: wolfPhase, end: wolfEnd } = useWolfTracker("room");
   useEffect(() => {
     if (!view) return;
     const key = `${view.phase}:${view.round}`;
@@ -122,6 +123,7 @@ export function WolfRoom({ code }: { code: string }) {
     top.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     const names = view.players.map((p) => p.name);
     const isHost = view.isHost;
+    if (isHost) wolfPhase(view.phase, view.round);
     if (view.phase === "night") {
       if (isHost) {
         nightAmbience.start();
@@ -180,9 +182,9 @@ export function WolfRoom({ code }: { code: string }) {
         if (r) confettiBurst(r.left + r.width / 2, r.top + 120, 70);
       } else wolfSfx.howl();
       if (isHost) narrate(view.winner === "village" ? S.villageWins : S.wolvesWin);
-      track("werewolf_end", { skin, winner: view.winner ?? "", mode: "room" });
+      if (isHost) wolfEnd(view.winner ?? "");
     }
-  }, [view, S, skin]);
+  }, [view, S, skin, wolfPhase, wolfEnd]);
 
   useEffect(
     () => () => {
@@ -199,7 +201,9 @@ export function WolfRoom({ code }: { code: string }) {
     setBusy(false);
     if (v?.error === "few") setNote(`You need at least ${MIN_PLAYERS} players.`);
     else setNote("");
-    if (action === "start") track("werewolf_start", { skin, players: view.lobby?.length ?? 0, mode: "room" });
+    if ((action === "start" || action === "again") && !v?.error) {
+      wolfStart(action === "start" ? view.lobby?.length ?? 0 : view.players.length, skin);
+    }
   }
 
   async function act(target: number) {
