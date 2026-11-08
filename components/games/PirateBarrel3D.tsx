@@ -469,6 +469,10 @@ function Scene({ slots, stuck, trap, popped, busy, flight, onLand, onAim, azimut
       return;
     }
     const slot = slots[flight.slot];
+    if (!slot) {
+      g.visible = false;
+      return;
+    }
     if (flightStart.current === null) {
       flightStart.current = t;
       const from = camera.position.clone().add(new THREE.Vector3((Math.random() - 0.5) * 1.5, -0.9, 0));
@@ -593,9 +597,7 @@ function Scene({ slots, stuck, trap, popped, busy, flight, onLand, onAim, azimut
           {/* Knives already in */}
           {stuck.map((i) => {
             const s = slots[i];
-            return (
-              <StuckKnife key={i} slot={s} />
-            );
+            return s ? <StuckKnife key={i} slot={s} /> : null;
           })}
 
           {/* Knife in flight */}
@@ -759,9 +761,16 @@ export function PirateBarrel3DGame({ game }: { game: CatalogGame }) {
             <button
               key={n}
               type="button"
-              onClick={() => setSlotCount(n)}
+              onClick={() => {
+                if (n === slotCount) return;
+                // Reset in the same render as the size change, so knives from
+                // the old barrel never point at slots that no longer exist.
+                newBarrel(n);
+                setSlotCount(n);
+              }}
+              disabled={busy || (stuck.length > 0 && !popped)}
               aria-pressed={slotCount === n}
-              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors ${
+              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors disabled:opacity-40 ${
                 slotCount === n ? `${game.border} ${game.text} bg-white/5` : "border-white/10 text-muted hover:text-foreground"
               }`}
             >

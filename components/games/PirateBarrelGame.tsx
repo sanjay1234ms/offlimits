@@ -405,9 +405,16 @@ function PirateBarrelGameClassic({ game }: { game: CatalogGame }) {
             <button
               key={n}
               type="button"
-              onClick={() => setSlotCount(n)}
+              onClick={() => {
+                if (n === slotCount) return;
+                // Reset in the same render as the size change, so knives from
+                // the old barrel never point at slots that no longer exist.
+                newBarrel(n);
+                setSlotCount(n);
+              }}
+              disabled={busy || (stuck.length > 0 && !popped)}
               aria-pressed={slotCount === n}
-              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors ${
+              className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors disabled:opacity-40 ${
                 slotCount === n
                   ? `${game.border} ${game.text} bg-white/5`
                   : "border-white/10 text-muted hover:text-foreground"
@@ -525,7 +532,7 @@ function PirateBarrelGameClassic({ game }: { game: CatalogGame }) {
             })}
 
             {/* Knives already in */}
-            {stuck.map((k) => (
+            {stuck.filter((k) => slots[k.slot]).map((k) => (
               <g
                 key={k.slot}
                 ref={(el) => {
