@@ -12,6 +12,7 @@ import {
 import { useAdultPreview } from "@/hooks/useAdultPreview";
 import { gameTheme } from "@/lib/gameTheme";
 import {
+  ADULT_DEFAULT_INTENSITY,
   DEFAULT_INTENSITY,
   heatEmoji,
   heatTierLabel,
@@ -86,13 +87,17 @@ function toDisplayPrompt(card: PoolCard): Prompt {
 }
 
 export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
-  const [selectedPacks, setSelectedPacks] = useState<PackChip[]>(() => [
-    ...NORMAL_PACKS.map((p) => p.id as PackChip),
-    ...(initialAdult ? [ADULT_PACK as PackChip] : []),
-  ]);
+  // Arriving from an 18+ link selects ONLY the 18+ pack, at full heat.
+  const [selectedPacks, setSelectedPacks] = useState<PackChip[]>(() =>
+    initialAdult
+      ? [ADULT_PACK as PackChip]
+      : NORMAL_PACKS.map((p) => p.id as PackChip),
+  );
   const [groupSize, setGroupSize] = useState<GroupSize[]>([]);
   const [vibe, setVibe] = useState<Vibe[]>([]);
-  const [heat, setHeat] = useState(DEFAULT_INTENSITY);
+  const [heat, setHeat] = useState(
+    initialAdult ? ADULT_DEFAULT_INTENSITY : DEFAULT_INTENSITY,
+  );
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [ageGateOpen, setAgeGateOpen] = useState(false);
 
@@ -178,7 +183,15 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
       const ofKind = pool.filter((c) => c.kind === kind);
       if (ofKind.length === 0) return;
       const fresh = ofKind.filter((c) => !recent.includes(c.id));
-      const bag = fresh.length > 0 ? fresh : ofKind;
+      let bag = fresh.length > 0 ? fresh : ofKind;
+      // Free 18+ preview: deal the filthiest cards in play first.
+      if (trial) {
+        const adultBag = bag.filter((c) => c.isAdult);
+        if (adultBag.length > 0) {
+          const top = Math.max(...adultBag.map((c) => c.intensity ?? 3));
+          bag = adultBag.filter((c) => (c.intensity ?? 3) === top);
+        }
+      }
       const picked = bag[Math.floor(Math.random() * bag.length)];
 
       // 18+ card, unpaid: spend one shared preview slot, then hit the paywall.
@@ -202,6 +215,7 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
     [
       paywallOpen,
       roundOver,
+      trial,
       unlocked,
       consume,
       openPaywall,
@@ -240,11 +254,11 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
         setAgeGateOpen(true);
         return;
       }
-      setSelectedPacks((prev) =>
-        prev.includes(ADULT_PACK)
-          ? prev.filter((p) => p !== ADULT_PACK)
-          : [...prev, ADULT_PACK],
-      );
+      if (adult18) {
+        setSelectedPacks((prev) => prev.filter((p) => p !== ADULT_PACK));
+      } else {
+        enterAdultPack();
+      }
       return;
     }
     setSelectedPacks((prev) =>
@@ -261,12 +275,17 @@ export function TruthOrDareDeck({ initialAdult }: TruthOrDareDeckProps) {
     );
   }
 
+  /** Switching 18+ on selects only the 18+ pack at full heat. Players can
+   * still add the clean packs back by tapping them. */
+  function enterAdultPack() {
+    setSelectedPacks([ADULT_PACK]);
+    setHeat(ADULT_DEFAULT_INTENSITY);
+  }
+
   function confirmAge() {
     persistAgeConfirmed();
     setAgeGateOpen(false);
-    setSelectedPacks((prev) =>
-      prev.includes(ADULT_PACK) ? prev : [...prev, ADULT_PACK],
-    );
+    enterAdultPack();
   }
 
   const counter = trial

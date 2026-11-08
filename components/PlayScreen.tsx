@@ -13,7 +13,10 @@ import { TruthOrDareDeck } from "./games/TruthOrDareDeck";
 import { SuggestHelper } from "./games/SuggestHelper";
 import { GameControlBar } from "./games/GameControlBar";
 import {
+  ADULT_DEFAULT_INTENSITY,
   DEFAULT_INTENSITY,
+  cardHeat,
+  spiciestFirst,
   withinIntensity,
   type HeatCategory,
 } from "@/lib/intensity";
@@ -151,14 +154,23 @@ export function PlayScreen({
     const hot = full.filter((c) =>
       withinIntensity(c.intensity, c.prompt, true, intensity),
     );
-    return hot.length > 0 ? hot : full;
-  }, [activeId, intensity]);
+    const deck = hot.length > 0 ? hot : full;
+    // Free preview: the 3 free cards are the filthiest ones in the deck.
+    return partyPass.active
+      ? deck
+      : spiciestFirst(deck, (c) => cardHeat(c.intensity, c.prompt, true));
+  }, [activeId, intensity, partyPass.active]);
 
   const showSpeedBomb =
     activeId === "most_likely_to" || activeId === "this_or_that";
 
   // The single source of truth for 18+ mode: the "18+" category is selected.
   const adultMode = filters.category.includes(ADULT_CATEGORY);
+
+  // 18+ mode opens at full heat; leaving it drops back to the normal default.
+  useEffect(() => {
+    setIntensity(adultMode ? ADULT_DEFAULT_INTENSITY : DEFAULT_INTENSITY);
+  }, [adultMode]);
 
   // Spicy Meter copy follows the active category, "filthy" talk is 18+ only.
   const heatCategory: HeatCategory = adultMode
@@ -171,10 +183,11 @@ export function PlayScreen({
 
   /** Puts the screen into 18+ mode, identical to selecting the filter pill. */
   const enterAdultMode = useCallback(() => {
+    // 18+ only: drop the other category pills so nothing clean is mixed in.
     setFilters((prev) =>
-      prev.category.includes(ADULT_CATEGORY)
+      prev.category.length === 1 && prev.category[0] === ADULT_CATEGORY
         ? prev
-        : { ...prev, category: [...prev.category, ADULT_CATEGORY] },
+        : { ...prev, category: [ADULT_CATEGORY] },
     );
   }, []);
 
@@ -209,6 +222,10 @@ export function PlayScreen({
       !ageConfirmed
     ) {
       setAgeGateOpen(true);
+      return;
+    }
+    if (group === "category" && value === ADULT_CATEGORY && turningOn) {
+      enterAdultMode();
       return;
     }
     applyToggle(group, value);

@@ -10,6 +10,7 @@ import {
 } from "@/data/keywordPages";
 import { QUESTION_LISTS } from "@/data/questionLists";
 import { FREE_ADULT_LIMIT, PARTY_PASS_LABEL, UNLOCK_18_PRICE } from "@/lib/monetization";
+import { promptIntensity, spiciestFirst } from "@/lib/intensity";
 import { shareMetadata } from "@/lib/seo";
 import { breadcrumbJsonLd, faqJsonLd, itemListJsonLd } from "@/lib/site";
 import { JsonLd } from "./JsonLd";
@@ -58,13 +59,23 @@ function crumbs(page: Page) {
 /** 18+ pages only ever send the free preview to the browser: the first
  * FREE_ADULT_LIMIT items. The rest stay on the server behind the Party Pass. */
 function previewSections(page: Page): Page["sections"] {
-  let left = FREE_ADULT_LIMIT;
+  // The free previews are the filthiest items on the page, not just the first
+  // few (which are usually the mildest warm-ups).
+  const all = page.sections.flatMap((s, si) =>
+    s.items.map((item, ii) => ({ si, ii, item })),
+  );
+  const picked = new Set(
+    spiciestFirst(all, ({ item }) =>
+      promptIntensity(typeof item === "string" ? item : item.q, true),
+    )
+      .slice(0, FREE_ADULT_LIMIT)
+      .map(({ si, ii }) => `${si}:${ii}`),
+  );
   return page.sections
-    .map((s) => {
-      const items = s.items.slice(0, Math.max(0, left));
-      left -= items.length;
-      return { ...s, items };
-    })
+    .map((s, si) => ({
+      ...s,
+      items: s.items.filter((_, ii) => picked.has(`${si}:${ii}`)),
+    }))
     .filter((s) => s.items.length > 0);
 }
 

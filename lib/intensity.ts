@@ -98,3 +98,17 @@ export function withinIntensity(
 ): boolean {
   return cardHeat(explicit, text, isAdult) <= selected;
 }
+
+/** 18+ mode opens with the Spicy Meter at full heat, so nobody arriving from
+ * an 18+ link gets the mildest cards first. */
+export const ADULT_DEFAULT_INTENSITY = MAX_INTENSITY;
+
+/** Reorders cards hottest first (stable, so the shuffle within one heat level
+ * is kept). Used for the free 18+ preview, so the first few cards a visitor
+ * sees are the filthiest ones the deck has. */
+export function spiciestFirst<T>(cards: T[], heatOf: (card: T) => number): T[] {
+  return cards
+    .map((card, i) => ({ card, i, heat: heatOf(card) }))
+    .sort((a, b) => b.heat - a.heat || a.i - b.i)
+    .map((entry) => entry.card);
+}
