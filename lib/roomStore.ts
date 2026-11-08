@@ -1,5 +1,6 @@
 import gamesData from "@/data/games.json";
-import { ADULT_TEASERS } from "@/data/adultDeck";
+import { ADULT_DECKS, ADULT_TEASERS } from "@/data/adultDeck";
+import { NORMAL_DECK_PROMPTS } from "@/data/decks";
 
 /*
  * Party-room store. Uses Supabase (Postgres over its REST API) when
@@ -9,7 +10,8 @@ import { ADULT_TEASERS } from "@/data/adultDeck";
  * for a single `next dev` process.
  *
  * Rooms store prompt IDs, not prompt text, so each poll stays a few KB; the
- * text is resolved here from the bundled decks.
+ * text is resolved here from the bundled decks (the same full decks the
+ * one-phone games use).
  */
 
 export interface RoomPrompt {
@@ -54,7 +56,13 @@ const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const PLAYER_TTL = 25_000; // drop a player not seen in 25s
 const ROOM_TTL = 3 * 60 * 60 * 1000; // 3 hours
 
-const STANDARD_GAMES = new Set(["would_you_rather", "never_have_i_ever", "most_likely_to"]);
+/** Games a room can deal, beyond "18plus". */
+const ROOM_GAMES = ["would_you_rather", "never_have_i_ever", "most_likely_to", "this_or_that"] as const;
+const STANDARD_GAMES = new Set<string>(ROOM_GAMES);
+/** The 18+ mix in a room draws from these three decks. */
+const ADULT_ROOM_GAMES = ["would_you_rather", "never_have_i_ever", "most_likely_to"] as const;
+/** Keeps a room row small even with every deck picked. */
+const MAX_ROOM_PROMPTS = 600;
 
 interface RawPromptRow {
   id: string;
@@ -68,13 +76,29 @@ interface RawPromptRow {
 /* ------------------------------------------------------------------ */
 
 const PROMPTS_BY_ID = new Map<string, RoomPrompt>();
-for (const row of gamesData as unknown as RawPromptRow[]) {
-  if (STANDARD_GAMES.has(row.game) && !row.isAdult) {
-    PROMPTS_BY_ID.set(row.id, { id: row.id, game: row.game, text: row.prompt, isAdult: false });
+const seenText = new Set<string>();
+function addPrompt(p: RoomPrompt) {
+  const key = `${p.game}|${p.text.trim().toLowerCase()}`;
+  if (PROMPTS_BY_ID.has(p.id) || seenText.has(key)) return;
+  seenText.add(key);
+  PROMPTS_BY_ID.set(p.id, p);
+}
+// Full leveled decks first, then the older starter prompts (duplicates skipped).
+for (const game of ROOM_GAMES) {
+  for (const p of NORMAL_DECK_PROMPTS[game] ?? []) {
+    addPrompt({ id: p.id, game: p.game, text: p.text, isAdult: false });
   }
 }
-for (const t of ADULT_TEASERS) {
-  PROMPTS_BY_ID.set(t.id, { id: t.id, game: t.game, text: t.prompt, isAdult: true });
+for (const row of gamesData as unknown as RawPromptRow[]) {
+  if (STANDARD_GAMES.has(row.game) && !row.isAdult) {
+    addPrompt({ id: row.id, game: row.game, text: row.prompt, isAdult: false });
+  }
+}
+const TEASER_IDS = new Set(ADULT_TEASERS.map((t) => t.id));
+for (const game of ADULT_ROOM_GAMES) {
+  for (const c of ADULT_DECKS[game] ?? []) {
+    addPrompt({ id: c.id, game: c.game, text: c.prompt, isAdult: true });
+  }
 }
 
 function shuffle<T>(arr: T[]): T[] {
@@ -85,13 +109,15 @@ function shuffle<T>(arr: T[]): T[] {
   return arr;
 }
 
-function buildPromptIds(games: string[]): string[] {
+function buildPromptIds(games: string[], adultFull: boolean): string[] {
   const ids: string[] = [];
   for (const p of Array.from(PROMPTS_BY_ID.values())) {
-    const wanted = p.isAdult ? games.includes("18plus") : games.includes(p.game);
+    const wanted = p.isAdult
+      ? games.includes("18plus") && (adultFull || TEASER_IDS.has(p.id))
+      : games.includes(p.game);
     if (wanted) ids.push(p.id);
   }
-  return shuffle(ids);
+  return shuffle(ids).slice(0, MAX_ROOM_PROMPTS);
 }
 
 function makeCode(): string {
@@ -297,7 +323,13 @@ async function withPlayers(room: RoomRow | null): Promise<RoomView | null> {
   return view(room, await db.players(room.code));
 }
 
-export async function createRoom(input: { name?: string; games?: unknown; hostId: string }): Promise<RoomView> {
+export async function createRoom(input: {
+  name?: string;
+  games?: unknown;
+  hostId: string;
+  /** The host has the 18+ Party Pass, so the room gets the full 18+ deck. */
+  adultFull?: boolean;
+}): Promise<RoomView> {
   // Occasional tidy-up of day-old rooms; never blocks room creation.
   if (Math.random() < 0.2) db.cleanup().catch(() => {});
   const games = Array.isArray(input.games) ? input.games.filter((x): x is string => typeof x === "string").slice(0, 10) : [];
@@ -306,7 +338,7 @@ export async function createRoom(input: { name?: string; games?: unknown; hostId
     games,
     host_id: input.hostId.slice(0, 100),
     phase: "lobby" as const,
-    prompt_ids: buildPromptIds(games),
+    prompt_ids: buildPromptIds(games, input.adultFull === true),
     idx: 0,
     created_at: new Date().toISOString(),
     started_at: null,

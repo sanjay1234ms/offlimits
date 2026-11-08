@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   Check,
@@ -13,17 +13,55 @@ import {
 import { Modal } from "./Modal";
 import { HostRoom, PlayerRoom } from "./PartyRoom";
 import type { RoomView } from "@/hooks/useRoom";
+import { STORAGE_KEYS, checkIs18PlusUnlocked } from "@/lib/monetization";
 
 const PARTY_GAMES = [
   { id: "would_you_rather", label: "Would You Rather", emoji: "🤔" },
   { id: "never_have_i_ever", label: "Never Have I Ever", emoji: "🙈" },
   { id: "most_likely_to", label: "Most Likely To", emoji: "👉" },
+  { id: "this_or_that", label: "This or That", emoji: "⚡" },
   { id: "18plus", label: "18+ Uncensored", emoji: "🔥" },
 ];
 
+/** Where this tab remembers the room it's in, so a refresh or a locked
+ * phone drops you straight back in instead of onto the join form. */
+const SESSION_KEY = "offlimits_party_session";
+
+type SavedSession =
+  | { kind: "host"; code: string; hostId: string; partyName: string; games: string[] }
+  | { kind: "player"; code: string; playerId: string; name: string };
+
+function saveSession(s: SavedSession | null) {
+  try {
+    if (s) window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(s));
+    else window.sessionStorage.removeItem(SESSION_KEY);
+  } catch {
+    /* private mode: rejoining by hand still works */
+  }
+}
+
+function readSession(): SavedSession | null {
+  try {
+    const raw = window.sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const s = JSON.parse(raw) as SavedSession;
+    return s && typeof s.code === "string" && /^[A-Z0-9]{6}$/.test(s.code) ? s : null;
+  } catch {
+    return null;
+  }
+}
+
+function ageConfirmed(): boolean {
+  try {
+    return window.localStorage.getItem(STORAGE_KEYS.ageConfirmed) === "true";
+  } catch {
+    return false;
+  }
+}
+
 type Mode =
   | { kind: "form" }
-  | { kind: "host"; code: string }
+  | { kind: "host"; code: string; hostId: string }
   | { kind: "player"; code: string; playerId: string; name: string };
 
 function newId(): string {
@@ -50,6 +88,7 @@ export function PartyForm() {
     "most_likely_to",
   ]);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [askAge, setAskAge] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,13 +97,51 @@ export function PartyForm() {
     [selected],
   );
 
+  // Back into the room after a refresh, if it's still open.
+  useEffect(() => {
+    const saved = readSession();
+    if (!saved) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        if (saved.kind === "player") {
+          const res = await fetch(`/api/rooms/${saved.code}`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ action: "join", playerId: saved.playerId, name: saved.name }),
+          });
+          if (cancelled) return;
+          if (!res.ok) return saveSession(null);
+          setMode(saved);
+        } else {
+          const res = await fetch(`/api/rooms/${saved.code}`, { cache: "no-store" });
+          if (cancelled) return;
+          if (!res.ok) return saveSession(null);
+          setPartyName(saved.partyName);
+          setSelected(saved.games);
+          setMode(saved);
+        }
+      } catch {
+        /* offline: stay on the form */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   function toggleGame(id: string) {
+    if (id === "18plus" && !selected.includes(id) && !ageConfirmed()) {
+      setAskAge(true);
+      return;
+    }
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
     );
   }
 
   function resetForm() {
+    saveSession(null);
     setMode({ kind: "form" });
     setJoinStage("code");
     setJoinCode("");
@@ -76,6 +153,7 @@ export function PartyForm() {
   async function openRoom() {
     setBusy(true);
     setError(null);
+    const hostId = newId();
     try {
       const res = await fetch("/api/rooms", {
         method: "POST",
@@ -83,12 +161,15 @@ export function PartyForm() {
         body: JSON.stringify({
           name: partyName,
           games: selected,
-          hostId: newId(),
+          hostId,
+          // Party Pass holders get the whole 18+ deck, like on one phone.
+          adultFull: selected.includes("18plus") && checkIs18PlusUnlocked(),
         }),
       });
       if (!res.ok) throw new Error("bad response");
       const room = (await res.json()) as RoomView;
-      setMode({ kind: "host", code: room.code });
+      saveSession({ kind: "host", code: room.code, hostId, partyName, games: selected });
+      setMode({ kind: "host", code: room.code, hostId });
     } catch {
       setError("Could not open the room. Try again.");
     } finally {
@@ -133,12 +214,9 @@ export function PartyForm() {
         return;
       }
       if (!res.ok) throw new Error("bad response");
-      setMode({
-        kind: "player",
-        code: joinCode,
-        playerId,
-        name: playerName.trim() || "Player",
-      });
+      const name = playerName.trim() || "Player";
+      saveSession({ kind: "player", code: joinCode, playerId, name });
+      setMode({ kind: "player", code: joinCode, playerId, name });
     } catch {
       setError("Could not join. Try again.");
     } finally {
@@ -367,6 +445,34 @@ export function PartyForm() {
               </button>
             );
           })}
+          {askAge ? (
+            <div className="rounded-2xl border-2 border-red-400/40 bg-red-500/10 p-3 text-sm">
+              <p className="font-bold text-foreground">Is everyone playing 18 or older?</p>
+              <p className="mt-1 text-xs text-muted">
+                The 18+ cards are explicit. Only add them if every phone in the room belongs to an adult.
+              </p>
+              <div className="mt-3 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    try {
+                      window.localStorage.setItem(STORAGE_KEYS.ageConfirmed, "true");
+                    } catch {
+                      /* still add it for this session */
+                    }
+                    setAskAge(false);
+                    setSelected((prev) => (prev.includes("18plus") ? prev : [...prev, "18plus"]));
+                  }}
+                  className="btn-primary flex-1 py-2 text-xs"
+                >
+                  Yes, we&apos;re all 18+
+                </button>
+                <button type="button" onClick={() => setAskAge(false)} className="btn-ghost flex-1 py-2 text-xs">
+                  No
+                </button>
+              </div>
+            </div>
+          ) : null}
           <button
             type="button"
             onClick={() => setPickerOpen(false)}
