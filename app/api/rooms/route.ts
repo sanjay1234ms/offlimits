@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 /** POST /api/rooms, the host opens a new room. */
 export async function POST(request: Request) {
-  let body: { name?: string; games?: unknown; hostId?: string } = {};
+  let body: { name?: string; games?: unknown; hostId?: string; adultFull?: unknown } = {};
   try {
     body = await request.json();
   } catch {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       : crypto.randomUUID();
 
   try {
-    const room = await createRoom({ name: body.name, games: body.games, hostId });
+    const room = await createRoom({ name: body.name, games: body.games, hostId, adultFull: body.adultFull === true });
     return Response.json(room, { status: 201 });
   } catch (err) {
     console.error("[rooms] create", err);

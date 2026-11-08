@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,11 +16,13 @@ import type { Prompt, PromptGame } from "@/types";
 import { gameTheme } from "@/lib/gameTheme";
 import { useRoom, roomAction, type RoomView } from "@/hooks/useRoom";
 import { PromptCard } from "./PromptCard";
+import { checkIs18PlusUnlocked } from "@/lib/monetization";
 
 const GAME_LABEL: Record<string, string> = {
   would_you_rather: "Would You Rather",
   never_have_i_ever: "Never Have I Ever",
   most_likely_to: "Most Likely To",
+  this_or_that: "This or That",
   "18plus": "18+ Uncensored",
 };
 
@@ -78,12 +81,14 @@ function RoomGame({
   onNext,
   onPrev,
   onLobby,
+  onLeave,
 }: {
   room: RoomView;
   isHost?: boolean;
   onNext?: () => void;
   onPrev?: () => void;
   onLobby?: () => void;
+  onLeave?: () => void;
 }) {
   const prompt = adaptPrompt(room.currentPrompt);
   const themeKey = prompt.isAdult ? "18+" : prompt.game;
@@ -136,9 +141,21 @@ function RoomGame({
           </button>
         </div>
       ) : (
-        <p className="text-xs text-subtle">
-          The host is running the deck. Answer out loud when it&apos;s your turn.
-        </p>
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-xs text-subtle">
+            The host is running the deck. Answer out loud when it&apos;s your turn.
+          </p>
+          {onLeave ? (
+            <button
+              type="button"
+              onClick={onLeave}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted transition-colors hover:text-foreground"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
+              Leave the room
+            </button>
+          ) : null}
+        </div>
       )}
     </div>
   );
@@ -161,6 +178,8 @@ export function HostRoom({
 }) {
   const { room, error } = useRoom(code);
   const [copied, setCopied] = useState(false);
+  const [hasPass, setHasPass] = useState(true);
+  useEffect(() => setHasPass(checkIs18PlusUnlocked()), []);
 
   async function copyCode() {
     try {
@@ -239,6 +258,16 @@ export function HostRoom({
         {total > 0 ? ` · ${total} prompts` : ""}
       </p>
 
+      {games.includes("18plus") && !hasPass ? (
+        <p className="text-center text-xs text-subtle">
+          18+ in a room is a 3-card free preview.{" "}
+          <Link href="/play?game=18plus" className="font-bold text-accent underline-offset-2 hover:underline">
+            The Party Pass
+          </Link>{" "}
+          unlocks the full 18+ deck for rooms you open.
+        </p>
+      ) : null}
+
       <button
         type="button"
         onClick={onExit}
@@ -280,8 +309,13 @@ export function PlayerRoom({
     );
   }
 
+  const leave = () => {
+    roomAction(code, { action: "leave", playerId });
+    onExit();
+  };
+
   if (room?.phase === "playing") {
-    return <RoomGame room={room} />;
+    return <RoomGame room={room} onLeave={leave} />;
   }
 
   return (
@@ -307,10 +341,7 @@ export function PlayerRoom({
 
       <button
         type="button"
-        onClick={() => {
-          roomAction(code, { action: "leave", playerId });
-          onExit();
-        }}
+        onClick={leave}
         className="mx-auto inline-flex items-center gap-1.5 text-xs font-semibold text-muted transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-3.5 w-3.5" aria-hidden />

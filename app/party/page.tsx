@@ -8,7 +8,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 
 const TITLE = "Party Room: Everyone Plays on Their Own Phone";
 const DESCRIPTION =
-  "Open a free party room, put the code on the biggest screen, and everyone joins on their own phone. The room sees the question, only you see your answer.";
+  "Open a free party room, put the code on the big screen, and everyone joins on their own phone. Every phone shows the same card, no passing around.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,8 +28,8 @@ export default function PartyPage() {
       >
         <p className="mt-3 max-w-2xl text-pretty text-base text-muted sm:text-lg">
           Open a room, put the code on the biggest screen in the house, and
-          everyone joins on their own phone. The room sees the question. Only
-          you see your answer.
+          everyone joins on their own phone. Every phone shows the same card,
+          so nobody has to pass a phone around.
         </p>
       </PageHero>
       <div className="mx-auto max-w-content px-4 sm:px-6">
