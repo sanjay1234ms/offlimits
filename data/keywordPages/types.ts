@@ -40,4 +40,15 @@ export interface KeywordPage {
   group: "seasonal" | "questions" | "trivia" | "games" | "gifts";
   /** Adults-only wording; shows an 18+ notice. */
   adult?: boolean;
+  /** Short direct answer shown in a box under the hero (answer-style pages
+   * that search engines and AI assistants can quote). */
+  quickAnswer?: string;
+  /** Side-by-side comparison table of games. */
+  compare?: {
+    heading: string;
+    columns: [string, string, string, string];
+    rows: { name: string; href?: string; cells: [string, string, string] }[];
+  };
+  /** "Updated" date shown on answer-style pages, ISO yyyy-mm-dd. */
+  updated?: string;
 }

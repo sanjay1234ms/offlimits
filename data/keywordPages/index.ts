@@ -1,4 +1,6 @@
+import { CHRISTMAS_PAGES } from "./christmas";
 import { GAME_PAGES } from "./games";
+import { GUIDE_PAGES } from "./guides";
 import { GIFT_PAGES } from "./gifts";
 import { MOST_LIKELY_PAGES } from "./mostLikely";
 import { QUESTION_PAGES } from "./questions";
@@ -17,6 +19,8 @@ export const KEYWORD_PAGES: KeywordPage[] = [
   ...TRIVIA_PAGES,
   ...GAME_PAGES,
   ...GIFT_PAGES,
+  ...CHRISTMAS_PAGES,
+  ...GUIDE_PAGES,
 ];
 
 export function keywordPageByPath(path: string): KeywordPage | undefined {
