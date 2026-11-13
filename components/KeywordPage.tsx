@@ -147,6 +147,59 @@ export function KeywordPageView({ page }: { page: Page }) {
         {PlayButton ? <div className="mt-6 flex flex-col gap-3 pb-4 sm:flex-row">{PlayButton}</div> : null}
       </PageHero>
 
+      {page.quickAnswer ? (
+        <section className="mx-auto max-w-2xl px-4 pt-6 sm:px-6">
+          <div className="rounded-2xl border-2 border-accent/60 bg-accent/10 p-4 sm:p-5">
+            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-accent">Quick answer</p>
+            <p className="mt-2 text-pretty text-base leading-relaxed text-foreground">{page.quickAnswer}</p>
+            {page.updated ? (
+              <p className="mt-2 text-xs text-muted">
+                Updated <time dateTime={page.updated}>{new Date(`${page.updated}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</time>
+              </p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {page.compare ? (
+        <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
+          <SectionHeading title={page.compare.heading} />
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead className="bg-surface/80 text-xs uppercase tracking-wide text-muted">
+                <tr>
+                  {page.compare.columns.map((c) => (
+                    <th key={c} scope="col" className="px-2 py-2.5 font-extrabold sm:px-3">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {page.compare.rows.map((r) => (
+                  <tr key={r.name} className="border-t border-border bg-surface/40">
+                    <th scope="row" className="px-2 py-2.5 font-bold text-foreground sm:px-3">
+                      {r.href ? (
+                        <Link href={r.href} className="text-accent underline-offset-2 hover:underline">
+                          {r.name}
+                        </Link>
+                      ) : (
+                        r.name
+                      )}
+                    </th>
+                    {r.cells.map((c, i) => (
+                      <td key={i} className="px-2 py-2.5 text-muted sm:px-3">
+                        {c}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
+
       {page.howTo ? (
         <section className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
           <SectionHeading title="How to play" />

@@ -16,6 +16,7 @@ import type { Prompt, PromptGame } from "@/types";
 import { gameTheme } from "@/lib/gameTheme";
 import { useRoom, roomAction, type RoomView } from "@/hooks/useRoom";
 import { PromptCard } from "./PromptCard";
+import { ShareLoop } from "./ShareLoop";
 import { checkIs18PlusUnlocked } from "@/lib/monetization";
 
 const GAME_LABEL: Record<string, string> = {
@@ -296,6 +297,11 @@ export function PlayerRoom({
   onExit: () => void;
 }) {
   const { room, error } = useRoom(code, { playerId });
+  // Once a round has been played, the lobby offers "host your own".
+  const [played, setPlayed] = useState(false);
+  useEffect(() => {
+    if (room?.phase === "playing") setPlayed(true);
+  }, [room?.phase]);
 
   if (error) {
     return (
@@ -338,6 +344,16 @@ export function PlayerRoom({
       </div>
 
       <Roster players={room?.players ?? []} />
+
+      {played ? (
+        <ShareLoop
+          from="room_lobby"
+          hostHref="/party"
+          hostLabel="Host your own room"
+          sharePath="/party"
+          shareText="We're playing party games together on our phones, free, no app needed."
+        />
+      ) : null}
 
       <button
         type="button"

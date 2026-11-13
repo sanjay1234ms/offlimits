@@ -10,6 +10,7 @@ import { nightAmbience, wolfSfx } from "@/lib/audio";
 import { haptic, HAPTIC } from "@/lib/haptics";
 import { confettiBurst } from "@/lib/confetti";
 import { useWolfTracker } from "@/lib/wolfTracking";
+import { ShareLoop } from "../ShareLoop";
 import { NarratorLine, PlayerGrid, RoleCard, Scene, SpeakingBadge, VoiceToggle } from "./ui";
 
 const PID_KEY = "ol-wolf-pid";
@@ -587,6 +588,15 @@ export function WolfRoom({ code }: { code: string }) {
               </ol>
             ) : null}
             {!view.isHost ? <p className="text-xs opacity-70">Waiting for the host to start another round…</p> : null}
+            <ShareLoop
+              from="wolf_end"
+              hostHref="/werewolf-game"
+              hostLabel="Host your own game"
+              sharePath="/werewolf-game"
+              shareText="We just played Werewolf on our phones, free, no app needed."
+              showHost={!view.isHost}
+              dark={dark}
+            />
           </div>
         ) : null}
 
