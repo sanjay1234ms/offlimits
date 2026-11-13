@@ -5,6 +5,7 @@ import { GIFT_PAGES } from "./gifts";
 import { MOST_LIKELY_PAGES } from "./mostLikely";
 import { QUESTION_PAGES } from "./questions";
 import { SEASONAL_PAGES } from "./seasonal";
+import { SECRET_SANTA_PAGES } from "./secretSanta";
 import { TRIVIA_PAGES } from "./trivia";
 import { TRUTH_OR_DARE_PAGES } from "./truthOrDare";
 import type { KeywordItem, KeywordPage } from "./types";
@@ -21,6 +22,7 @@ export const KEYWORD_PAGES: KeywordPage[] = [
   ...GIFT_PAGES,
   ...CHRISTMAS_PAGES,
   ...GUIDE_PAGES,
+  ...SECRET_SANTA_PAGES,
 ];
 
 export function keywordPageByPath(path: string): KeywordPage | undefined {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SectionHeading } from "./SectionHeading";
 import { WHEEL_PRESET_LIST } from "@/data/wheelPresets";
 
-/** Homepage "Ready-made wheels" pill cloud, each routes to /wheel?preset=… */
+/** Homepage "Ready-made wheels" pill cloud, each links to its own /wheel/<slug> page */
 export function ReadyMadeWheels() {
   return (
     <section className="mx-auto max-w-content px-4 py-10 sm:px-6">
@@ -14,7 +14,7 @@ export function ReadyMadeWheels() {
         {WHEEL_PRESET_LIST.map((preset) => (
           <Link
             key={preset.slug}
-            href={`/wheel?preset=${preset.slug}`}
+            href={`/wheel/${preset.slug}`}
             className="rounded-full border-2 border-white/15 bg-white/5 px-4 py-2 text-sm font-bold text-foreground backdrop-blur transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-0.5 hover:border-accent hover:bg-white/10"
           >
             {preset.label}
