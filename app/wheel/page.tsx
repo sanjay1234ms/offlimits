@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/seo";
 import { GameGuide, SpinWheel } from "@/components";
+import Link from "next/link";
 import { WHEEL_PRESETS } from "@/data/wheelPresets";
+import { WHEEL_PAGES } from "@/data/wheelPages";
 import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd, webApplicationJsonLd } from "@/lib/site";
@@ -57,6 +59,21 @@ export default function WheelPage({ searchParams }: WheelPageProps) {
           />
         </div>
       </div>
+
+      <section className="mx-auto max-w-content px-4 pt-10 sm:px-6">
+        <h2 className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">Ready-made wheels</h2>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {WHEEL_PAGES.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/wheel/${p.slug}`}
+              className="rounded-full border-2 border-border bg-surface/60 px-3 py-1.5 text-sm font-bold text-foreground transition-colors hover:border-accent"
+            >
+              {p.h1}
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <GameGuide slug="wheel" />
     </div>

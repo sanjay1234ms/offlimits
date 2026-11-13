@@ -67,6 +67,9 @@ Key facts:
 - [Christmas movie trivia](https://playofflimits.com/questions/christmas-movie-trivia)
 - [Christmas trivia questions](https://playofflimits.com/questions/christmas-trivia-questions)
 - [White Elephant rules and turn-order tool](https://playofflimits.com/white-elephant)
+- [Secret Santa rules](https://playofflimits.com/secret-santa/rules)
+- [Office Secret Santa](https://playofflimits.com/secret-santa/office)
+- [Virtual Secret Santa](https://playofflimits.com/secret-santa/virtual)
 
 ## Question lists
 
@@ -77,6 +80,27 @@ Key facts:
 - [Spin the Wheel](https://playofflimits.com/wheel): custom decision wheel.
 - [Secret Santa generator](https://playofflimits.com/secret-santa): draw names for a gift exchange.
 - [Random team picker](https://playofflimits.com/pickers/teams)
+
+## Ready-made wheels
+
+Each opens a spin-the-wheel loaded with options; users can edit the slices.
+
+- [Yes or No Wheel](https://playofflimits.com/wheel/yes-or-no)
+- [What Should I Eat? Wheel](https://playofflimits.com/wheel/what-should-i-eat)
+- [Truth or Dare Wheel](https://playofflimits.com/wheel/truth-or-dare)
+- [Random Number Wheel (1 to 100)](https://playofflimits.com/wheel/random-number-1-100)
+- [Random Number Wheel (1 to 10)](https://playofflimits.com/wheel/random-number-1-10)
+- [Heads or Tails: Flip a Coin](https://playofflimits.com/wheel/heads-or-tails)
+- [What Should I Watch? Wheel](https://playofflimits.com/wheel/what-should-i-watch)
+- [Who Goes First? Wheel](https://playofflimits.com/wheel/who-goes-first)
+- [Random Letter Wheel](https://playofflimits.com/wheel/random-letter)
+- [Would You Rather Wheel](https://playofflimits.com/wheel/would-you-rather)
+- [Date Night Ideas Wheel](https://playofflimits.com/wheel/date-night-ideas)
+- [Chore Wheel](https://playofflimits.com/wheel/chore-wheel)
+- [Workout Wheel](https://playofflimits.com/wheel/workout-wheel)
+- [What to Do When You're Bored](https://playofflimits.com/wheel/what-to-do-when-bored)
+- [Christmas Movie Wheel](https://playofflimits.com/wheel/christmas-movie-wheel)
+- [What to Draw Wheel](https://playofflimits.com/wheel/what-to-draw)
 - [Random name picker](https://playofflimits.com/pickers/name)
 
 ## Optional

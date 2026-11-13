@@ -73,6 +73,13 @@ export function ShareLoop({
           {copied ? "Link copied" : "Share with friends"}
         </button>
       </div>
+      <Link
+        href="/daily"
+        onClick={() => track("loop_daily_click", { from })}
+        className="mt-3 inline-block text-xs font-bold underline-offset-2 opacity-80 hover:underline"
+      >
+        🧩 Play today&apos;s puzzles: Word Heist, Off the Map and Close Call
+      </Link>
     </div>
   );
 }
