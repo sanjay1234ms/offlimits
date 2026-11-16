@@ -8,7 +8,7 @@ export const metadata = landingMetadata(page);
 
 export default function AdultPartyGamesPage() {
   return (
-    <LandingPage page={page}>
+    <LandingPage page={page} playFirst>
       <AdultQuickStart />
     </LandingPage>
   );

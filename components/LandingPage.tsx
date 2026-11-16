@@ -26,10 +26,14 @@ export function landingMetadata(page: LandingPageData): Metadata {
 export function LandingPage({
   page,
   children,
+  playFirst = false,
 }: {
   page: LandingPageData;
   /** Interactive games shown right under the hero. */
   children?: React.ReactNode;
+  /** Show `children` straight under the h1, before the intro copy, so phone
+   * visitors see something to tap on the first screen. */
+  playFirst?: boolean;
 }) {
   const picks = page.picks
     .map((p) => ({ game: catalogBySlug(p.slug), why: p.why }))
@@ -81,6 +85,11 @@ export function LandingPage({
         eyebrow="🎉 Party guide"
         emojis={picks.slice(0, 3).map((p) => p.game.emoji)}
       >
+        {playFirst && children ? (
+          <div id="play" className="mt-5 scroll-mt-24">
+            {children}
+          </div>
+        ) : null}
         <div className="mt-4 flex max-w-2xl flex-col gap-3 text-pretty text-base text-muted sm:text-lg">
           {page.intro.map((para, i) => (
             <p key={i}>{para}</p>
@@ -113,7 +122,7 @@ export function LandingPage({
         <div className="pb-6" />
       </PageHero>
 
-      {children ? (
+      {children && !playFirst ? (
         <section id="play" className="mx-auto max-w-content scroll-mt-24 px-4 pb-4 pt-2 sm:px-6">
           {children}
         </section>
