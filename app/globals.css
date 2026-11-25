@@ -865,3 +865,17 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .otm-pin, .otm-stamp, .otm-tag { animation: none; }
 }
+
+/* Theme switch: ink-splash reveal from the toggle (View Transitions API),
+ * same as Yappr. The clip-path is driven frame by frame from lib/inkReveal.ts. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) { z-index: 2; }
+::view-transition-old(root) { z-index: 1; }
+.theme-fading,
+.theme-fading * {
+  transition: background-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease !important;
+}
