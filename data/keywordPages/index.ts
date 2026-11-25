@@ -5,6 +5,7 @@ import { GUIDE_PAGES } from "./guides";
 import { GIFT_PAGES } from "./gifts";
 import { MOST_LIKELY_PAGES } from "./mostLikely";
 import { MOST_LIKELY_PILLAR_PAGE } from "./mostLikelyPillar";
+import { NEVER_HAVE_I_EVER_PILLAR_PAGE } from "./neverHaveIEverPillar";
 import { QUESTION_PAGES } from "./questions";
 import { SEASONAL_PAGES } from "./seasonal";
 import { SECRET_SANTA_PAGES } from "./secretSanta";
@@ -20,6 +21,7 @@ export const KEYWORD_PAGES: KeywordPage[] = [
   ...SEASONAL_PAGES,
   ...QUESTION_PAGES,
   MOST_LIKELY_PILLAR_PAGE,
+  NEVER_HAVE_I_EVER_PILLAR_PAGE,
   ...MOST_LIKELY_PAGES,
   ...TRIVIA_PAGES,
   ...GAME_PAGES,

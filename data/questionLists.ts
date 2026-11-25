@@ -135,19 +135,6 @@ export const QUESTION_LISTS: QuestionList[] = [
     howTo: WYR_HOW_TO,
   },
   {
-    slug: "never-have-i-ever-questions",
-    game: "never_have_i_ever",
-    title: "{n} Never Have I Ever Questions (Funny & Clean)",
-    description:
-      "{n} funny Never Have I Ever questions for friends, parties and sleepovers. Read the full list or play them free on any phone, no app and no signup needed.",
-    h1: "Never Have I Ever Questions",
-    intro:
-      "{n} Never Have I Ever questions for friends, from harmless to slightly incriminating. Read them from the list or tap Play to go one at a time.",
-    sources: [{ category: "Friends", heats: [1, 2, 3] }],
-    playCategory: "friends",
-    howTo: NHIE_HOW_TO,
-  },
-  {
     slug: "juicy-never-have-i-ever-questions",
     game: "never_have_i_ever",
     title: "{n} Juicy Never Have I Ever Questions for Adults",
