@@ -174,19 +174,6 @@ export const QUESTION_LISTS: QuestionList[] = [
     howTo: NHIE_HOW_TO,
   },
   {
-    slug: "most-likely-to-questions",
-    game: "most_likely_to",
-    title: "{n} Most Likely To Questions for Friends & Groups",
-    description:
-      "{n} funny Most Likely To questions for friends, parties and big groups. Read the full list or play free on one phone: count to three and point. No signup.",
-    h1: "Most Likely To Questions",
-    intro:
-      "{n} Most Likely To questions for friends and big groups. Read one out, count to three, and point.",
-    sources: [{ category: "Friends", heats: [1, 2, 3] }],
-    playCategory: "friends",
-    howTo: MLT_HOW_TO,
-  },
-  {
     slug: "most-likely-to-questions-for-work",
     game: "most_likely_to",
     title: "{n} Most Likely To Questions for Work & Coworkers",

@@ -40,6 +40,10 @@ function labelFor(path: string): string {
   return last.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase());
 }
 
+function slugify(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 function crumbs(page: Page) {
   if (page.path.startsWith("/questions/")) {
     return [{ name: "Questions", path: "/questions" }, { name: page.h1, path: page.path }];
@@ -58,7 +62,13 @@ function crumbs(page: Page) {
  * server-rendered so search engines see the full content. */
 /** 18+ pages only ever send the free preview to the browser: the first
  * FREE_ADULT_LIMIT items. The rest stay on the server behind the Party Pass. */
+function freeLimit(page: Page): number {
+  if (page.freeItems === "all") return Number.POSITIVE_INFINITY;
+  return page.freeItems ?? FREE_ADULT_LIMIT;
+}
+
 function previewSections(page: Page): Page["sections"] {
+  if (page.freeItems === "all") return page.sections;
   // The free previews are the filthiest items on the page, not just the first
   // few (which are usually the mildest warm-ups).
   const all = page.sections.flatMap((s, si) =>
@@ -68,7 +78,7 @@ function previewSections(page: Page): Page["sections"] {
     spiciestFirst(all, ({ item }) =>
       promptIntensity(typeof item === "string" ? item : item.q, true),
     )
-      .slice(0, FREE_ADULT_LIMIT)
+      .slice(0, freeLimit(page))
       .map(({ si, ii }) => `${si}:${ii}`),
   );
   return page.sections
@@ -79,9 +89,9 @@ function previewSections(page: Page): Page["sections"] {
     .filter((s) => s.items.length > 0);
 }
 
-function LockedRest({ count }: { count: number }) {
+function LockedRest({ count, free }: { count: number; free: number }) {
   return (
-    <div className="relative mt-4 overflow-hidden rounded-2xl border-2 border-rose-500/50">
+    <div id="locked" className="relative mt-4 scroll-mt-24 overflow-hidden rounded-2xl border-2 border-rose-500/50">
       <ol aria-hidden className="space-y-2 p-3 blur-[5px] select-none">
         {Array.from({ length: Math.min(count, 5) }, (_, i) => (
           <li key={i} className="flex gap-3 rounded-xl border border-border bg-surface/50 px-4 py-3">
@@ -96,7 +106,7 @@ function LockedRest({ count }: { count: number }) {
         </span>
         <p className="text-lg font-extrabold text-foreground">{count} more locked</p>
         <p className="max-w-sm text-sm text-muted">
-          You&apos;ve seen the {FREE_ADULT_LIMIT} free previews. The {PARTY_PASS_LABEL} unlocks
+          You&apos;ve seen the {free} free previews. The {PARTY_PASS_LABEL} unlocks
           every 18+ deck and list for 24 hours, for {UNLOCK_18_PRICE}.
         </p>
         <Link
@@ -219,13 +229,35 @@ export function KeywordPageView({ page }: { page: Page }) {
       <section id="keyword-list" className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm font-semibold text-muted">
-            {page.adult ? `${FREE_ADULT_LIMIT} free previews of ${n}` : `${n} ${isTrivia ? "questions" : "ideas"}`} · {page.adult ? "unlock the rest with the Party Pass" : isTrivia ? "tap a question to see the answer" : "free to read, print or play"}
+            {page.adult && locked > 0 ? `${shown} free previews of ${n}` : `${n} ${isTrivia ? "questions" : "ideas"}`} · {page.adult && locked > 0 ? "unlock the rest with the Party Pass" : isTrivia ? "tap a question to see the answer" : "free to read, print or play"}
           </p>
           <RandomPick target="keyword-list" />
         </div>
 
+        {page.sections.length >= 4 ? (
+          <nav aria-label="Jump to a section" className="mt-5 rounded-2xl border border-border bg-surface/50 p-4">
+            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-muted">Jump to</p>
+            <ul className="mt-2 grid gap-1.5 text-sm sm:grid-cols-2">
+              {page.sections.map((s) => {
+                const visible = sections.some((v) => v.heading === s.heading);
+                return (
+                  <li key={s.heading}>
+                    <a
+                      href={visible ? `#${slugify(s.heading)}` : "#locked"}
+                      className="font-semibold text-accent underline-offset-2 hover:underline"
+                    >
+                      {s.heading}
+                    </a>{" "}
+                    <span className="text-muted">({s.items.length})</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        ) : null}
+
         {sections.map((section) => (
-          <div key={section.heading} className="mt-8">
+          <div key={section.heading} id={slugify(section.heading)} className="mt-8 scroll-mt-24">
             <SectionHeading title={section.heading} />
             {section.intro ? <p className="mt-2 text-sm text-muted">{section.intro}</p> : null}
             <ol className="mt-4 space-y-2">
@@ -261,7 +293,7 @@ export function KeywordPageView({ page }: { page: Page }) {
             </ol>
           </div>
         ))}
-        {locked > 0 ? <LockedRest count={locked} /> : null}
+        {locked > 0 ? <LockedRest count={locked} free={shown} /> : null}
         {PlayButton ? <div className="mt-8">{PlayButton}</div> : null}
       </section>
 

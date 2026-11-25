@@ -62,7 +62,7 @@ export const PARTY_PASS_BLURB =
 export const PARTY_PASS_DURATION_MS = 24 * 60 * 60 * 1000;
 
 /** Free teaser cards shown before the 18+ paywall. */
-export const FREE_ADULT_LIMIT = 3;
+export const FREE_ADULT_LIMIT = 10;
 
 /** The prompt category that triggers the age gate + paywall. */
 export const ADULT_CATEGORY = "18+" as const;

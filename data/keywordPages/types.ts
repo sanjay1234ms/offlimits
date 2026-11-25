@@ -40,6 +40,9 @@ export interface KeywordPage {
   group: "seasonal" | "questions" | "trivia" | "games" | "gifts";
   /** Adults-only wording; shows an 18+ notice. */
   adult?: boolean;
+  /** Adult pages only: how many items are free to read (default
+   * FREE_ADULT_LIMIT), or "all" to show the whole list. */
+  freeItems?: number | "all";
   /** Short direct answer shown in a box under the hero (answer-style pages
    * that search engines and AI assistants can quote). */
   quickAnswer?: string;

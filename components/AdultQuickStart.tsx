@@ -10,6 +10,12 @@ const STARTS = [
   { emoji: "👉", title: "Most Likely To, no filter", line: "Point on three", href: "/play?game=most_likely_to&adult=1" },
 ] as const;
 
+const LISTS = [
+  { label: "Dirty truth or dare questions", href: "/questions/dirty-truth-or-dare-questions" },
+  { label: "Dirty most likely to", href: "/questions/dirty-most-likely-to-questions" },
+  { label: "Juicy never have I ever", href: "/questions/juicy-never-have-i-ever-questions" },
+] as const;
+
 /** One-tap starts right under the 18+ hero, so visitors can be playing in a
  * second instead of reading first. Each opens the 18+ pack of that game. */
 export function AdultQuickStart() {
@@ -33,6 +39,17 @@ export function AdultQuickStart() {
           </Link>
         ))}
       </div>
+      <p className="mt-3 text-sm text-muted">
+        Prefer to read them out?{" "}
+        {LISTS.map((l, i) => (
+          <span key={l.href}>
+            {i ? " · " : null}
+            <Link href={l.href} className="font-semibold text-rose-400 underline-offset-2 hover:underline">
+              {l.label}
+            </Link>
+          </span>
+        ))}
+      </p>
     </div>
   );
 }

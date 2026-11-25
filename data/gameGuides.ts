@@ -807,7 +807,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     features: [
       "Two forced options per card, and the deck is built so both are genuinely bad.",
       "The Spicy Meter filters the deck live, level one to five, from cheeky to unhinged, with descriptions that match the category.",
-      "The 18+ pack gives you three free preview cards, then the 24-Hour Party Pass unlocks the full deck across every game.",
+      "The 18+ pack gives you ten free preview cards, then the 24-Hour Party Pass unlocks the full deck across every game.",
       "A Bail out forfeit spinner and a per-card 9:16 Share card, so a great answer becomes a post.",
     ],
     rosterSharing: [
@@ -895,7 +895,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     features: [
       "Confession-style prompts tagged by category and heat, with a Suggest confession helper for endless fresh rounds.",
       "The Spicy Meter filters live, level one to five. Level five is genuinely unfiltered.",
-      "The 18+ pack gives three free previews, then the 24-Hour Party Pass.",
+      "The 18+ pack gives ten free previews, then the 24-Hour Party Pass.",
       "A per-card 9:16 Share card, stamped OffLimits Late Night Confession.",
     ],
     rosterSharing: [
@@ -967,7 +967,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     features: [
       "Point and accuse. The deck is tagged by audience and heat, with a Suggest scenario helper.",
       "Hot Potato, an optional ten-second countdown that forces a snap vote, with a buzzer.",
-      "The Spicy Meter, level one to five, and the 18+ pack, three previews then the 24-Hour Party Pass.",
+      "The Spicy Meter, level one to five, and the 18+ pack, ten previews then the 24-Hour Party Pass.",
       "A Bail out forfeit spinner, plus a per-card 9:16 Share.",
     ],
     rosterSharing: [
@@ -1040,7 +1040,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
       "Two decks. A clean one (Friends, Family, Couples, Office, New group) and a full 18+ one, filtered together by pack, vibe, group size, and heat.",
       "A TRUTH or DARE badge on every card, plus a fifty-fifty Let the phone pick.",
       "A Bail out forfeit spinner for chicken-outs, and a Turns-a-round limiter so the game actually ends.",
-      "18+ packs give three free preview cards, then the 24-Hour Party Pass unlocks everything for a day.",
+      "18+ packs give ten free preview cards, then the 24-Hour Party Pass unlocks everything for a day.",
     ],
     rosterSharing: [
       "No scoreboard. Truth or Dare is pass-the-phone. The GROUP SIZE pills steer the deck toward prompts that suit the headcount. They do not seed players.",
@@ -1111,7 +1111,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
     features: [
       "Binary snap choices. The deck is written for instinct, not reasoning.",
       "A Hot Potato ten-second timer with a buzzer for true rapid-fire rounds.",
-      "The Spicy Meter, level one to five, and the 18+ pack, three previews then the 24-Hour Party Pass.",
+      "The Spicy Meter, level one to five, and the 18+ pack, ten previews then the 24-Hour Party Pass.",
       "A Bail out spinner and a per-card 9:16 Share.",
     ],
     rosterSharing: [
