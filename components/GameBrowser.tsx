@@ -147,7 +147,7 @@ export function GameBrowser() {
 
       {adultActive ? (
         <p className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-red-500/50 bg-red-950/40 px-3.5 py-1.5 text-xs font-bold text-red-300 shadow-[0_0_18px_rgba(239,68,68,0.35)]">
-          18+ mode, 3 free preview cards per game, then unlock.
+          18+ mode, 10 free preview cards, then unlock.
         </p>
       ) : null}
 

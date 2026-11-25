@@ -155,7 +155,7 @@ export function PlayScreen({
       withinIntensity(c.intensity, c.prompt, true, intensity),
     );
     const deck = hot.length > 0 ? hot : full;
-    // Free preview: the 3 free cards are the filthiest ones in the deck.
+    // Free preview: the 10 free cards are the filthiest ones in the deck.
     return partyPass.active
       ? deck
       : spiciestFirst(deck, (c) => cardHeat(c.intensity, c.prompt, true));
@@ -266,7 +266,7 @@ export function PlayScreen({
             ? (intro ??
               "Choose your packs, then take Truth, Dare, or let the phone decide.")
             : adultMode || showResolving
-              ? "All five games, uncensored. Three free preview cards per game, then unlock the rest. Switch games with the tabs above."
+              ? "All five games, uncensored. Ten free preview cards, then unlock the rest. Switch games with the tabs above."
               : (intro ??
                 "Pick a game, dial in the filters, and hand the phone around. One question at a time, shuffled so nothing repeats until the deck is done.")}
         </p>
@@ -345,7 +345,7 @@ export function PlayScreen({
             <span>
               {partyPass.active
                 ? `⚡ Party Pass active, full 18+ decks unlocked · ${partyPass.remainingLabel}`
-                : "18+ mode active, 3 free previews shared across every game and tool"}
+                : "18+ mode active, 10 free previews shared across every game and tool"}
             </span>
             <button
               type="button"

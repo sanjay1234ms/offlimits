@@ -145,7 +145,7 @@ export const EVENT_PAGES: Record<string, LandingPage> = {
       { q: "Are there dirty bachelorette games?", a: "Yes. Turn the spicy meter on the Bride Edition deck up to Filthy or Nasty for genuinely dirty truths and dares. Those levels are 18+ and sit behind an age check." },
       { q: "How does the bride quiz work?", a: "The maid of honor picks the right answers and gets a link. Everyone opens it on their own phone, plays, and lands on a live leaderboard." },
       { q: "Do we need to print anything?", a: "No. Every game runs on your phones. A few classics like pin the junk need a poster if you want them." },
-      { q: "Are these games free?", a: "Yes. The first few 18+ cards are free to try; a 24-hour Party Pass unlocks every 18+ deck for the night." },
+      { q: "Are these games free?", a: "Yes. The first 10 18+ cards are free to try; a 24-hour Party Pass unlocks every 18+ deck for the night." },
     ],
     related: [
       { href: "/18-plus-party-games", label: "18+ party games", emoji: "🔥" },
@@ -355,7 +355,7 @@ export const EVENT_PAGES: Record<string, LandingPage> = {
       { q: "What games can couples play on Valentine's Day?", a: "A couples quiz, couples truth or dare, love map questions and a blind taste test are perfect for two." },
       { q: "What are good Galentine's party games?", a: "Most Likely To, a worst-date story contest and rom-com charades get the whole group laughing." },
       { q: "Are there spicy Valentine's games?", a: "Yes. Turn the couples deck up to Filthy or Nasty. Those levels are 18+ and behind an age check." },
-      { q: "Are these games free?", a: "Yes. The first few 18+ cards are free; a 24-hour Party Pass unlocks every 18+ deck." },
+      { q: "Are these games free?", a: "Yes. The first 10 18+ cards are free; a 24-hour Party Pass unlocks every 18+ deck." },
     ],
     related: [
       { href: "/couples-games", label: "Couples games", emoji: "💘" },
@@ -435,7 +435,7 @@ export const EVENT_PAGES: Record<string, LandingPage> = {
       { q: "What are fun birthday party games for adults?", a: "How Well Do You Know the Birthday Person, roast and toast, the adult birthday deck and a bar scavenger hunt are all big hits." },
       { q: "What games are good for a 21st birthday?", a: "The adult birthday deck (turn the meter up), a birthday scavenger hunt and Pirate Barrel shots." },
       { q: "What birthday games work for kids?", a: "Musical statues, pass the parcel, treasure hunts, balloon stomp and our 3D Pirate Barrel." },
-      { q: "Are these games free?", a: "Yes, every game on this page is free. The first few 18+ cards are free too; a Party Pass unlocks the rest." },
+      { q: "Are these games free?", a: "Yes, every game on this page is free. The first 10 18+ cards are free too; a Party Pass unlocks the rest." },
     ],
     related: [
       { href: "/party-games-for-large-groups", label: "Games for large groups", emoji: "👥" },

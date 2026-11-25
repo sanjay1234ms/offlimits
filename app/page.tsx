@@ -318,7 +318,7 @@ export default function HomePage() {
               </h2>
               <p className="max-w-xl text-sm text-muted sm:text-base">
                 Every pass-the-phone game has an uncensored deck behind an age
-                check. Try three cards free, then unlock the rest with an
+                check. Try ten cards free, then unlock the rest with an
                 optional Party Pass.
               </p>
               <Link

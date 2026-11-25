@@ -89,6 +89,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Most Likely To", href: "/questions/most-likely-to-questions" },
       { label: "Dirty Most Likely To (18+)", href: "/questions/dirty-most-likely-to-questions" },
       { label: "Truth or Dare", href: "/questions/truth-or-dare-questions" },
+      { label: "Dirty Truth or Dare (18+)", href: "/questions/dirty-truth-or-dare-questions" },
       { label: "All question lists", href: "/questions" },
     ],
   },

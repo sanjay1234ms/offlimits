@@ -222,7 +222,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
     h1: "18+ Party Games for Adults",
     intro: [
       "Party games for grown-ups who already know each other a little too well. Spicy truth or dare, Never Have I Ever after dark, Most Likely To with no filter, and a handful of classic adult party games you can run with nothing but a phone.",
-      "Every game starts clean. The 18+ packs only open after an age check, the first few spicy cards are free to try, and a 24-hour Party Pass unlocks every adult deck for the night. No account, no download, no app store rating to worry about.",
+      "Every game starts clean. The 18+ packs only open after an age check, the first 10 spicy cards are free to try, and a 24-hour Party Pass unlocks every adult deck for the night. No account, no download, no app store rating to worry about.",
     ],
     note: "Adults only. Everyone playing should be 18 or older and up for the vibe. Anyone can skip any card, any time.",
     picksHeading: "Best 18+ games to play tonight",
@@ -240,7 +240,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
         heading: "Adult party games for groups",
         intro: "Classic grown-up party games. Most need nothing, a few need a deck of cards.",
         items: [
-          { name: "Dirty truth or dare", how: "Flirty truths and bold dares for close friends. Start mild, escalate slowly, and respect every skip. Our list has a free preview to get you going.", players: "4-10" },
+          { name: "Dirty truth or dare", how: "Flirty truths and bold dares for close friends. Start mild, escalate slowly, and respect every skip. Our list has 10 free questions to get you going.", players: "4-10" },
           { name: "Never Have I Ever, juicy edition", how: "Ten fingers up. Read a confession about dating, nights out or bad decisions; anyone guilty puts one down and owes the story.", players: "4+" },
           { name: "Paranoia", how: "Whisper a \"who here would…\" question to the next player, who answers out loud with a name. A coin flip decides whether the question is revealed.", players: "5+", needs: "A coin" },
           { name: "Hot seat after dark", how: "One person, 60 seconds, every question fair game: worst date, biggest red flag, most embarrassing text.", players: "4+" },
@@ -289,7 +289,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       "What's said at game night stays at game night. No screenshots of anyone's answers.",
     ],
     faq: [
-      { q: "Are these 18+ party games free?", a: "Yes, to start. Every game is free in its clean mode, and you can try the first few 18+ cards free. A 24-hour Party Pass unlocks every adult deck for the night." },
+      { q: "Are these 18+ party games free?", a: "Yes, to start. Every game is free in its clean mode, and you can try the first 10 18+ cards free. A 24-hour Party Pass unlocks every adult deck for the night." },
       { q: "How does the age check work?", a: "Before any 18+ content appears, the phone asks you to confirm everyone playing is 18 or over. Clean modes never show adult content." },
       { q: "What are the best adult party games?", a: "Dirty truth or dare, juicy Never Have I Ever, Paranoia and Most Likely To are the most popular. For couples, How Well Do You Know Me and couples truth or dare." },
       { q: "Do I need to drink to play?", a: "No. Every game works without alcohol. The drinking twists are optional and only for people of legal drinking age." },

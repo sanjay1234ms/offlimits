@@ -261,7 +261,7 @@ export function HostRoom({
 
       {games.includes("18plus") && !hasPass ? (
         <p className="text-center text-xs text-subtle">
-          18+ in a room is a 3-card free preview.{" "}
+          18+ in a room is a 10-card free preview.{" "}
           <Link href="/play?game=18plus" className="font-bold text-accent underline-offset-2 hover:underline">
             The Party Pass
           </Link>{" "}

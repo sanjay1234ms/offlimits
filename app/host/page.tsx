@@ -55,7 +55,7 @@ const SECTIONS: { id: string; title: string; body: string[] }[] = [
     id: "party-pass",
     title: "Party Pass and 18+ access",
     body: [
-      "The 18+ decks give you three free preview cards per game. After that, the OffLimits 24-Hour Party Pass unlocks every 18+ deck, game, and helper for 24 hours. One purchase covers the whole site, and it is never per game.",
+      "The 18+ decks give you ten free preview cards. After that, the OffLimits 24-Hour Party Pass unlocks every 18+ deck, game, and helper for 24 hours. One purchase covers the whole site, and it is never per game.",
       "Enter the access code or buy the pass from any paywall. An active pass shows a countdown badge in the header. When it expires, every surface reverts to the three-card preview automatically.",
     ],
   },
