@@ -201,7 +201,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row sm:items-center">
           <p className="text-xs">
-            © {new Date().getFullYear()} OffLimits · Free to play, no app
+            © {new Date().getFullYear()} OffLimits (PlayOffLimits.com) · Free to play, no app
             required.
           </p>
         </div>

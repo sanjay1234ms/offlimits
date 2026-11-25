@@ -216,12 +216,12 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
   },
   "18-plus-party-games": {
     path: "/18-plus-party-games",
-    title: "18+ Party Games: 25 Adult Games for Game Night (Free)",
+    title: "Games for Over 18: 25 Free 18+ Party Games for Adults",
     description:
-      "25 18+ party games for adults: dirty truth or dare, spicy Never Have I Ever, Most Likely To after dark, couples games and drinking twists. Play free on one phone.",
-    h1: "18+ Party Games for Adults",
+      "25 free games for over 18s: dirty truth or dare, spicy Never Have I Ever, Most Likely To after dark, couples games and drinking twists. Play 18+ party games on one phone, no app.",
+    h1: "18+ Party Games: Games for Over 18s",
     intro: [
-      "Party games for grown-ups who already know each other a little too well. Spicy truth or dare, Never Have I Ever after dark, Most Likely To with no filter, and a handful of classic adult party games you can run with nothing but a phone.",
+      "Free party games for over 18s who already know each other a little too well. Spicy truth or dare, Never Have I Ever after dark, Most Likely To with no filter, and a handful of classic adult party games you can run with nothing but a phone.",
       "Every game starts clean. The 18+ packs only open after an age check, the first 10 spicy cards are free to try, and a 24-hour Party Pass unlocks every adult deck for the night. No account, no download, no app store rating to worry about.",
     ],
     note: "Adults only. Everyone playing should be 18 or older and up for the vibe. Anyone can skip any card, any time.",
@@ -289,6 +289,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       "What's said at game night stays at game night. No screenshots of anyone's answers.",
     ],
     faq: [
+      { q: "What games can you play if you're over 18?", a: "The most popular games for over 18s are dirty truth or dare, juicy Never Have I Ever, Most Likely To after dark, Paranoia, Dirty Would You Rather and drinking-game twists for those of legal drinking age. All of them play free in a phone browser here." },
       { q: "Are these 18+ party games free?", a: "Yes, to start. Every game is free in its clean mode, and you can try the first 10 18+ cards free. A 24-hour Party Pass unlocks every adult deck for the night." },
       { q: "How does the age check work?", a: "Before any 18+ content appears, the phone asks you to confirm everyone playing is 18 or over. Clean modes never show adult content." },
       { q: "What are the best adult party games?", a: "Dirty truth or dare, juicy Never Have I Ever, Paranoia and Most Likely To are the most popular. For couples, How Well Do You Know Me and couples truth or dare." },
@@ -473,6 +474,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "What's the best drinking game for a big group?", a: "Most Likely To and Never Have I Ever work best for big groups because everyone plays every round." },
     ],
     related: [
+      { href: "/18-plus-party-games", label: "Games for over 18s", emoji: "🔥" },
       { href: "/bachelorette-party-games", label: "Bachelorette party games", emoji: "👰" },
       { href: "/questions/dirty-most-likely-to-questions", label: "Dirty Most Likely To", emoji: "🍑" },
       { href: "/birthday-party-games", label: "Birthday party games", emoji: "🎂" },
@@ -728,6 +730,7 @@ export const LANDING_PAGES: Record<string, LandingPage> = {
       { q: "Is it free?", a: "Yes. Every game is free. An optional Party Pass unlocks extra 18+ packs if you want them." },
     ],
     related: [
+      { href: "/18-plus-party-games", label: "Games for over 18s", emoji: "🔥" },
       { href: "/valentines-day-games", label: "Valentine's Day games", emoji: "💞" },
       { href: "/questions/most-likely-to-questions-for-couples", label: "Most Likely To for couples", emoji: "💘" },
       { href: "/bridal-shower-games", label: "Bridal shower games", emoji: "💐" },
