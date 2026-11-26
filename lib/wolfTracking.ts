@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { track } from "./analytics";
+import { announceGameDone, track } from "./analytics";
 
 /**
  * One Werewolf/Mafia game, tracked once, so GA4 can show completion and the
@@ -94,6 +94,7 @@ export function useWolfTracker(mode: Mode) {
         round: g.round,
         minutes: minutes(),
       });
+      announceGameDone(g.skin);
     },
     [mode],
   );

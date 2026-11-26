@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { Footer, Header, ThemeProvider, TipJar } from "@/components";
+import { HomeScreenPrompt } from "@/components/HomeScreenPrompt";
 import { JsonLd } from "@/components/JsonLd";
 import { BRAND_JSON_LD, ORGANIZATION_JSON_LD } from "@/lib/site";
 
@@ -21,6 +22,9 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://playofflimits.com"),
+  applicationName: "OffLimits",
+  appleWebApp: { capable: true, title: "OffLimits", statusBarStyle: "black-translucent" },
+  icons: { apple: "/apple-touch-icon.png" },
   title: {
     default:
       "OffLimits | Free Online Party Games for Groups (No Download)",
@@ -90,6 +94,7 @@ export default function RootLayout({
           <Header />
           {children}
           <TipJar />
+          <HomeScreenPrompt />
           <Footer />
         </ThemeProvider>
         <script dangerouslySetInnerHTML={{ __html: gaInitScript }} />

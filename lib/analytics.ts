@@ -29,10 +29,25 @@ export function trackCardNext(game: string, position: number): void {
   track("card_next", { game, position });
 }
 
+/** Window event fired when a group finishes a deck or a game. The home-screen
+ * prompt listens for it: right after a good game is the moment to ask. */
+export const GAME_DONE_EVENT = "offlimits:game-done";
+
+export function announceGameDone(game: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.dispatchEvent(new CustomEvent(GAME_DONE_EVENT, { detail: { game } }));
+  } catch {
+    // Never let this break a game.
+  }
+}
+
 export function trackDeckComplete(game: string): void {
   track("deck_complete", { game });
+  announceGameDone(game);
 }
 
 export function trackGameFinished(game: string): void {
   track("game_finished", { game });
+  announceGameDone(game);
 }
