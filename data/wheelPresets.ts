@@ -1,4 +1,4 @@
-/** Ready-made wheels. Pills route to /wheel?preset=<slug> and prefill slices. */
+/** Ready-made wheels. Each has its own page at /wheel/<slug>; old /wheel?preset=<slug> links 301 there. */
 
 export interface WheelPreset {
   label: string;
