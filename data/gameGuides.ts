@@ -1168,7 +1168,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
       "Every chip is a slice. Add at least two.",
       "Tap Spin. The wheel speeds up, slows down, and stops on the winner under the pointer.",
       "Toggle Remove each winner after spinning for no-repeat draws: draft order, secret santa, elimination.",
-      "Load a themed set from the ready-made wheel gallery, or a link like /wheel?preset=truth-or-dare.",
+      "Load a themed set from the ready-made wheel gallery, or a link like /wheel/truth-or-dare.",
       "Toggle Sound for the spin and win effects.",
     ],
     hostPlaybook: [
@@ -1219,7 +1219,7 @@ export const GAME_GUIDES: Record<string, GameGuide> = {
       },
       {
         q: "Where are the ready-made wheels?",
-        a: "The Ready-made wheels section on the home page, or link straight in with /wheel?preset=truth-or-dare and friends.",
+        a: "The Ready-made wheels section on the home page, or link straight in with /wheel/truth-or-dare and friends.",
       },
       {
         q: "No sound on spin.",
